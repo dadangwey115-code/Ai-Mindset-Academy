@@ -34,7 +34,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activePage, setActivePage, langu
       id: 'prompting', 
       label: t.prompting,
       subMenu: [
-        { label: 'Intent Architect', href: 'https://intent.mindset-it.online/' }
+        { label: 'Intent Architect', href: 'https://intent-architect.mindset-it.online/' }
       ]
     },
     { id: 'notebooklm', label: t.notebooklm },
