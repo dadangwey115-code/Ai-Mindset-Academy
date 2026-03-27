@@ -2,7 +2,7 @@
 import React from 'react';
 
 export type Language = 'en' | 'my';
-export type PageId = 'home' | 'curriculum' | 'prompting' | 'notebooklm' | 'aistudio' | 'deployment';
+export type PageId = 'home' | 'curriculum' | 'ailevels' | 'prompting' | 'notebooklm' | 'aistudio' | 'deployment';
 
 export interface NavItem {
   id: PageId;

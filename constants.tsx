@@ -1527,6 +1527,74 @@ export const DEPLOYMENT_MASTER_QUIZ: QuizSet = {
   ]
 };
 
+export const AILEVELS_MASTER_QUIZ: QuizSet = {
+  id: 'ailevels-master',
+  title: 'AI Levels Mastery',
+  titleMy: 'AI အဆင့်များ ကျွမ်းကျင်မှု စစ်ဆေးခြင်း',
+  questions: [
+    {
+      q: "What characterizes Level 1 AI (Assisted AI)?",
+      qMy: "အဆင့် ၁ AI (Assisted AI) ၏ ဝိသေသမှာ အဘယ်နည်း?",
+      options: [
+        { text: "Direct human supervision for specific tasks", textMy: "သတ်မှတ်ထားသော အလုပ်များအတွက် လူသား၏ တိုက်ရိုက်ကြီးကြပ်မှု", value: 10 },
+        { text: "Autonomous decision making", textMy: "ကိုယ်ပိုင် ဆုံးဖြတ်ချက် ချနိုင်ခြင်း", value: 0 }
+      ],
+      hint: "Think about basic tools like grammar checkers.",
+      hintMy: "သဒ္ဒါစစ်ဆေးသည့် ကိရိယာများကဲ့သို့ အခြေခံကိရိယာများကို စဉ်းစားပါ။",
+      explanation: "Level 1 AI acts as a tool that assists humans with specific, predefined tasks.",
+      explanationMy: "အဆင့် ၁ AI သည် လူသားများကို သတ်မှတ်ထားသော အလုပ်များတွင် ကူညီပေးသည့် ကိရိယာတစ်ခုအဖြစ် လုပ်ဆောင်သည်။"
+    },
+    {
+      q: "Which level of AI is capable of 'Reasoning'?",
+      qMy: "မည်သည့် AI အဆင့်သည် 'Reasoning' (စဉ်းစားဆင်ခြင်ခြင်း) ကို လုပ်ဆောင်နိုင်သနည်း?",
+      options: [
+        { text: "Level 2", textMy: "အဆင့် ၂", value: 10 },
+        { text: "Level 1", textMy: "အဆင့် ၁", value: 0 }
+      ],
+      hint: "This level can explain its thought process.",
+      hintMy: "ဤအဆင့်သည် ၎င်း၏ စဉ်းစားပုံကို ရှင်းပြနိုင်သည်။",
+      explanation: "Level 2 AI (Reasoners) can solve complex problems and provide the logic behind their answers.",
+      explanationMy: "အဆင့် ၂ AI (Reasoners) သည် ရှုပ်ထွေးသော ပြဿနာများကို ဖြေရှင်းနိုင်ပြီး ၎င်းတို့၏ အဖြေနောက်ကွယ်မှ ယုတ္တိဗေဒကို ပေးနိုင်သည်။"
+    },
+    {
+      q: "What is the primary difference between a Reasoner and an Agent?",
+      qMy: "Reasoner နှင့် Agent တို့၏ အဓိက ကွာခြားချက်မှာ အဘယ်နည်း?",
+      options: [
+        { text: "Agents can take autonomous actions", textMy: "Agent များသည် ကိုယ်ပိုင် လုပ်ဆောင်ချက်များကို လုပ်ဆောင်နိုင်သည်", value: 10 },
+        { text: "Reasoners are faster", textMy: "Reasoner များသည် ပိုမြန်သည်", value: 0 }
+      ],
+      hint: "Think about 'doing' vs 'thinking'.",
+      hintMy: "'လုပ်ဆောင်ခြင်း' နှင့် 'စဉ်းစားခြင်း' ကို နှိုင်းယှဉ်ကြည့်ပါ။",
+      explanation: "While Reasoners think and explain, Agents (Level 3) can execute multi-step workflows autonomously.",
+      explanationMy: "Reasoner များက စဉ်းစားပြီး ရှင်းပြနေစဉ် Agent များ (အဆင့် ၃) က အဆင့်ဆင့်သော အလုပ်များကို ကိုယ်တိုင် လုပ်ဆောင်နိုင်သည်။"
+    },
+    {
+      q: "Level 4 AI (Innovators) are defined by their ability to:",
+      qMy: "အဆင့် ၄ AI (Innovators) များ၏ စွမ်းဆောင်ရည်မှာ:",
+      options: [
+        { text: "Discover new knowledge and create original inventions", textMy: "အသိပညာအသစ်များကို ရှာဖွေပြီး မူရင်းတီထွင်မှုများကို ဖန်တီးနိုင်ခြင်း", value: 10 },
+        { text: "Follow human instructions perfectly", textMy: "လူသား၏ ညွှန်ကြားချက်များကို အတိအကျ လိုက်နာနိုင်ခြင်း", value: 0 }
+      ],
+      hint: "They go beyond existing data.",
+      hintMy: "၎င်းတို့သည် ရှိပြီးသား ဒေတာများထက် ကျော်လွန်လုပ်ဆောင်နိုင်သည်။",
+      explanation: "Innovators can push the boundaries of human knowledge by creating something truly new.",
+      explanationMy: "Innovator များသည် အမှန်တကယ် အသစ်အဆန်းဖြစ်သောအရာများကို ဖန်တီးခြင်းဖြင့် လူသားတို့၏ အသိပညာဘောင်ကို ချဲ့ထွင်နိုင်သည်။"
+    },
+    {
+      q: "What represents the pinnacle of AI evolution (Level 5)?",
+      qMy: "AI ဆင့်ကဲပြောင်းလဲမှု၏ အမြင့်ဆုံးအဆင့် (အဆင့် ၅) မှာ အဘယ်နည်း?",
+      options: [
+        { text: "AI-run Organizations", textMy: "AI ဖြင့် လည်ပတ်သော အဖွဲ့အစည်းများ", value: 10 },
+        { text: "A very smart chatbot", textMy: "အလွန်ထက်မြက်သော chatbot တစ်ခု", value: 0 }
+      ],
+      hint: "Think about managing entire systems.",
+      hintMy: "စနစ်တစ်ခုလုံးကို စီမံခန့်ခွဲခြင်းကို စဉ်းစားပါ။",
+      explanation: "Level 5 AI involves autonomous systems capable of managing entire organizations or complex ecosystems.",
+      explanationMy: "အဆင့် ၅ AI သည် အဖွဲ့အစည်းတစ်ခုလုံး သို့မဟုတ် ရှုပ်ထွေးသော ဂေဟစနစ်များကို စီမံခန့်ခွဲနိုင်သည့် ကိုယ်ပိုင်အုပ်ချုပ်ခွင့်ရ စနစ်များ ပါဝင်သည်။"
+    }
+  ]
+};
+
 export const getMentorSystemPrompt = (lang: Language) => {
   const isMy = lang === 'my';
   return `You are a world-class AI Mindset Mentor. Your goal is to help users transition from a 'Doer' to a 'Director' mindset.

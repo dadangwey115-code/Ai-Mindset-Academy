@@ -18,6 +18,7 @@ export const UI_STRINGS: Record<Language, any> = {
       notebooklm: "NotebookLM",
       aistudio: "AI Studio",
       deployment: "Deployment",
+      ailevels: "AI Levels",
       quiz: "Take Quiz",
     },
     assistants: {
@@ -198,6 +199,16 @@ export const UI_STRINGS: Record<Language, any> = {
         warning: "Warning: Moving Name Servers can disrupt existing email services (MX records)."
       }
     },
+    ailevels: {
+      title: "AI Levels: From Tool to Agent",
+      subtitle: "Understanding the Evolution of Intelligence",
+      intro: "Explore the different levels of AI integration and how they transform from simple tools into autonomous agents.",
+      level1: { title: "Level 1: Assisted AI", body: "AI helps with specific tasks under direct human supervision." },
+      level2: { title: "Level 2: Reasoners", body: "AI can solve complex problems and explain its reasoning process." },
+      level3: { title: "Level 3: Agents", body: "AI can take actions and complete multi-step workflows autonomously." },
+      level4: { title: "Level 4: Innovators", body: "AI can discover new knowledge and create original inventions." },
+      level5: { title: "Level 5: Organizations", body: "AI systems that can manage entire departments or companies." }
+    },
     sections: {
       learningPath: "The Learning Path",
       learningPathSub: "Master the 5 pillars that separate AI-Augmented Leaders from automated workers.",
@@ -243,6 +254,7 @@ export const UI_STRINGS: Record<Language, any> = {
       notebooklm: "NotebookLM (အချက်အလက်အခြေပြု AI)",
       aistudio: "AI Studio (ဖန်တီးမှုစတူဒီယို)",
       deployment: "Deployment (ဝဘ်ဆိုဒ်လွှင့်တင်ခြင်း)",
+      ailevels: "AI အဆင့်များ",
       quiz: "အရည်အချင်းစစ်ရန်",
     },
     assistants: {
@@ -422,6 +434,16 @@ export const UI_STRINGS: Record<Language, any> = {
         dns: "Name servers များကို Vercel ထံသို့ လွှဲပြောင်းပေးပါ။",
         warning: "သတိပြုရန်: Name Servers ပြောင်းလဲခြင်းသည် လက်ရှိသုံးနေသော Email များကို ထိခိုက်စေနိုင်သည်။"
       }
+    },
+    ailevels: {
+      title: "AI အဆင့်များ: Tool မှ Agent သို့",
+      subtitle: "ဉာဏ်ရည်တု၏ ဆင့်ကဲပြောင်းလဲမှုကို နားလည်ခြင်း",
+      intro: "AI ပေါင်းစပ်မှု၏ မတူညီသော အဆင့်များကို လေ့လာပြီး ၎င်းတို့သည် ရိုးရှင်းသော ကိရိယာများမှ ကိုယ်ပိုင်လုပ်ဆောင်နိုင်သော အေးဂျင့်များအဖြစ် မည်သို့ ပြောင်းလဲသွားသည်ကို ရှာဖွေပါ။",
+      level1: { title: "အဆင့် ၁: Assisted AI", body: "AI သည် လူသား၏ တိုက်ရိုက်ကြီးကြပ်မှုအောက်တွင် သတ်မှတ်ထားသော အလုပ်များကို ကူညီပေးသည်။" },
+      level2: { title: "အဆင့် ၂: Reasoners", body: "AI သည် ရှုပ်ထွေးသော ပြဿနာများကို ဖြေရှင်းနိုင်ပြီး ၎င်း၏ စဉ်းစားပုံကို ရှင်းပြနိုင်သည်။" },
+      level3: { title: "အဆင့် ၃: Agents", body: "AI သည် အဆင့်ဆင့်သော အလုပ်များကို ကိုယ်တိုင် ဆုံးဖြတ်လုပ်ဆောင်နိုင်သည်။" },
+      level4: { title: "အဆင့် ၄: Innovators", body: "AI သည် အသိပညာအသစ်များကို ရှာဖွေနိုင်ပြီး မူရင်းတီထွင်မှုများကို ဖန်တီးနိုင်သည်။" },
+      level5: { title: "အဆင့် ၅: Organizations", body: "ဌာနတစ်ခုလုံး သို့မဟုတ် ကုမ္ပဏီတစ်ခုလုံးကို စီမံခန့်ခွဲနိုင်သော AI စနစ်များ။" }
     },
     sections: {
       learningPath: "The Learning Path (သင်ယူမှု လမ်းစဉ်)",

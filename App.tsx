@@ -6,6 +6,7 @@ import { Curriculum } from './components/Curriculum';
 import { PromptLecture } from './components/PromptLecture';
 import { NotebookLecture } from './components/NotebookLecture';
 import { AIStudioLecture } from './components/AIStudioLecture';
+import { AILevelsLecture } from './components/AILevelsLecture';
 import { DeploymentLecture } from './components/DeploymentLecture';
 import { BusinessStrategy } from './components/BusinessStrategy';
 import { StrategicFramework } from './components/StrategicFramework';
@@ -49,6 +50,12 @@ const App: React.FC = () => {
         {activePage === 'curriculum' && (
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
             <Curriculum language={language} />
+          </div>
+        )}
+
+        {activePage === 'ailevels' && (
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <AILevelsLecture language={language} />
           </div>
         )}
 

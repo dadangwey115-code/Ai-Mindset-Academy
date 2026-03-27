@@ -30,6 +30,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activePage, setActivePage, langu
   const NAV_LINKS = [
     { id: 'home', label: t.home },
     { id: 'curriculum', label: t.curriculum },
+    { id: 'ailevels', label: t.ailevels },
     { 
       id: 'prompting', 
       label: t.prompting,
