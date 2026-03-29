@@ -12,7 +12,9 @@ import { BusinessStrategy } from './components/BusinessStrategy';
 import { StrategicFramework } from './components/StrategicFramework';
 import { Footer } from './components/Footer';
 import { FloatingAssistant } from './components/FloatingAssistant';
+import { AuthModal } from './components/AuthModal';
 import { PageId, Language } from './types';
+import pb from './services/pb';
 
 const App: React.FC = () => {
   const [activePage, setActivePage] = useState<PageId>('home');
@@ -20,6 +22,8 @@ const App: React.FC = () => {
     const saved = localStorage.getItem('academy-lang');
     return (saved as Language) || 'en';
   });
+  const [user, setUser] = useState<any | null>(pb.authStore.model);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
   useEffect(() => {
     localStorage.setItem('academy-lang', language);
@@ -29,6 +33,19 @@ const App: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [activePage]);
 
+  useEffect(() => {
+    // Sync auth state
+    const unsubscribe = pb.authStore.onChange((token, model) => {
+      setUser(model);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const handleLogout = () => {
+    pb.authStore.clear();
+    setUser(null);
+  };
+
   return (
     <div className={`min-h-screen bg-black text-gray-100 font-sans selection:bg-blue-500/30 selection:text-blue-200 scroll-smooth ${language === 'my' ? 'myanmar-text' : ''}`}>
       <Navbar 
@@ -36,6 +53,9 @@ const App: React.FC = () => {
         setActivePage={setActivePage} 
         language={language} 
         setLanguage={setLanguage}
+        user={user}
+        onLogout={handleLogout}
+        onLoginClick={() => setIsAuthModalOpen(true)}
       />
       
       <main className="transition-all duration-500 ease-in-out">
@@ -86,6 +106,13 @@ const App: React.FC = () => {
 
       <Footer />
       <FloatingAssistant language={language} />
+
+      <AuthModal 
+        isOpen={isAuthModalOpen} 
+        onClose={() => setIsAuthModalOpen(false)} 
+        language={language}
+        onAuthSuccess={(user) => setUser(user)}
+      />
     </div>
   );
 };

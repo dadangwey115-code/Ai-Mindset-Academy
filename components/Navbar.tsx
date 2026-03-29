@@ -1,6 +1,6 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Menu, X, Sparkles, Languages, ChevronDown, ExternalLink } from 'lucide-react';
+import { Menu, X, Sparkles, Languages, ChevronDown, ExternalLink, LogIn, LogOut, User } from 'lucide-react';
 import { PageId, Language } from '../types';
 import { UI_STRINGS } from '../translations';
 
@@ -9,9 +9,20 @@ interface NavbarProps {
   setActivePage: (page: PageId) => void;
   language: Language;
   setLanguage: (lang: Language) => void;
+  user: any | null;
+  onLogout: () => void;
+  onLoginClick: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ activePage, setActivePage, language, setLanguage }) => {
+export const Navbar: React.FC<NavbarProps> = ({ 
+  activePage, 
+  setActivePage, 
+  language, 
+  setLanguage,
+  user,
+  onLogout,
+  onLoginClick
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSubMenu, setActiveSubMenu] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -133,6 +144,30 @@ export const Navbar: React.FC<NavbarProps> = ({ activePage, setActivePage, langu
                 {t.quiz}
               </button>
             )}
+
+            {user ? (
+              <div className="flex items-center gap-4 pl-4 border-l border-white/10">
+                <div className="flex flex-col items-end">
+                  <span className="text-xs font-bold text-white leading-none">{user.name || user.email.split('@')[0]}</span>
+                  <span className="text-[10px] text-gray-500 leading-none mt-1">{user.email}</span>
+                </div>
+                <button
+                  onClick={onLogout}
+                  className="p-2 text-gray-400 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all"
+                  title={t.logout}
+                >
+                  <LogOut size={18} />
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={onLoginClick}
+                className="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 text-white rounded-lg text-xs font-bold border border-white/10 transition-all"
+              >
+                <LogIn size={14} />
+                {t.login} / {t.signup}
+              </button>
+            )}
           </div>
 
           <div className="md:hidden flex items-center gap-4">
@@ -215,6 +250,43 @@ export const Navbar: React.FC<NavbarProps> = ({ activePage, setActivePage, langu
                 </button>
               </div>
             )}
+
+            <div className="pt-4 pb-2 px-3 border-t border-white/5 mt-2">
+              {user ? (
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3 px-3">
+                    <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white">
+                      <User size={20} />
+                    </div>
+                    <div>
+                      <p className="text-sm font-bold text-white">{user.name || user.email.split('@')[0]}</p>
+                      <p className="text-xs text-gray-500">{user.email}</p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => {
+                      onLogout();
+                      setIsOpen(false);
+                    }}
+                    className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-xl text-sm font-bold transition-all"
+                  >
+                    <LogOut size={16} />
+                    {t.logout}
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={() => {
+                    onLoginClick();
+                    setIsOpen(false);
+                  }}
+                  className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-white/5 hover:bg-white/10 text-white rounded-xl text-sm font-bold border border-white/10 transition-all"
+                >
+                  <LogIn size={16} />
+                  {t.login} / {t.signup}
+                </button>
+              )}
+            </div>
           </div>
         </div>
       )}
