@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { Zap, BookOpen, Target, FileText, ExternalLink, ChevronRight, Sparkles, Heart, Eye, Brain, UserRound } from 'lucide-react';
+import { Zap, BookOpen, Target, FileText, ExternalLink, ChevronRight, BrainCircuit, Heart, Eye, Brain, UserRound } from 'lucide-react';
 import { Language } from '../types';
 import { UI_STRINGS } from '../translations';
 
@@ -83,7 +83,7 @@ export const BusinessStrategy: React.FC<{ language: Language }> = ({ language })
             <div className="relative bg-zinc-900/50 border border-white/10 p-8 md:p-10 rounded-[40px] backdrop-blur-2xl shadow-2xl overflow-hidden ring-1 ring-white/5">
                <div className="flex justify-between items-center mb-10">
                   <div className="flex items-center gap-2">
-                    <Sparkles className="text-blue-500 w-4 h-4 animate-spin-slow" />
+                    <BrainCircuit className="text-blue-500 w-4 h-4 animate-spin-slow" />
                     <span className="text-xs font-bold text-blue-500 tracking-[0.3em] uppercase">Roadmap v2.0</span>
                   </div>
                   <div className="flex gap-2">
@@ -126,7 +126,7 @@ export const BusinessStrategy: React.FC<{ language: Language }> = ({ language })
                <div className="mt-12 space-y-4">
                   <button className="w-full py-5 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-bold transition-all shadow-xl shadow-blue-600/30 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3 group relative overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-                    <Sparkles size={20} />
+                    <BrainCircuit size={20} />
                     {t.blueprintBtn}
                     <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
                   </button>

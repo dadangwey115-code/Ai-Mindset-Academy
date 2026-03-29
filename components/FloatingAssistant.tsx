@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Sparkles, Bot, X, ChevronUp, ExternalLink, Zap } from 'lucide-react';
+import { BrainCircuit, Bot, X, ChevronUp, ExternalLink, Zap } from 'lucide-react';
 import { Language } from '../types';
 import { UI_STRINGS } from '../translations';
 
@@ -62,7 +62,7 @@ export const FloatingAssistant: React.FC<{ language: Language }> = ({ language }
         {isOpen ? (
           <X className="text-white w-6 h-6" />
         ) : (
-          <Sparkles className="text-white w-8 h-8 group-hover:rotate-12 transition-transform" />
+          <BrainCircuit className="text-white w-8 h-8 group-hover:rotate-12 transition-transform" />
         )}
       </button>
     </div>

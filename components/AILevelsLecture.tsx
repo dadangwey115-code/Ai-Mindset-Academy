@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Bot, Zap, Users, Brain, Sparkles, CheckCircle2, AlertTriangle, Briefcase, TrendingUp, Terminal } from 'lucide-react';
+import { Bot, Zap, Users, Brain, BrainCircuit, Sparkles, CheckCircle2, AlertTriangle, Briefcase, TrendingUp, Terminal } from 'lucide-react';
 import { Language } from '../types';
 import { LessonQuiz } from './LessonQuiz';
 import { AILEVELS_MASTER_QUIZ } from '../constants';
@@ -182,7 +182,7 @@ export const AILevelsLecture: React.FC<{ language: Language }> = ({ language }) 
         {/* Header Section */}
         <div className="mb-20 text-center relative max-w-4xl mx-auto">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs font-bold uppercase tracking-widest mb-6">
-            <Sparkles className="w-4 h-4" />
+            <BrainCircuit className="w-4 h-4" />
             <span>{t.tag}</span>
           </div>
           <h1 className={`text-4xl md:text-5xl font-extrabold text-white mb-6 ${isMy ? 'leading-myanmar' : 'leading-tight'}`}>

@@ -1,6 +1,6 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Menu, X, Sparkles, Languages, ChevronDown, ExternalLink, LogIn, LogOut, User } from 'lucide-react';
+import { Menu, X, BrainCircuit, Sparkles, Languages, ChevronDown, ExternalLink, LogIn, LogOut, User } from 'lucide-react';
 import { PageId, Language } from '../types';
 import { UI_STRINGS } from '../translations';
 
@@ -60,7 +60,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-2 cursor-pointer" onClick={() => setActivePage('home')}>
             <div className="bg-blue-600 p-1.5 rounded-lg">
-              <Sparkles className="text-white w-6 h-6" />
+              <BrainCircuit className="text-white w-6 h-6" />
             </div>
             <span className="text-xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
               AI Mindset Academy

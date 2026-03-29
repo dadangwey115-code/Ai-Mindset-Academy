@@ -12,7 +12,7 @@ import { BusinessStrategy } from './components/BusinessStrategy';
 import { StrategicFramework } from './components/StrategicFramework';
 import { Footer } from './components/Footer';
 import { FloatingAssistant } from './components/FloatingAssistant';
-import { AuthModal } from './components/AuthModal';
+import { AuthPage } from './components/AuthPage';
 import { PageId, Language } from './types';
 import pb from './services/pb';
 
@@ -23,7 +23,7 @@ const App: React.FC = () => {
     return (saved as Language) || 'en';
   });
   const [user, setUser] = useState<any | null>(pb.authStore.model);
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(pb.authStore.isValid);
 
   useEffect(() => {
     localStorage.setItem('academy-lang', language);
@@ -37,6 +37,7 @@ const App: React.FC = () => {
     // Sync auth state
     const unsubscribe = pb.authStore.onChange((token, model) => {
       setUser(model);
+      setIsAuthenticated(pb.authStore.isValid);
     });
     return () => unsubscribe();
   }, []);
@@ -44,7 +45,12 @@ const App: React.FC = () => {
   const handleLogout = () => {
     pb.authStore.clear();
     setUser(null);
+    setIsAuthenticated(false);
   };
+
+  if (!isAuthenticated) {
+    return <AuthPage language={language} onLanguageChange={setLanguage} />;
+  }
 
   return (
     <div className={`min-h-screen bg-black text-gray-100 font-sans selection:bg-blue-500/30 selection:text-blue-200 scroll-smooth ${language === 'my' ? 'myanmar-text' : ''}`}>
@@ -55,7 +61,7 @@ const App: React.FC = () => {
         setLanguage={setLanguage}
         user={user}
         onLogout={handleLogout}
-        onLoginClick={() => setIsAuthModalOpen(true)}
+        onLoginClick={() => {}} // Not needed in protected mode but kept for prop compatibility
       />
       
       <main className="transition-all duration-500 ease-in-out">
@@ -106,13 +112,6 @@ const App: React.FC = () => {
 
       <Footer />
       <FloatingAssistant language={language} />
-
-      <AuthModal 
-        isOpen={isAuthModalOpen} 
-        onClose={() => setIsAuthModalOpen(false)} 
-        language={language}
-        onAuthSuccess={(user) => setUser(user)}
-      />
     </div>
   );
 };

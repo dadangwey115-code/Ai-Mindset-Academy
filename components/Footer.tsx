@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Sparkles, ExternalLink } from 'lucide-react';
+import { BrainCircuit, ExternalLink } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   const driveLink = "https://drive.google.com/drive/folders/1a0vAqN6TzpkTX4V1MDKAvi3YGN-uXmTE?usp=sharing";
@@ -9,7 +9,7 @@ export const Footer: React.FC = () => {
     <footer className="bg-black py-16 border-t border-white/10">
       <div className="max-w-7xl mx-auto px-4 text-center">
         <div className="flex items-center justify-center gap-2 mb-8">
-          <Sparkles className="text-blue-500 w-6 h-6" />
+          <BrainCircuit className="text-blue-500 w-6 h-6" />
           <span className="text-2xl font-bold text-white tracking-tight">AI Mindset Academy</span>
         </div>
         <p className="text-gray-500 text-sm max-w-md mx-auto leading-relaxed">
