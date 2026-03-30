@@ -7,9 +7,10 @@ interface LessonQuizProps {
   quizSet: QuizSet;
   language: Language;
   onClose?: () => void;
+  onComplete?: (score: number) => void;
 }
 
-export const LessonQuiz: React.FC<LessonQuizProps> = ({ quizSet, language, onClose }) => {
+export const LessonQuiz: React.FC<LessonQuizProps> = ({ quizSet, language, onClose, onComplete }) => {
   const [step, setStep] = useState(0);
   const [score, setScore] = useState(0);
   const [showResult, setShowResult] = useState(false);
@@ -21,6 +22,12 @@ export const LessonQuiz: React.FC<LessonQuizProps> = ({ quizSet, language, onClo
 
   const isMy = language === 'my';
   const currentQuestion = quizSet.questions[step];
+
+  useEffect(() => {
+    if (showResult && onComplete) {
+      onComplete(score);
+    }
+  }, [showResult, score, onComplete]);
 
   useEffect(() => {
     if (showResult || isAnswered) return;
@@ -213,9 +220,11 @@ export const LessonQuiz: React.FC<LessonQuizProps> = ({ quizSet, language, onClo
               {score} / {quizSet.questions.length * 10}
             </p>
             <p className="text-gray-400 mb-10 max-w-sm mx-auto leading-relaxed">
-              {score >= quizSet.questions.length * 8 
-                ? (isMy ? "ဂုဏ်ယူပါတယ်! သင်ခန်းစာကို ကောင်းစွာ နားလည်သဘောပေါက်သွားပါပြီ။" : "Excellent! You have a deep understanding of Google's Five Pillars of Prompt Engineering.")
-                : (isMy ? "သင်ခန်းစာကို ပြန်လည် လေ့လာပြီး ထပ်မံ ကြိုးစားကြည့်ပါ။" : "Good effort! Consider reviewing the Five Pillars again to master these concepts.")}
+              {score === quizSet.questions.length * 10
+                ? (isMy ? "ဂုဏ်ယူပါတယ်! သင်ခန်းစာကို ၁၀၀% နားလည်သွားပါပြီ။ နောက်သင်ခန်းစာကို ဖွင့်လိုက်ပါပြီ။" : "Perfect Score! You've unlocked the next lesson. You can now mark this as complete.")
+                : score >= quizSet.questions.length * 8 
+                ? (isMy ? "ဂုဏ်ယူပါတယ်! သင်ခန်းစာကို ကောင်းစွာ နားလည်သဘောပေါက်သွားပါပြီ။" : "Excellent! You have a deep understanding of this topic.")
+                : (isMy ? "သင်ခန်းစာကို ပြန်လည် လေ့လာပြီး ထပ်မံ ကြိုးစားကြည့်ပါ။ ၁၀၀% ရမှသာ နောက်သင်ခန်းစာကို ဖွင့်နိုင်ပါမည်။" : "Good effort! You need 100% to unlock the next lesson. Consider reviewing the material again.")}
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <button

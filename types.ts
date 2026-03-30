@@ -2,7 +2,18 @@
 import React from 'react';
 
 export type Language = 'en' | 'my';
-export type PageId = 'home' | 'curriculum' | 'ailevels' | 'prompting' | 'notebooklm' | 'aistudio' | 'deployment';
+export type PageId = 'home' | 'curriculum' | 'ailevels' | 'prompting' | 'notebooklm' | 'aistudio' | 'deployment' | 'trainer' | 'taste' | 'vision' | 'care' | 'director';
+
+export interface Module {
+  id: PageId;
+  title: string;
+  titleMy: string;
+  description: string;
+  descriptionMy: string;
+  icon: string;
+  duration: string;
+  durationMy: string;
+}
 
 export interface NavItem {
   id: PageId;
@@ -10,6 +21,7 @@ export interface NavItem {
 }
 
 export interface CurriculumModule {
+  id: PageId;
   icon: React.ElementType;
   title: string;
   titleMy: string;
@@ -49,4 +61,11 @@ export interface QuizSet {
 export interface Message {
   role: 'user' | 'ai';
   text: string;
+}
+
+export interface User {
+  id: string;
+  email: string;
+  name: string;
+  completed_lessons: string[];
 }

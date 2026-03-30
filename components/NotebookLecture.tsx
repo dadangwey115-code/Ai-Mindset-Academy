@@ -5,14 +5,18 @@ import { Language } from '../types';
 import { UI_STRINGS } from '../translations';
 import { LessonQuiz } from './LessonQuiz';
 import { NOTEBOOK_MASTER_QUIZ } from '../constants';
+import { CompleteButton } from './CompleteButton';
 
-export const NotebookLecture: React.FC<{ language: Language }> = ({ language }) => {
+import confetti from 'canvas-confetti';
+
+export const NotebookLecture: React.FC<{ language: Language; onComplete: () => Promise<void> }> = ({ language, onComplete }) => {
   const t = UI_STRINGS[language].notebooklm;
   const navT = UI_STRINGS[language].nav;
   const res = UI_STRINGS[language].resources;
   const isMy = language === 'my';
   const [showQuiz, setShowQuiz] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
+  const [isUnlocked, setIsUnlocked] = useState(false);
 
   useEffect(() => {
     const handleTriggerQuiz = () => setShowQuiz(true);
@@ -28,6 +32,19 @@ export const NotebookLecture: React.FC<{ language: Language }> = ({ language }) 
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  const handleQuizComplete = (score: number) => {
+    const maxScore = NOTEBOOK_MASTER_QUIZ.questions.length * 10;
+    if (score === maxScore) {
+      setIsUnlocked(true);
+      confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#3b82f6', '#10b981', '#ffffff']
+      });
+    }
+  };
 
   const driveLink = "https://drive.google.com/drive/folders/1a0vAqN6TzpkTX4V1MDKAvi3YGN-uXmTE?usp=sharing";
 
@@ -254,6 +271,8 @@ export const NotebookLecture: React.FC<{ language: Language }> = ({ language }) 
                    </a>
                 </div>
               </section>
+
+              <CompleteButton onComplete={onComplete} language={language} isUnlocked={isUnlocked} />
             </div>
           </div>
         ) : (
@@ -271,6 +290,7 @@ export const NotebookLecture: React.FC<{ language: Language }> = ({ language }) 
               quizSet={NOTEBOOK_MASTER_QUIZ} 
               language={language} 
               onClose={() => setShowQuiz(false)} 
+              onComplete={handleQuizComplete}
             />
           </div>
         )}

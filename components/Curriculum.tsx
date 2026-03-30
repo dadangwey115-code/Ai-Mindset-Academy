@@ -9,18 +9,29 @@ import { LessonQuiz } from './LessonQuiz';
 interface CurriculumCardProps extends CurriculumModule {
   language: Language;
   onLearnMore: (module: CurriculumModule) => void;
+  isCompleted: boolean;
 }
 
 const CurriculumCard: React.FC<CurriculumCardProps> = ({ 
-  icon: Icon, title, titleMy, description, descriptionMy, points, pointsMy, language, onLearnMore, ...rest 
+  icon: Icon, title, titleMy, description, descriptionMy, points, pointsMy, language, onLearnMore, isCompleted, ...rest 
 }) => {
   const isMy = language === 'my';
   const module = { icon: Icon, title, titleMy, description, descriptionMy, points, pointsMy, ...rest };
 
   return (
-    <div className="bg-white/5 border border-white/10 p-6 rounded-2xl hover:bg-white/[0.07] transition-all group hover:border-blue-500/30 h-full flex flex-col">
-      <div className="w-12 h-12 bg-blue-600/20 rounded-xl flex items-center justify-center mb-6 text-blue-500 group-hover:scale-110 transition-transform shrink-0">
-        <Icon className="w-6 h-6" />
+    <div className={`bg-white/5 border p-6 rounded-2xl hover:bg-white/[0.07] transition-all group h-full flex flex-col ${isCompleted ? 'border-emerald-500/50 bg-emerald-500/5' : 'border-white/10 hover:border-blue-500/30'}`}>
+      <div className="flex justify-between items-start mb-6">
+        <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-blue-500 group-hover:scale-110 transition-transform shrink-0 ${isCompleted ? 'bg-emerald-500/20 text-emerald-500' : 'bg-blue-600/20'}`}>
+          <Icon className="w-6 h-6" />
+        </div>
+        {isCompleted && (
+          <div className="flex items-center gap-1.5 px-3 py-1 bg-emerald-500/20 border border-emerald-500/30 rounded-full">
+            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
+            <span className="text-[10px] font-bold text-emerald-500 uppercase tracking-wider">
+              {isMy ? 'ပြီးစီးပါပြီ' : 'Completed'}
+            </span>
+          </div>
+        )}
       </div>
       <h3 className="text-xl font-bold text-white mb-1">{isMy ? titleMy : title}</h3>
       <p className="text-blue-400 text-sm mb-4 font-medium">{isMy ? title : titleMy}</p>
@@ -46,7 +57,7 @@ const CurriculumCard: React.FC<CurriculumCardProps> = ({
   );
 };
 
-export const Curriculum: React.FC<{ language: Language }> = ({ language }) => {
+export const Curriculum: React.FC<{ language: Language; completedLessons: string[] }> = ({ language, completedLessons }) => {
   const t = UI_STRINGS[language].sections;
   const navT = UI_STRINGS[language].nav;
   const res = UI_STRINGS[language].resources;
@@ -89,6 +100,7 @@ export const Curriculum: React.FC<{ language: Language }> = ({ language }) => {
                   {...mod} 
                   language={language} 
                   onLearnMore={setSelectedModule}
+                  isCompleted={completedLessons.includes(mod.id)}
                 />
               ))}
             </div>

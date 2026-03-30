@@ -9,6 +9,7 @@ export const NAV_ITEMS = [
 
 export const CURRICULUM_MODULES: CurriculumModule[] = [
   {
+    id: 'trainer',
     icon: Brain,
     title: "AI as a Trainer",
     titleMy: "AI ကို ကိုယ်ပိုင်နည်းပြ (Trainer) အဖြစ် အသုံးချခြင်း",
@@ -32,6 +33,7 @@ export const CURRICULUM_MODULES: CurriculumModule[] = [
     }
   },
   {
+    id: 'taste',
     icon: Target,
     title: "The Power of Taste",
     titleMy: "ထူးချွန်မှုကို ခွဲခြားသိမြင်နိုင်စွမ်း (The Power of Taste)",
@@ -55,6 +57,7 @@ export const CURRICULUM_MODULES: CurriculumModule[] = [
     }
   },
   {
+    id: 'vision',
     icon: Eye,
     title: "Vision Muscle",
     titleMy: "အနာဂတ်ကို ကြိုတင်ပုံဖော်နိုင်စွမ်း (Vision Muscle)",
@@ -78,6 +81,7 @@ export const CURRICULUM_MODULES: CurriculumModule[] = [
     }
   },
   {
+    id: 'care',
     icon: Heart,
     title: "The Care Factor",
     titleMy: "မတုပနိုင်သော လူသားချင်းစာနာမှု (The Care Factor)",
@@ -101,6 +105,7 @@ export const CURRICULUM_MODULES: CurriculumModule[] = [
     }
   },
   {
+    id: 'director',
     icon: UserRound,
     title: "The Director Mindset",
     titleMy: "Director Mindset (၁၀/၈၀/၁၀ စည်းမျဉ်း)",

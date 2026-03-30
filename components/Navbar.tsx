@@ -12,6 +12,7 @@ interface NavbarProps {
   user: any | null;
   onLogout: () => void;
   onLoginClick: () => void;
+  completedLessons: string[];
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ 
@@ -21,12 +22,16 @@ export const Navbar: React.FC<NavbarProps> = ({
   setLanguage,
   user,
   onLogout,
-  onLoginClick
+  onLoginClick,
+  completedLessons
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSubMenu, setActiveSubMenu] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const t = UI_STRINGS[language].nav;
+
+  const totalLessons = 5;
+  const progress = Math.min((completedLessons.length / totalLessons) * 100, 100);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -148,7 +153,16 @@ export const Navbar: React.FC<NavbarProps> = ({
             {user ? (
               <div className="flex items-center gap-4 pl-4 border-l border-white/10">
                 <div className="flex flex-col items-end">
-                  <span className="text-xs font-bold text-white leading-none">{user.name || user.email.split('@')[0]}</span>
+                  <div className="flex items-center gap-2">
+                    <div className="w-20 h-1.5 bg-white/10 rounded-full overflow-hidden">
+                      <div 
+                        className="h-full bg-blue-500 transition-all duration-1000" 
+                        style={{ width: `${progress}%` }}
+                      />
+                    </div>
+                    <span className="text-[10px] font-bold text-blue-400">{Math.round(progress)}%</span>
+                  </div>
+                  <span className="text-xs font-bold text-white leading-none mt-1">{user.name || user.email.split('@')[0]}</span>
                   <span className="text-[10px] text-gray-500 leading-none mt-1">{user.email}</span>
                 </div>
                 <button

@@ -3,6 +3,7 @@ import { Bot, Zap, Users, Brain, BrainCircuit, Sparkles, CheckCircle2, AlertTria
 import { Language } from '../types';
 import { LessonQuiz } from './LessonQuiz';
 import { AILEVELS_MASTER_QUIZ } from '../constants';
+import { CompleteButton } from './CompleteButton';
 
 const aiStages = [
   {
@@ -97,9 +98,12 @@ const aiStages = [
   }
 ];
 
-export const AILevelsLecture: React.FC<{ language: Language }> = ({ language }) => {
+import confetti from 'canvas-confetti';
+
+export const AILevelsLecture: React.FC<{ language: Language; onComplete: () => Promise<void> }> = ({ language, onComplete }) => {
   const [activeStageId, setActiveStageId] = useState(1);
   const [showQuiz, setShowQuiz] = useState(false);
+  const [isUnlocked, setIsUnlocked] = useState(false);
   const activeStage = aiStages.find(s => s.id === activeStageId) || aiStages[0];
   const isMy = language === 'my';
 
@@ -108,6 +112,19 @@ export const AILevelsLecture: React.FC<{ language: Language }> = ({ language }) 
     window.addEventListener('trigger-quiz', handleTriggerQuiz);
     return () => window.removeEventListener('trigger-quiz', handleTriggerQuiz);
   }, []);
+
+  const handleQuizComplete = (score: number) => {
+    const maxScore = AILEVELS_MASTER_QUIZ.questions.length * 10;
+    if (score === maxScore) {
+      setIsUnlocked(true);
+      confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#3b82f6', '#10b981', '#ffffff']
+      });
+    }
+  };
 
   const content = {
     en: {
@@ -169,6 +186,7 @@ export const AILevelsLecture: React.FC<{ language: Language }> = ({ language }) 
             quizSet={AILEVELS_MASTER_QUIZ} 
             language={language} 
             onClose={() => setShowQuiz(false)} 
+            onComplete={handleQuizComplete}
           />
         </div>
       </div>
@@ -335,6 +353,7 @@ export const AILevelsLecture: React.FC<{ language: Language }> = ({ language }) 
           </div>
         </section>
 
+        <CompleteButton onComplete={onComplete} language={language} isUnlocked={isUnlocked} />
       </div>
     </div>
   );
