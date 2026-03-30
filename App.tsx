@@ -14,6 +14,7 @@ import { StrategicFramework } from './components/StrategicFramework';
 import { Footer } from './components/Footer';
 import { FloatingAssistant } from './components/FloatingAssistant';
 import { AuthPage } from './components/AuthPage';
+import { Profile } from './components/Profile';
 import { PageId, Language, User } from './types';
 import pb from './services/pb';
 
@@ -142,6 +143,12 @@ const App: React.FC = () => {
         {activePage === 'deployment' && (
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
             <DeploymentLecture language={language} onComplete={() => completeLesson('deployment')} />
+          </div>
+        )}
+
+        {activePage === 'profile' && user && (
+          <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <Profile user={user} language={language} />
           </div>
         )}
       </main>

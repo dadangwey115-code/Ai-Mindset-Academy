@@ -2,7 +2,7 @@
 import React from 'react';
 
 export type Language = 'en' | 'my';
-export type PageId = 'home' | 'curriculum' | 'ailevels' | 'prompting' | 'notebooklm' | 'aistudio' | 'deployment' | 'trainer' | 'taste' | 'vision' | 'care' | 'director';
+export type PageId = 'home' | 'curriculum' | 'ailevels' | 'prompting' | 'notebooklm' | 'aistudio' | 'deployment' | 'trainer' | 'taste' | 'vision' | 'care' | 'director' | 'profile';
 
 export interface Module {
   id: PageId;

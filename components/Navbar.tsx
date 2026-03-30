@@ -151,8 +151,11 @@ export const Navbar: React.FC<NavbarProps> = ({
             )}
 
             {user ? (
-              <div className="flex items-center gap-4 pl-4 border-l border-white/10">
-                <div className="flex flex-col items-end">
+              <div className="flex items-center gap-4 pl-4 border-l border-white/10 relative group" ref={dropdownRef}>
+                <button 
+                  onClick={() => setActiveSubMenu(activeSubMenu === 'user' ? null : 'user')}
+                  className="flex flex-col items-end cursor-pointer hover:opacity-80 transition-opacity"
+                >
                   <div className="flex items-center gap-2">
                     <div className="w-20 h-1.5 bg-white/10 rounded-full overflow-hidden">
                       <div 
@@ -162,16 +165,37 @@ export const Navbar: React.FC<NavbarProps> = ({
                     </div>
                     <span className="text-[10px] font-bold text-blue-400">{Math.round(progress)}%</span>
                   </div>
-                  <span className="text-xs font-bold text-white leading-none mt-1">{user.name || user.email.split('@')[0]}</span>
-                  <span className="text-[10px] text-gray-500 leading-none mt-1">{user.email}</span>
-                </div>
-                <button
-                  onClick={onLogout}
-                  className="p-2 text-gray-400 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all"
-                  title={t.logout}
-                >
-                  <LogOut size={18} />
+                  <div className="flex items-center gap-1 mt-1">
+                    <span className="text-xs font-bold text-white leading-none">{user.name || user.email.split('@')[0]}</span>
+                    <ChevronDown size={12} className={`text-gray-500 transition-transform ${activeSubMenu === 'user' ? 'rotate-180' : ''}`} />
+                  </div>
                 </button>
+
+                {activeSubMenu === 'user' && (
+                  <div className="absolute right-0 top-full mt-2 w-48 rounded-xl bg-zinc-900 border border-white/10 shadow-2xl py-2 animate-in fade-in slide-in-from-top-2 duration-200">
+                    <button
+                      onClick={() => {
+                        setActivePage('profile');
+                        setActiveSubMenu(null);
+                      }}
+                      className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-white/5 transition-colors"
+                    >
+                      <User size={16} />
+                      {t.profile}
+                    </button>
+                    <div className="mx-2 my-1 border-t border-white/5" />
+                    <button
+                      onClick={() => {
+                        onLogout();
+                        setActiveSubMenu(null);
+                      }}
+                      className="w-full flex items-center gap-3 px-4 py-2 text-sm text-red-400 hover:text-red-300 hover:bg-red-500/5 transition-colors"
+                    >
+                      <LogOut size={16} />
+                      {t.logout}
+                    </button>
+                  </div>
+                )}
               </div>
             ) : (
               <button
@@ -279,10 +303,20 @@ export const Navbar: React.FC<NavbarProps> = ({
                   </div>
                   <button
                     onClick={() => {
+                      setActivePage('profile');
+                      setIsOpen(false);
+                    }}
+                    className="w-full flex items-center gap-3 px-4 py-3 bg-white/5 hover:bg-white/10 text-gray-300 rounded-xl text-sm font-bold transition-all"
+                  >
+                    <User size={16} />
+                    {t.profile}
+                  </button>
+                  <button
+                    onClick={() => {
                       onLogout();
                       setIsOpen(false);
                     }}
-                    className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-xl text-sm font-bold transition-all"
+                    className="w-full flex items-center gap-3 px-4 py-3 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-xl text-sm font-bold transition-all"
                   >
                     <LogOut size={16} />
                     {t.logout}

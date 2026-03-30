@@ -55,6 +55,7 @@ export const UI_STRINGS: Record<Language, any> = {
       login: "Login",
       signup: "Sign Up",
       logout: "Logout",
+      profile: "My Profile",
     },
     auth: {
       loginTitle: "Welcome Back",
@@ -357,6 +358,23 @@ export const UI_STRINGS: Record<Language, any> = {
       sub: "Strategic AI Consulting",
       initial: "Hello! I am your AI Mindset Mentor. How can I help you shift from a 'Doer' to a 'Director' today?",
       placeholder: "Ask about strategy, taste, or the 10/80/10 rule..."
+    },
+    profile: {
+      title: "User Dashboard",
+      journey: "Learning Journey",
+      completed: "Completed",
+      pending: "Locked / Pending",
+      certificate: "Download Certificate",
+      certTitle: "Certificate of Completion",
+      certSubtitle: "AI Mindset Academy",
+      certText: "This is to certify that",
+      certBody: "has successfully completed the full curriculum of the AI Mindset Academy, mastering the frameworks of AI-Augmented Leadership and Strategic Implementation.",
+      certDate: "Date of Achievement",
+      certSignature: "Academy Director",
+      noLessons: "No lessons completed yet. Start your journey in the Curriculum tab!",
+      stats: "Academy Statistics",
+      modulesCompleted: "Modules Completed",
+      totalPoints: "Total Points Earned"
     }
   },
   my: {
@@ -412,6 +430,7 @@ export const UI_STRINGS: Record<Language, any> = {
       login: "ဝင်ရောက်ရန်",
       signup: "အကောင့်ဖွင့်ရန်",
       logout: "ထွက်ရန်",
+      profile: "ကျွန်ုပ်၏ ပရိုဖိုင်",
     },
     auth: {
       loginTitle: "ပြန်လည်ကြိုဆိုပါသည်",
@@ -714,6 +733,23 @@ export const UI_STRINGS: Record<Language, any> = {
       sub: "Strategic AI Consulting (မဟာဗျူဟာမြောက် AI အကြံပေး)",
       initial: "မင်္ဂလာပါ! ကျွန်ုပ်က သင်၏ AI Mindset Mentor ဖြစ်ပါသည်။ ယနေ့ သင့်ကို မည်သို့ ကူညီပေးရမလဲ?",
       placeholder: "ဗျူဟာ၊ Taste သို့မဟုတ် 10/80/10 စည်းမျဉ်းများအကြောင်း မေးမြန်းပါ..."
+    },
+    profile: {
+      title: "အသုံးပြုသူ၏ ဒက်ရှ်ဘုတ် (Dashboard)",
+      journey: "သင်ယူမှု ခရီးစဉ်",
+      completed: "ပြီးမြောက်ပြီး",
+      pending: "မပြီးသေးပါ / ပိတ်ထားသည်",
+      certificate: "လက်မှတ် ရယူရန်",
+      certTitle: "သင်တန်းဆင်း လက်မှတ်",
+      certSubtitle: "AI Mindset Academy",
+      certText: "ဤလက်မှတ်သည်",
+      certBody: "AI Mindset Academy ၏ သင်ရိုးညွှန်းတမ်းတစ်ခုလုံးကို အောင်မြင်စွာ ပြီးမြောက်ခဲ့ပြီး AI-Augmented Leadership နှင့် မဟာဗျူဟာမြောက် အကောင်အထည်ဖော်မှုများကို ကျွမ်းကျင်စွာ တတ်မြောက်ခဲ့ကြောင်း အသိအမှတ်ပြုပါသည်။",
+      certDate: "အောင်မြင်သည့် ရက်စွဲ",
+      certSignature: "အကယ်ဒမီ ဒါရိုက်တာ",
+      noLessons: "သင်ခန်းစာများ မပြီးမြောက်သေးပါ။ သင်ရိုးညွှန်းတမ်းတွင် စတင်လေ့လာပါ!",
+      stats: "အကယ်ဒမီ စာရင်းဇယားများ",
+      modulesCompleted: "ပြီးမြောက်သော သင်ခန်းစာများ",
+      totalPoints: "ရရှိသော စုစုပေါင်းအမှတ်"
     }
   }
 };
