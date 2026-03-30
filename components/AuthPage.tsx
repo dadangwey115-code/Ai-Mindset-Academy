@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Mail, Lock, User, AlertCircle, Loader2, BrainCircuit, GraduationCap, Home, Briefcase, ChevronLeft, ChevronRight, Pause } from 'lucide-react';
+import { Mail, Lock, User, AlertCircle, Info, Loader2, BrainCircuit, GraduationCap, Home, Briefcase, ChevronLeft, ChevronRight, Pause } from 'lucide-react';
 import pb from '../services/pb';
 import { UI_STRINGS } from '../translations';
 import { Language } from '../types';
@@ -29,7 +29,7 @@ const CAROUSEL_ITEMS = [
 ];
 
 export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }) => {
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -366,22 +366,41 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
           </div>
 
           <div className="bg-zinc-900/50 border border-white/10 rounded-[40px] p-8 md:p-10 backdrop-blur-xl shadow-2xl relative overflow-hidden ring-1 ring-white/5">
-            <div className="text-center mb-10">
-              <h2 className="text-3xl font-bold text-white tracking-tight mb-3">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold text-white tracking-tight mb-6">
                 {isLogin ? t.auth.loginTitle : t.auth.signupTitle}
               </h2>
-              <p className="text-gray-400 text-sm">
-                {isLogin ? t.auth.noAccount : t.auth.hasAccount}{' '}
+              
+              {/* Segmented Toggle Tabs */}
+              <div className="flex p-1 bg-white/5 border border-white/10 rounded-2xl mb-2">
                 <button
-                  onClick={() => setIsLogin(!isLogin)}
-                  className="text-blue-500 hover:text-blue-400 font-bold transition-colors underline underline-offset-4"
+                  type="button"
+                  onClick={() => setIsLogin(false)}
+                  className={`flex-1 py-2.5 text-sm font-bold rounded-xl transition-all ${!isLogin ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/20' : 'text-gray-500 hover:text-gray-300'}`}
                 >
-                  {isLogin ? t.auth.toggleSignup : t.auth.toggleLogin}
+                  {t.auth.toggleSignup}
                 </button>
-              </p>
+                <button
+                  type="button"
+                  onClick={() => setIsLogin(true)}
+                  className={`flex-1 py-2.5 text-sm font-bold rounded-xl transition-all ${isLogin ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/20' : 'text-gray-500 hover:text-gray-300'}`}
+                >
+                  {t.auth.toggleLogin}
+                </button>
+              </div>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-5">
+              {isLogin && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex items-center gap-3 text-blue-400 text-xs bg-blue-400/10 border border-blue-400/20 p-4 rounded-2xl mb-4"
+                >
+                  <Info size={16} className="shrink-0" />
+                  <span className="font-medium leading-relaxed">{t.auth.loginInfo}</span>
+                </motion.div>
+              )}
               {!isLogin && (
                 <div className="space-y-2">
                   <label className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] ml-1">
