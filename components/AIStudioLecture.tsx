@@ -289,6 +289,45 @@ export const AIStudioLecture: React.FC<{ language: Language; onComplete: () => P
                  </div>
               </section>
 
+              {/* Bonus Resource Section */}
+              <section className="mb-24">
+                <div className="relative group">
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-[40px] blur opacity-30 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+                  <div className="relative bg-zinc-900/80 backdrop-blur-xl border border-white/10 p-10 rounded-[40px] overflow-hidden">
+                    <div className="absolute top-0 right-0 p-10 opacity-10">
+                      <Sparkles size={120} className="text-blue-500" />
+                    </div>
+                    
+                    <div className="flex flex-col md:flex-row items-center gap-8 relative z-10">
+                      <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-purple-600 rounded-3xl flex items-center justify-center text-white shadow-2xl shadow-blue-600/20 shrink-0">
+                        <Terminal size={40} />
+                      </div>
+                      
+                      <div className="flex-1 text-center md:text-left">
+                        <h3 className="text-2xl font-bold text-white mb-3 flex items-center justify-center md:justify-start gap-2">
+                          <span role="img" aria-label="coder">👨‍💻</span> AI Academy Helper
+                          <span className="text-sm font-normal text-blue-400 bg-blue-400/10 px-3 py-1 rounded-full border border-blue-400/20 ml-2">Senior QA & Performance</span>
+                        </h3>
+                        <p className="text-gray-400 leading-relaxed mb-8 max-w-2xl">
+                          Need help debugging your code, optimizing web performance, or acting as a Senior QA Engineer? 
+                          Use our custom Gemini Gem tailored specifically for this course!
+                        </p>
+                        
+                        <a 
+                          href="https://gemini.google.com/gem/111hvR_EbCqchUDjpnm4bIENwPZOuY-En?usp=sharing"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white rounded-2xl font-bold transition-all shadow-lg shadow-blue-600/20 group/btn"
+                        >
+                          Open AI Academy Helper Gem
+                          <ExternalLink size={18} className="group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
               <CompleteButton onComplete={onComplete} language={language} isUnlocked={isUnlocked} />
             </div>
           </div>
