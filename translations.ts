@@ -9,7 +9,39 @@ export const UI_STRINGS: Record<Language, any> = {
       title2: "Use AI to Lead.",
       subtitle: "Based on the frameworks of Dan Martell and the Core Mindsets for the AI Era. Transform from a 'Doer' to a 'Director'.",
       btnStart: "Get Started",
-      btnWatch: "Watch Concept"
+      btnWatch: "Explore AI Answers"
+    },
+    concept: {
+      title: "Explore AI Answers",
+      subtitle: "Understand the 'Why' behind the AI Mindset",
+      tabs: {
+        teachers: "👨‍🏫 For Teachers",
+        parents: "🏠 For Parents",
+        business: "💼 For Business"
+      },
+      sections: {
+        teachers: [
+          { q: "If an AI could handle 80% of your lesson planning and administrative grading, how much more energy would you have to actually connect with and inspire your students?", a: "Use Gemini 3.1 Pro to generate lesson plans from a single PDF. Use an AI Grader to provide the first draft of feedback on essays, which you then refine." },
+          { q: "How can you realistically provide a unique, personalized learning path for 30 different students in one hour without an AI 'Teaching Assistant' at your side?", a: "Use 'Branching Logic.' Feed the AI a student's past test scores and ask: 'Create three versions of this math problem: one for a visual learner, one for a logic-based learner, and one for a struggling student.'" },
+          { q: "What if every student could receive instant, constructive feedback on their essay at 9:00 PM on a Sunday, even while you are resting?", a: "Set up a Custom GPT or Gemini Gem specifically trained on your grading rubric. Students upload drafts; the AI points out grammar and structure errors before you ever see the paper." },
+          { q: "Are we teaching students to memorize facts that an AI can find in seconds, or are we teaching them how to ask the AI the right questions to solve world problems?", a: "Move to Problem-Based Learning. Give students a global crisis (e.g., climate change) and grade them on the Prompts they use to find solutions, not just the facts they find." },
+          { q: "If AI is the 'calculator' for writing and coding, is it our responsibility to ban it, or to teach students how to drive it ethically and effectively?", a: "Teach 'AI-Human Collaboration.' Assignments should require an 'AI Log' where students show which parts the AI wrote and how they verified the facts." }
+        ],
+        parents: [
+          { q: "When your child enters the workforce in 10–15 years, will they be competing against AI, or will they be expected to command AI to do their job?", a: "Don't just let them play games; teach them Prompt Engineering. Show them how to use AI to build a simple app or write a story. Being a 'User' is common; being a 'Commander' is the career skill." },
+          { q: "Do you know how to teach your child to identify AI-generated 'Deepfakes' or misinformation, or are you leaving them to figure it out alone on the internet?", a: "Use AI to teach AI. Show them 'Deepfake Challenges' online. Practice 'Verification Habits'—always check three sources if a video looks too perfect or too shocking." },
+          { q: "Why pay for an expensive tutor once a week when your child could have a 24/7 AI tutor that understands their specific learning style and never loses patience?", a: "Use NotebookLM by Google. Upload your child’s specific textbook. The AI becomes a tutor that only uses the facts from that book, so it won’t hallucinate or get distracted." },
+          { q: "How much 'mental load' could you shed if an AI managed your family’s grocery lists, meal plans, and activity schedules based on everyone's health goals and preferences?", a: "Use Agentic Workflows (n8n/Zapier). Connect your digital calendar to a meal-planning AI. It can automatically generate a grocery list based on your busy nights and health goals." },
+          { q: "If your child has a niche interest—like space or ancient history—how can AI help them dive deeper into that subject than any standard textbook ever could?", a: "Use Image Generation (Imagen/Midjourney). If a child loves space, have them describe a new planet and see it come to life instantly. This turns passive learning into active creation." }
+        ],
+        business: [
+          { q: "Every hour your team spends on manual data entry or basic customer support is an hour you are paying 'human prices' for 'machine tasks'. Can your margins survive that?", a: "Implement RPA (Robotic Process Automation) + AI. Any task that is 'If This, Then That' (like moving data from an email to an Excel sheet) should be automated. You save 30+ hours a week per employee." },
+          { q: "You are sitting on years of customer data; do you have an AI 'Data Scientist' looking for the hidden patterns that could predict your next million-dollar product?", a: "Use Gemini 1.5/3.1's Long Context. Upload 1,000 customer reviews or a year of sales data. Ask: 'What is the #1 reason people stop buying from us that we haven't noticed yet?'" },
+          { q: "Can your business provide 'White Glove' service to a customer in a different time zone and language at 3:00 AM without hiring a single new person?", a: "Deploy AI Chatbots grounded in your company data. Unlike old bots, these use LLMs to understand intent and emotion, solving 80% of issues without human intervention." },
+          { q: "Will top-tier talent want to work for your company if they find out they have to do manual work that their previous employer had already automated with AI?", a: "Advertise your 'AI-First Culture.' Top talent wants to work where the tools are sharp. If you provide AI assistants to every staff member, you will attract the most efficient people in Myanmar." },
+          { q: "In a market that changes every week, can you afford to wait for a monthly report, or do you need an Agentic AI system that gives you a 'Real-Time' pulse of your entire operation?", a: "Build a 'Business Intelligence Agent.' Instead of waiting for a meeting, you should be able to type to your data: 'How is my Singapore branch doing compared to last Tuesday?' and get an answer in 5 seconds." }
+        ]
+      }
     },
     nav: {
       home: "Home",
@@ -40,6 +72,74 @@ export const UI_STRINGS: Record<Language, any> = {
       error: "Authentication Error",
       successLogin: "Logged in successfully!",
       successSignup: "Account created successfully!",
+      authHeadline: "Master AI. Master Your Future.",
+      categories: {
+        teachers: "Teachers",
+        parents: "Parents",
+        business: "Business"
+      },
+      carousel: [
+        {
+          title: "For Teachers: Fatigue Reduction",
+          description: "If AI handles 80% of your lesson prep and grading, how much more energy could you focus on your students' emotional growth?"
+        },
+        {
+          title: "For Teachers: Personalized Learning",
+          description: "How can you practically personalize learning for 30 students without an AI 'Teaching Assistant'?"
+        },
+        {
+          title: "For Teachers: 24/7 Support",
+          description: "How great would it be if AI could provide instant feedback to a student's essay even while you're resting on a Sunday night?"
+        },
+        {
+          title: "For Teachers: Modern Curriculum",
+          description: "Will you keep making students memorize facts AI can find in seconds, or teach them how to ask AI the right questions to solve problems?"
+        },
+        {
+          title: "For Teachers: Ethical AI",
+          description: "AI is becoming the 'calculator' for writing and coding. Instead of banning it, how will you guide students to use it ethically and effectively?"
+        },
+        {
+          title: "For Parents: Future Readiness",
+          description: "In 10-15 years, will your child be a 'competitor' to AI or the one 'directing' it?"
+        },
+        {
+          title: "For Parents: Digital Safety",
+          description: "Have you taught your child to distinguish between AI-generated misinformation and deepfakes, or are they left unprotected?"
+        },
+        {
+          title: "For Parents: Personal AI Tutor",
+          description: "Instead of an expensive tutor who visits once a week, wouldn't you want a 24/7 AI tutor that understands your child's unique learning style?"
+        },
+        {
+          title: "For Parents: Household Management",
+          description: "How much stress would be lifted if AI managed your family's shopping lists, recipes, and schedules based on your health needs?"
+        },
+        {
+          title: "For Parents: Passion Exploration",
+          description: "If your child loves astronomy or history, how can you use AI to help them explore deeper knowledge beyond standard textbooks?"
+        },
+        {
+          title: "For Business: Resource Optimization",
+          description: "Isn't it a waste of valuable human resources to have your employees performing manual tasks that machines can do?"
+        },
+        {
+          title: "For Business: Data Insights",
+          description: "How will you find hidden sales opportunities in years of customer data without an AI 'Data Scientist'?"
+        },
+        {
+          title: "For Business: 24/7 Global Service",
+          description: "Why aren't you using AI to provide 24/7 service to global customers in their own languages, even at 3 AM?"
+        },
+        {
+          title: "For Business: Attracting Talent",
+          description: "In an era of rapid tech advancement, would top talent choose a company that works manually or one that leverages AI?"
+        },
+        {
+          title: "For Business: Real-time Decisions",
+          description: "Market conditions change weekly. Will you wait for a month-end report or use Agentic AI for real-time insights?"
+        }
+      ]
     },
     assistants: {
       hubTitle: "AI Assistants",
@@ -267,6 +367,38 @@ export const UI_STRINGS: Record<Language, any> = {
       btnStart: "စတင်လေ့လာရန်",
       btnWatch: "ဗဟုသုတ ကြည့်ရှုရန်"
     },
+    concept: {
+      title: "AI ၏ အဖြေများကို လေ့လာပါ",
+      subtitle: "AI Mindset ၏ နောက်ကွယ်မှ 'အကြောင်းရင်း' ကို နားလည်ပါ",
+      tabs: {
+        teachers: "👨‍🏫 ဆရာ၊ ဆရာမများအတွက်",
+        parents: "🏠 မိဘများအတွက်",
+        business: "💼 စီးပွားရေးလုပ်ငန်းများအတွက်"
+      },
+      sections: {
+        teachers: [
+          { q: "သင်ခန်းစာ ပြင်ဆင်တာတွေနဲ့ အိမ်စာစစ်တဲ့ အလုပ်တွေရဲ့ ၈၀% ကို AI က ကူလုပ်ပေးမယ်ဆိုရင်၊ ကျန်တဲ့အချိန်တွေကို ကျောင်းသားတွေရဲ့ စိတ်ဓာတ်ပိုင်းဆိုင်ရာ တိုးတက်ဖို့အတွက် မင်း ဘယ်လောက်တောင် ပိုပြီး အာရုံစိုက်နိုင်မလဲ?", a: "Gemini 3.1 Pro ကိုသုံးပြီး PDF တစ်ခုတည်းကနေ သင်ခန်းစာပြင်ဆင်မှုတွေ ပြုလုပ်ပါ။ AI Grader ကိုသုံးပြီး စာစီစာကုံးတွေအတွက် ပထမမူကြမ်း အကြံပြုချက်တွေ ရယူပြီးမှ ကိုယ်တိုင် ပြန်လည်စစ်ဆေးပါ။" },
+          { q: "ကျောင်းသား ၃၀ ရှိတဲ့ အတန်းထဲမှာ ကျောင်းသားတစ်ဦးချင်းစီရဲ့ အားသာချက်၊ အားနည်းချက်အလိုက် မတူညီတဲ့ သင်ကြားမှုပုံစံကို AI 'သင်ကြားရေးလက်ထောက်' မပါဘဲနဲ့ မင်း ဘယ်လို လက်တွေ့ကျကျ လုပ်ပေးနိုင်မလဲ?", a: "'Branching Logic' ကို အသုံးပြုပါ။ ကျောင်းသားရဲ့ အရင်က ရမှတ်တွေကို AI ထဲထည့်ပြီး 'ဒီသင်္ချာပုစ္ဆာကို ပုံနဲ့ကြည့်မှနားလည်သူ၊ ယုတ္တိဗေဒနဲ့နားလည်သူနဲ့ အခက်အခဲရှိနေသူတွေအတွက် ပုံစံ ၃ မျိုး ထုတ်ပေးပါ' လို့ ခိုင်းစေနိုင်ပါတယ်။" },
+          { q: "တနင်္ဂနွေနေ့ည မင်းအနားယူနေချိန်မှာတောင် ကျောင်းသားတစ်ယောက်က သူ့ရဲ့စာစီစာကုံးအတွက် အကြံဉာဏ်တောင်းရင် AI က ချက်ချင်း အဖြေပေးနိုင်နေတာဟာ ဘယ်လောက် ကောင်းမွန်တဲ့ အခွင့်အလမ်းဖြစ်မလဲ?", a: "သင်ကြားရေးစံနှုန်း (Grading Rubric) တွေကို သင်ကြားပေးထားတဲ့ Custom GPT သို့မဟုတ် Gemini Gem တစ်ခု တည်ဆောက်ထားပါ။ ကျောင်းသားတွေက သူတို့ရဲ့ မူကြမ်းတွေကို တင်လိုက်တာနဲ့ AI က သဒ္ဒါနဲ့ တည်ဆောက်ပုံ အမှားတွေကို သင်မစစ်ခင်ကတည်းက ထောက်ပြပေးပါလိမ့်မယ်။" },
+          { q: "AI က စက္ကန့်ပိုင်းအတွင်း ရှာပေးနိုင်တဲ့ အချက်အလက်တွေကို ကျောင်းသားတွေကို အလွတ်ကျက်ခိုင်းနေဦးမှာလား? ဒါမှမဟုတ် ပြဿနာတွေကို ဖြေရှင်းဖို့ AI ကို ဘယ်လို မှန်ကန်တဲ့ မေးခွန်းမေးရမလဲဆိုတာကို သင်ပေးမှာလား?", a: "ပြဿနာအခြေပြု သင်ယူမှု (Problem-Based Learning) ကို ပြောင်းလဲပါ။ ကမ္ဘာလုံးဆိုင်ရာ အကျပ်အတည်းတစ်ခု (ဥပမာ- ရာသီဥတုပြောင်းလဲမှု) ကို ပေးပြီး ကျောင်းသားတွေက အဖြေရှာဖို့အတွက် AI ကို ဘယ်လို ညွှန်ကြားချက် (Prompts) တွေ သုံးသလဲဆိုတာပေါ်မှာ အမှတ်ပေးပါ။" },
+          { q: "AI ဆိုတာ စာရေးတာနဲ့ Coding ရေးတာတွေအတွက် 'ဂဏန်းပေါင်းစက်' လို ဖြစ်လာပြီဆိုတော့၊ ဒါကို ပိတ်ပင်မယ့်အစား ကျောင်းသားတွေ အကျိုးရှိရှိနဲ့ ကျင့်ဝတ်နဲ့အညီ သုံးတတ်အောင် ဘယ်လို လမ်းပြပေးမလဲ?", a: "'AI-Human Collaboration' ကို သင်ကြားပေးပါ။ အိမ်စာတွေမှာ ကျောင်းသားတွေက ဘယ်အပိုင်းကို AI က ရေးပေးတာလဲ၊ အချက်အလက်တွေ မှန်မမှန် ဘယ်လို စစ်ဆေးခဲ့သလဲဆိုတာကို ဖော်ပြရမယ့် 'AI Log' ပါဝင်ခိုင်းပါ။" }
+        ],
+        parents: [
+          { q: "နောက် ၁၀ နှစ်၊ ၁၅ နှစ်နေရင် မင်းရဲ့ကလေးက AI နဲ့ 'ပြိုင်ဘက်' ဖြစ်နေမလား? ဒါမှမဟုတ် AI ကို 'စေခိုင်းတတ်တဲ့သူ' ဖြစ်နေမလား?", a: "ဂိမ်းဆော့ဖို့သက်သက် မလွှတ်ထားပါနဲ့၊ Prompt Engineering ကို သင်ပေးပါ။ AI သုံးပြီး App အသေးစားလေးတွေ ဒါမှမဟုတ် ပုံပြင်တွေ ဘယ်လိုဖန်တီးရမလဲဆိုတာ ပြသပေးပါ။ 'အသုံးပြုသူ' (User) ဖြစ်တာထက် 'ညွှန်ကြားသူ' (Commander) ဖြစ်တာက အနာဂတ်အတွက် အရေးကြီးတဲ့ အရည်အချင်းပါ။" },
+          { q: "အင်တာနက်ပေါ်က AI နဲ့ လုပ်ထားတဲ့ 'သတင်းမှား' တွေနဲ့ 'Deepfakes' (ရုပ်သံတု) တွေကို ခွဲခြားတတ်အောင် မင်းရဲ့ကလေးကို သင်ပေးထားပြီးပြီလား? ဒါမှမဟုတ် သူတို့ကို အကာအကွယ်မဲ့ပဲ လွှတ်ထားမှာလား?", a: "AI ကိုသုံးပြီး AI အကြောင်း သင်ပေးပါ။ အွန်လိုင်းက 'Deepfake Challenges' တွေကို ပြသပါ။ 'စစ်ဆေးတဲ့ အလေ့အကျင့်' (Verification Habits) ကို လေ့ကျင့်ပေးပါ - ဗီဒီယိုတစ်ခုက အရမ်းပြီးပြည့်စုံနေရင် ဒါမှမဟုတ် အရမ်းအံ့သြစရာကောင်းနေရင် အရင်းအမြစ် ၃ ခုလောက်မှာ အမြဲပြန်စစ်ခိုင်းပါ။" },
+          { q: "တစ်ပတ်ကို တစ်ကြိမ်ပဲ လာနိုင်တဲ့ စရိတ်ကြီးတဲ့ ကျူရှင်ဆရာအစား၊ မင်းကလေးရဲ့ သင်ယူမှုပုံစံကို နားလည်ပြီး စိတ်ရှည်လက်ရှည်နဲ့ ၂၄ နာရီပတ်လုံး သင်ပေးနိုင်တဲ့ AI ကျူရှင်ဆရာ ရှိနေတာကို မသုံးချင်ဘူးလား?", a: "Google ရဲ့ NotebookLM ကို သုံးပါ။ သင့်ကလေးရဲ့ ကျောင်းသုံးစာအုပ်ကို တင်ထားလိုက်ပါ။ AI က အဲဒီစာအုပ်ထဲက အချက်အလက်တွေကိုပဲ သုံးပြီး သင်ပေးမယ့် ကျူရှင်ဆရာ ဖြစ်လာပါလိမ့်မယ်။" },
+          { q: "မိသားစုရဲ့ ကျန်းမာရေးနဲ့ စားသောက်မှုပုံစံအလိုက် ဈေးဝယ်စာရင်း၊ ဟင်းချက်နည်းနဲ့ အစီအစဉ်တွေကို AI က ကူညီစီမံပေးမယ်ဆိုရင် မင်းရဲ့ စိတ်ဖိစီးမှုတွေ ဘယ်လောက် လျော့သွားမလဲ?", a: "Agentic Workflows (n8n/Zapier) ကို သုံးပါ။ သင့်ရဲ့ ဒစ်ဂျစ်တယ်ပြက္ခဒိန်ကို ဟင်းချက်နည်းစီမံပေးတဲ့ AI နဲ့ ချိတ်ဆက်ပါ။ လူတိုင်းရဲ့ အားလပ်ချိန်နဲ့ ကျန်းမာရေးပန်းတိုင်တွေပေါ် မူတည်ပြီး ဈေးဝယ်စာရင်းကို အလိုအလျောက် ထုတ်ပေးပါလိမ့်မယ်။" },
+          { q: "မင်းကလေးက နက္ခတ္တဗေဒ ဒါမှမဟုတ် သမိုင်းကို ဝါသနာပါရင် ပုံမှန်စာအုပ်တွေထက် ပိုမိုနက်နဲတဲ့ ဗဟုသုတတွေကို AI နဲ့ ဘယ်လို ရှာဖွေလေ့လာခိုင်းမလဲ?", a: "Image Generation (Imagen/Midjourney) ကို သုံးပါ။ အကယ်၍ ကလေးက အာကာသကို ဝါသနာပါရင် ဂြိုဟ်အသစ်တစ်ခုအကြောင်း ဖော်ပြခိုင်းပြီး ချက်ချင်း ပုံဖော်ကြည့်ခိုင်းပါ။ ဒါက အသိပညာကို လက်တွေ့ဖန်တီးမှုအဖြစ် ပြောင်းလဲပေးပါတယ်။" }
+        ],
+        business: [
+          { q: "မင်းရဲ့ ဝန်ထမ်းတွေက စက်တွေလုပ်နိုင်တဲ့ အလုပ်ကြမ်းတွေကိုပဲ ထိုင်လုပ်နေရတာဟာ ကုမ္ပဏီအတွက် တန်ဖိုးရှိတဲ့ လူသားအရင်းအမြစ်ကို ဖြုန်းတီးနေတာ မဟုတ်ဘူးလား?", a: "RPA (Robotic Process Automation) + AI ကို အကောင်အထည်ဖော်ပါ။ 'ဒါဖြစ်ရင် ဟိုဒါလုပ်' ဆိုတဲ့ အလုပ်မျိုးတွေ (ဥပမာ- အီးမေးလ်က ဒေတာတွေကို Excel ထဲပြောင်းတာ) ကို အလိုအလျောက် လုပ်ခိုင်းပါ။ ဒါက ဝန်ထမ်းတစ်ယောက်ချင်းစီရဲ့ အချိန်ကို တစ်ပတ်မှာ ၃၀ နာရီကျော် သက်သာစေပါတယ်။" },
+          { q: "မင်းဆီမှာ နှစ်ပေါင်းများစွာ စုထားတဲ့ Customer အချက်အလက်တွေထဲကနေ နောက်ထပ် ဘယ်လို ပစ္စည်းအသစ်တွေ ရောင်းကောင်းမလဲဆိုတာကို AI 'ဒေတာပညာရှင်' မပါဘဲနဲ့ မင်း ဘယ်လို ရှာမလဲ?", a: "Gemini 1.5/3.1 ရဲ့ Long Context ကို သုံးပါ။ Customer Review ၁,၀၀၀ လောက် ဒါမှမဟုတ် တစ်နှစ်စာ အရောင်းဒေတာတွေကို တင်လိုက်ပါ။ 'ငါတို့ သတိမထားမိသေးဘဲ လူတွေ ငါတို့ဆီကနေ ပစ္စည်းမဝယ်တော့တဲ့ အဓိကအကြောင်းရင်းက ဘာလဲ?' လို့ မေးကြည့်ပါ။" },
+          { q: "ဝန်ထမ်းအသစ် ထပ်မခန့်ဘဲနဲ့ ကမ္ဘာတစ်ဝှမ်းက မတူညီတဲ့ ဘာသာစကားပြောတဲ့ Customer တွေကို မနက် ၃ နာရီမှာတောင် အကောင်းဆုံး ဝန်ဆောင်မှုပေးနိုင်ဖို့ AI ကို ဘာကြောင့် မသုံးသေးတာလဲ?", a: "သင့်ကုမ္ပဏီရဲ့ အချက်အလက်တွေကို သင်ကြားပေးထားတဲ့ AI Chatbots တွေကို သုံးပါ။ အရင်က bot တွေနဲ့မတူဘဲ ဒီ LLM တွေက စိတ်ခံစားမှုနဲ့ ရည်ရွယ်ချက်ကို နားလည်တာကြောင့် ပြဿနာတွေရဲ့ ၈၀% ကို လူမပါဘဲ ဖြေရှင်းပေးနိုင်ပါတယ်။" },
+          { q: "နည်းပညာတွေ တိုးတက်နေတဲ့ ခေတ်မှာ AI ကို သုံးပြီး အလုပ်လုပ်ရတဲ့ ကုမ္ပဏီနဲ့ လက်နဲ့ပဲ လုပ်နေရတဲ့ ကုမ္ပဏီ၊ ဘယ်နေရာမှာ လူတော်တွေက လာအလုပ်လုပ်ချင်ကြမလဲ?", a: "သင့်ရဲ့ 'AI-First Culture' ကို ကြော်ငြာပါ။ ထူးချွန်တဲ့သူတွေက ခေတ်မီတဲ့ ကိရိယာတွေရှိတဲ့နေရာမှာ အလုပ်လုပ်ချင်ကြပါတယ်။ ဝန်ထမ်းတိုင်းကို AI Assistant တွေ ပေးထားမယ်ဆိုရင် မြန်မာနိုင်ငံက အတော်ဆုံးသူတွေကို ဆွဲဆောင်နိုင်ပါလိမ့်မယ်။" },
+          { q: "ဈေးကွက်က အပတ်တိုင်း ပြောင်းလဲနေတာကြောင့် လကုန်မှ ထွက်လာတဲ့ Report ကို စောင့်နေမလား? ဒါမှမဟုတ် အချိန်နဲ့တပြေးညီ အခြေအနေတွေကို သိနိုင်တဲ့ Agentic AI စနစ်ကို သုံးမလား?", a: "'Business Intelligence Agent' တစ်ခု တည်ဆောက်ပါ။ အစည်းအဝေးကို စောင့်မနေဘဲ သင့်ရဲ့ ဒေတာတွေကို 'ပြီးခဲ့တဲ့ အင်္ဂါနေ့နဲ့ယှဉ်ရင် စင်ကာပူဘဏ်ခွဲရဲ့ အခြေအနေ ဘယ်လိုရှိလဲ?' လို့ မေးလိုက်ရုံနဲ့ ၅ စက္ကန့်အတွင်း အဖြေရပါလိမ့်မယ်။" }
+        ]
+      }
+    },
     nav: {
       home: "ပင်မစာမျက်နှာ",
       curriculum: "သင်ရိုးညွှန်းတမ်း",
@@ -296,6 +428,74 @@ export const UI_STRINGS: Record<Language, any> = {
       error: "အမှားအယွင်းရှိနေပါသည်",
       successLogin: "အောင်မြင်စွာဝင်ရောက်ပြီးပါပြီ",
       successSignup: "အကောင့်အောင်မြင်စွာဖွင့်ပြီးပါပြီ",
+      authHeadline: "Master AI. Master Your Future.",
+      categories: {
+        teachers: "ဆရာ၊ ဆရာမများ",
+        parents: "မိဘများ",
+        business: "စီးပွားရေးလုပ်ငန်းရှင်များ"
+      },
+      carousel: [
+        {
+          title: "ဆရာ၊ ဆရာမများအတွက် - ပင်ပန်းမှု လျှော့ချရေး",
+          description: "သင်ခန်းစာ ပြင်ဆင်တာတွေနဲ့ အိမ်စာစစ်တဲ့ အလုပ်တွေရဲ့ ၈၀% ကို AI က ကူလုပ်ပေးမယ်ဆိုရင်၊ ကျန်တဲ့အချိန်တွေကို ကျောင်းသားတွေရဲ့ စိတ်ဓာတ်ပိုင်းဆိုင်ရာ တိုးတက်ဖို့အတွက် မင်း ဘယ်လောက်တောင် ပိုပြီး အာရုံစိုက်နိုင်မလဲ?"
+        },
+        {
+          title: "ဆရာ၊ ဆရာမများအတွက် - တစ်ဦးချင်း သင်ကြားမှု",
+          description: "ကျောင်းသား ၃၀ ရှိတဲ့ အတန်းထဲမှာ ကျောင်းသားတစ်ဦးချင်းစီရဲ့ အားသာချက်၊ အားနည်းချက်အလိုက် မတူညီတဲ့ သင်ကြားမှုပုံစံကို AI 'သင်ကြားရေးလက်ထောက်' မပါဘဲနဲ့ မင်း ဘယ်လို လက်တွေ့ကျကျ လုပ်ပေးနိုင်မလဲ?"
+        },
+        {
+          title: "ဆရာ၊ ဆရာမများအတွက် - အချိန်မရွေး အကူအညီပေးနိုင်မှု",
+          description: "တနင်္ဂနွေနေ့ည မင်းအနားယူနေချိန်မှာတောင် ကျောင်းသားတစ်ယောက်က သူ့ရဲ့စာစီစာကုံးအတွက် အကြံဉာဏ်တောင်းရင် AI က ချက်ချင်း အဖြေပေးနိုင်နေတာဟာ ဘယ်လောက် ကောင်းမွန်တဲ့ အခွင့်အလမ်းဖြစ်မလဲ?"
+        },
+        {
+          title: "ဆရာ၊ ဆရာမများအတွက် - သင်ရိုးညွှန်းတမ်း ပြောင်းလဲမှု",
+          description: "AI က စက္ကန့်ပိုင်းအတွင်း ရှာပေးနိုင်တဲ့ အချက်အလက်တွေကို ကျောင်းသားတွေကို အလွတ်ကျက်ခိုင်းနေဦးမှာလား? ဒါမှမဟုတ် ပြဿနာတွေကို ဖြေရှင်းဖို့ AI ကို ဘယ်လို မှန်ကန်တဲ့ မေးခွန်းမေးရမလဲဆိုတာကို သင်ပေးမှာလား?"
+        },
+        {
+          title: "ဆရာ၊ ဆရာမများအတွက် - ခေတ်သစ် အတတ်ပညာ",
+          description: "AI ဆိုတာ စာရေးတာနဲ့ Coding ရေးတာတွေအတွက် 'ဂဏန်းပေါင်းစက်' လို ဖြစ်လာပြီဆိုတော့၊ ဒါကို ပိတ်ပင်မယ့်အစား ကျောင်းသားတွေ အကျိုးရှိရှိနဲ့ ကျင့်ဝတ်နဲ့အညီ သုံးတတ်အောင် ဘယ်လို လမ်းပြပေးမလဲ?"
+        },
+        {
+          title: "မိဘများအတွက် - အနာဂတ် အလုပ်အကိုင်",
+          description: "နောက် ၁၀ နှစ်၊ ၁၅ နှစ်နေရင် မင်းရဲ့ကလေးက AI နဲ့ 'ပြိုင်ဘက်' ဖြစ်နေမလား? ဒါမှမဟုတ် AI ကို 'စေခိုင်းတတ်တဲ့သူ' ဖြစ်နေမလား?"
+        },
+        {
+          title: "မိဘများအတွက် - ဘေးကင်းလုံခြုံမှု",
+          description: "အင်တာနက်ပေါ်က AI နဲ့ လုပ်ထားတဲ့ 'သတင်းမှား' တွေနဲ့ 'Deepfakes' (ရုပ်သံတု) တွေကို ခွဲခြားတတ်အောင် မင်းရဲ့ကလေးကို သင်ပေးထားပြီးပြီလား? ဒါမှမဟုတ် သူတို့ကို အကာအကွယ်မဲ့ပဲ လွှတ်ထားမှာလား?"
+        },
+        {
+          title: "မိဘများအတွက် - ကိုယ်ပိုင်ကျူရှင်ဆရာ",
+          description: "တစ်ပတ်ကို တစ်ကြိမ်ပဲ လာနိုင်တဲ့ စရိတ်ကြီးတဲ့ ကျူရှင်ဆရာအစား၊ မင်းကလေးရဲ့ သင်ယူမှုပုံစံကို နားလည်ပြီး စိတ်ရှည်လက်ရှည်နဲ့ ၂၄ နာရီပတ်လုံး သင်ပေးနိုင်တဲ့ AI ကျူရှင်ဆရာ ရှိနေတာကို မသုံးချင်ဘူးလား?"
+        },
+        {
+          title: "မိဘများအတွက် - အိမ်ထောင်မှု စီမံခန့်ခွဲသူ",
+          description: "မိသားစုရဲ့ ကျန်းမာရေးနဲ့ စားသောက်မှုပုံစံအလိုက် ဈေးဝယ်စာရင်း၊ ဟင်းချက်နည်းနဲ့ အစီအစဉ်တွေကို AI က ကူညီစီမံပေးမယ်ဆိုရင် မင်းရဲ့ စိတ်ဖိစီးမှုတွေ ဘယ်လောက် လျော့သွားမလဲ?"
+        },
+        {
+          title: "မိဘများအတွက် - ဝါသနာကို မြှင့်တင်ပေးခြင်း",
+          description: "မင်းကလေးက နက္ခတ္တဗေဒ ဒါမှမဟုတ် သမိုင်းကို ဝါသနာပါရင် ပုံမှန်စာအုပ်တွေထက် ပိုမိုနက်နဲတဲ့ ဗဟုသုတတွေကို AI နဲ့ ဘယ်လို ရှာဖွေလေ့လာခိုင်းမလဲ?"
+        },
+        {
+          title: "စီးပွားရေးလုပ်ငန်းရှင်များအတွက် - လူစွမ်းအား အသုံးချမှု",
+          description: "မင်းရဲ့ ဝန်ထမ်းတွေက စက်တွေလုပ်နိုင်တဲ့ အလုပ်ကြမ်းတွေကိုပဲ ထိုင်လုပ်နေရတာဟာ ကုမ္ပဏီအတွက် တန်ဖိုးရှိတဲ့ လူသားအရင်းအမြစ်ကို ဖြုန်းတီးနေတာ မဟုတ်ဘူးလား?"
+        },
+        {
+          title: "စီးပွားရေးလုပ်ငန်းရှင်များအတွက် - ဖုံးကွယ်နေတဲ့ အခွင့်အလမ်း",
+          description: "မင်းဆီမှာ နှစ်ပေါင်းများစွာ စုထားတဲ့ Customer အချက်အလက်တွေထဲကနေ နောက်ထပ် ဘယ်လို ပစ္စည်းအသစ်တွေ ရောင်းကောင်းမလဲဆိုတာကို AI 'ဒေတာပညာရှင်' မပါဘဲနဲ့ မင်း ဘယ်လို ရှာမလဲ?"
+        },
+        {
+          title: "စီးပွားရေးလုပ်ငန်းရှင်များအတွက် - ၂၄ နာရီ ဝန်ဆောင်မှု",
+          description: "ဝန်ထမ်းအသစ် ထပ်မခန့်ဘဲနဲ့ ကမ္ဘာတစ်ဝှမ်းက မတူညီတဲ့ ဘာသာစကားပြောတဲ့ Customer တွေကို မနက် ၃ နာရီမှာတောင် အကောင်းဆုံး ဝန်ဆောင်မှုပေးနိုင်ဖို့ AI ကို ဘာကြောင့် မသုံးသေးတာလဲ?"
+        },
+        {
+          title: "စီးပွားရေးလုပ်ငန်းရှင်များအတွက် - တော်တဲ့သူတွေကို ဆွဲဆောင်ခြင်း",
+          description: "နည်းပညာတွေ တိုးတက်နေတဲ့ ခေတ်မှာ AI ကို သုံးပြီး အလုပ်လုပ်ရတဲ့ ကုမ္ပဏီနဲ့ လက်နဲ့ပဲ လုပ်နေရတဲ့ ကုမ္ပဏီ၊ ဘယ်နေရာမှာ လူတော်တွေက လာအလုပ်လုပ်ချင်ကြမလဲ?"
+        },
+        {
+          title: "စီးပွားရေးလုပ်ငန်းရှင်များအတွက် - မြန်ဆန်တဲ့ ဆုံးဖြတ်ချက်",
+          description: "ဈေးကွက်က အပတ်တိုင်း ပြောင်းလဲနေတာကြောင့် လကုန်မှ ထွက်လာတဲ့ Report ကို စောင့်နေမလား? ဒါမှမဟုတ် အချိန်နဲ့တပြေးညီ အခြေအနေတွေကို သိနိုင်တဲ့ Agentic AI စနစ်ကို သုံးမလား?"
+        }
+      ]
     },
     assistants: {
       hubTitle: "AI Assistants (အကူအညီပေးမည့် AI များ)",

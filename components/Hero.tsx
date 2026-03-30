@@ -1,15 +1,16 @@
 
 import React from 'react';
-import { ArrowRight, Zap, Play } from 'lucide-react';
+import { ArrowRight, Zap, Sparkles } from 'lucide-react';
 import { Language } from '../types';
 import { UI_STRINGS } from '../translations';
 
 interface HeroProps {
   onStart: () => void;
+  onOpenConcept: () => void;
   language: Language;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onStart, language }) => {
+export const Hero: React.FC<HeroProps> = ({ onStart, onOpenConcept, language }) => {
   const t = UI_STRINGS[language].hero;
   const isMy = language === 'my';
   
@@ -38,8 +39,11 @@ export const Hero: React.FC<HeroProps> = ({ onStart, language }) => {
           >
             {t.btnStart} <ArrowRight className="w-5 h-5" />
           </button>
-          <button className="w-full sm:w-auto px-8 py-4 bg-white/5 hover:bg-white/10 text-white border border-white/10 rounded-xl font-bold text-lg flex items-center justify-center gap-2 transition-all">
-            <Play className="w-5 h-5 fill-white" /> {t.btnWatch}
+          <button 
+            onClick={onOpenConcept}
+            className="w-full sm:w-auto px-8 py-4 bg-white/5 hover:bg-white/10 text-white border border-white/10 rounded-xl font-bold text-lg flex items-center justify-center gap-2 transition-all hover:scale-105 active:scale-95"
+          >
+            <Sparkles className="w-5 h-5 text-blue-400" /> {t.btnWatch}
           </button>
         </div>
       </div>

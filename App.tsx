@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
+import { ConceptModal } from './components/ConceptModal';
 import { Curriculum } from './components/Curriculum';
 import { PromptLecture } from './components/PromptLecture';
 import { NotebookLecture } from './components/NotebookLecture';
@@ -24,6 +25,7 @@ const App: React.FC = () => {
   });
   const [user, setUser] = useState<any | null>(pb.authStore.model);
   const [isAuthenticated, setIsAuthenticated] = useState(pb.authStore.isValid);
+  const [isConceptModalOpen, setIsConceptModalOpen] = useState(false);
 
   useEffect(() => {
     localStorage.setItem('academy-lang', language);
@@ -67,7 +69,11 @@ const App: React.FC = () => {
       <main className="transition-all duration-500 ease-in-out">
         {activePage === 'home' && (
           <div className="animate-in fade-in duration-700">
-            <Hero onStart={() => setActivePage('curriculum')} language={language} />
+            <Hero 
+              onStart={() => setActivePage('curriculum')} 
+              onOpenConcept={() => setIsConceptModalOpen(true)}
+              language={language} 
+            />
             <StrategicFramework language={language} onStart={() => setActivePage('curriculum')} />
             <BusinessStrategy language={language} />
           </div>
@@ -112,6 +118,11 @@ const App: React.FC = () => {
 
       <Footer />
       <FloatingAssistant language={language} />
+      <ConceptModal 
+        isOpen={isConceptModalOpen} 
+        onClose={() => setIsConceptModalOpen(false)} 
+        language={language} 
+      />
     </div>
   );
 };
