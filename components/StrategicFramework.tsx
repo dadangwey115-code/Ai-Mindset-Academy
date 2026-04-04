@@ -14,9 +14,11 @@ import {
   UserCheck
 } from 'lucide-react';
 import { Language } from '../types';
+import { UI_STRINGS } from '../translations';
 
-export const StrategicFramework: React.FC<{ language: Language, onStart: () => void }> = ({ language, onStart }) => {
+export const StrategicFramework: React.FC<{ language: Language, onStart: () => void, onOpenStrategyBlueprint: () => void }> = ({ language, onStart, onOpenStrategyBlueprint }) => {
   const isMy = language === 'my';
+  const t = UI_STRINGS[language].sections;
 
   const sections = [
     {
@@ -78,10 +80,17 @@ export const StrategicFramework: React.FC<{ language: Language, onStart: () => v
                   ? "AI ကို မိမိ၏ လုပ်ဆောင်နိုင်စွမ်းကို လျော့ကျစေသည့် အရာဟု မရှုမြင်ဘဲ၊ မိမိ၏ ဆုံးဖြတ်ချက်ချမှတ်နိုင်စွမ်းကို အဆပေါင်းများစွာ မြှင့်တင်ပေးမည့် 'Executive Force Multiplier' အဖြစ် အသုံးချတတ်ရန် လိုအပ်ပါသည်။"
                   : "Leadership today requires shifting from manual operations to strategic orchestration. AI is the lever that amplifies your potential."}
               </p>
-              <div className="flex gap-4">
-                <button onClick={onStart} className="px-8 py-4 bg-blue-600 rounded-2xl font-bold hover:bg-blue-700 transition-all flex items-center gap-2 group shadow-xl shadow-blue-600/20">
-                  {isMy ? "ဗျူဟာကို စတင်လေ့လာရန်" : "Explore the Strategy"}
+              <div className="flex flex-col sm:flex-row gap-4">
+                <button onClick={onStart} className="px-8 py-4 bg-blue-600 rounded-2xl font-bold hover:bg-blue-700 transition-all flex items-center justify-center gap-2 group shadow-xl shadow-blue-600/20">
+                  {isMy ? "သင်ရိုးညွှန်းတမ်းကို စတင်ရန်" : "Explore the Curriculum"}
                   <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+                </button>
+                <button 
+                  onClick={onOpenStrategyBlueprint}
+                  className="px-8 py-4 bg-white/5 border border-white/10 rounded-2xl font-bold hover:bg-white/10 transition-all flex items-center justify-center gap-2 group"
+                >
+                  <ShieldCheck className="text-blue-500" />
+                  {t.blueprintBtn}
                 </button>
               </div>
             </div>

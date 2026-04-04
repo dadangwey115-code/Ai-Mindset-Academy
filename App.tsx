@@ -1,25 +1,34 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
-import { ConceptModal } from './components/ConceptModal';
-import { PromptLibraryModal } from './components/PromptLibraryModal';
-import { Curriculum } from './components/Curriculum';
-import { PromptLecture } from './components/PromptLecture';
-import { NotebookLecture } from './components/NotebookLecture';
-import { AIStudioLecture } from './components/AIStudioLecture';
-import { AILevelsLecture } from './components/AILevelsLecture';
-import { DeploymentLecture } from './components/DeploymentLecture';
-import { BusinessStrategy } from './components/BusinessStrategy';
-import { StrategicFramework } from './components/StrategicFramework';
 import { Footer } from './components/Footer';
-import { FloatingAssistant } from './components/FloatingAssistant';
-import { AuthPage } from './components/AuthPage';
-import { Profile } from './components/Profile';
-import { AchievementToast } from './components/AchievementToast';
-import { PwaInstallBanner } from './components/PwaInstallBanner';
 import { PageId, Language, User } from './types';
 import pb from './services/pb';
+
+// Lazy loaded components
+const ConceptModal = lazy(() => import('./components/ConceptModal').then(m => ({ default: m.ConceptModal })));
+const PromptLibraryModal = lazy(() => import('./components/PromptLibraryModal').then(m => ({ default: m.PromptLibraryModal })));
+const StrategyBlueprintModal = lazy(() => import('./components/StrategyBlueprintModal').then(m => ({ default: m.StrategyBlueprintModal })));
+const Curriculum = lazy(() => import('./components/Curriculum').then(m => ({ default: m.Curriculum })));
+const PromptLecture = lazy(() => import('./components/PromptLecture').then(m => ({ default: m.PromptLecture })));
+const NotebookLecture = lazy(() => import('./components/NotebookLecture').then(m => ({ default: m.NotebookLecture })));
+const AIStudioLecture = lazy(() => import('./components/AIStudioLecture').then(m => ({ default: m.AIStudioLecture })));
+const AILevelsLecture = lazy(() => import('./components/AILevelsLecture').then(m => ({ default: m.AILevelsLecture })));
+const DeploymentLecture = lazy(() => import('./components/DeploymentLecture').then(m => ({ default: m.DeploymentLecture })));
+const BusinessStrategy = lazy(() => import('./components/BusinessStrategy').then(m => ({ default: m.BusinessStrategy })));
+const StrategicFramework = lazy(() => import('./components/StrategicFramework').then(m => ({ default: m.StrategicFramework })));
+const FloatingAssistant = lazy(() => import('./components/FloatingAssistant').then(m => ({ default: m.FloatingAssistant })));
+const AuthPage = lazy(() => import('./components/AuthPage').then(m => ({ default: m.AuthPage })));
+const Profile = lazy(() => import('./components/Profile').then(m => ({ default: m.Profile })));
+const AchievementToast = lazy(() => import('./components/AchievementToast').then(m => ({ default: m.AchievementToast })));
+const PwaInstallBanner = lazy(() => import('./components/PwaInstallBanner').then(m => ({ default: m.PwaInstallBanner })));
+
+const LoadingSpinner = () => (
+  <div className="flex items-center justify-center min-h-[400px] w-full">
+    <div className="w-12 h-12 border-4 border-blue-500/20 border-t-blue-500 rounded-full animate-spin" />
+  </div>
+);
 
 const App: React.FC = () => {
   const [activePage, setActivePage] = useState<PageId>('home');
@@ -31,6 +40,7 @@ const App: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(pb.authStore.isValid);
   const [isConceptModalOpen, setIsConceptModalOpen] = useState(false);
   const [isPromptLibraryModalOpen, setIsPromptLibraryModalOpen] = useState(false);
+  const [isBlueprintOpen, setIsBlueprintOpen] = useState(false);
   const [isToastVisible, setIsToastVisible] = useState(false);
 
   const lessonSequence: PageId[] = ['ailevels', 'prompting', 'notebooklm', 'aistudio', 'deployment'];
@@ -85,7 +95,11 @@ const App: React.FC = () => {
   };
 
   if (!isAuthenticated) {
-    return <AuthPage language={language} onLanguageChange={setLanguage} />;
+    return (
+      <Suspense fallback={<LoadingSpinner />}>
+        <AuthPage language={language} onLanguageChange={setLanguage} />
+      </Suspense>
+    );
   }
 
   const completedLessons = user?.completed_lessons || [];
@@ -110,74 +124,93 @@ const App: React.FC = () => {
               onStart={() => setActivePage('curriculum')} 
               onOpenConcept={() => setIsConceptModalOpen(true)}
               onOpenPromptLibrary={() => setIsPromptLibraryModalOpen(true)}
+              onOpenStrategyBlueprint={() => setIsBlueprintOpen(true)}
               language={language} 
             />
-            <StrategicFramework language={language} onStart={() => setActivePage('curriculum')} />
-            <BusinessStrategy language={language} />
+            <Suspense fallback={<LoadingSpinner />}>
+              <StrategicFramework 
+                language={language} 
+                onStart={() => setActivePage('curriculum')} 
+                onOpenStrategyBlueprint={() => setIsBlueprintOpen(true)}
+              />
+              <BusinessStrategy 
+                language={language} 
+                onOpenBlueprint={() => setIsBlueprintOpen(true)}
+              />
+            </Suspense>
           </div>
         )}
         
-        {activePage === 'curriculum' && (
-          <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <Curriculum language={language} completedLessons={completedLessons} />
-          </div>
-        )}
+        <Suspense fallback={<LoadingSpinner />}>
+          {activePage === 'curriculum' && (
+            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <Curriculum language={language} completedLessons={completedLessons} />
+            </div>
+          )}
+          
+          {activePage === 'ailevels' && (
+            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <AILevelsLecture language={language} onComplete={() => completeLesson('ailevels')} />
+            </div>
+          )}
 
-        {activePage === 'ailevels' && (
-          <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <AILevelsLecture language={language} onComplete={() => completeLesson('ailevels')} />
-          </div>
-        )}
+          {activePage === 'prompting' && (
+            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <PromptLecture language={language} onComplete={() => completeLesson('prompting')} />
+            </div>
+          )}
 
-        {activePage === 'prompting' && (
-          <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <PromptLecture language={language} onComplete={() => completeLesson('prompting')} />
-          </div>
-        )}
+          {activePage === 'notebooklm' && (
+            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <NotebookLecture language={language} onComplete={() => completeLesson('notebooklm')} />
+            </div>
+          )}
 
-        {activePage === 'notebooklm' && (
-          <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <NotebookLecture language={language} onComplete={() => completeLesson('notebooklm')} />
-          </div>
-        )}
+          {activePage === 'aistudio' && (
+            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <AIStudioLecture language={language} onComplete={() => completeLesson('aistudio')} />
+            </div>
+          )}
 
-        {activePage === 'aistudio' && (
-          <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <AIStudioLecture language={language} onComplete={() => completeLesson('aistudio')} />
-          </div>
-        )}
+          {activePage === 'deployment' && (
+            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <DeploymentLecture language={language} onComplete={() => completeLesson('deployment')} />
+            </div>
+          )}
 
-        {activePage === 'deployment' && (
-          <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <DeploymentLecture language={language} onComplete={() => completeLesson('deployment')} />
-          </div>
-        )}
-
-        {activePage === 'profile' && user && (
-          <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <Profile user={user} language={language} onLogout={handleLogout} />
-          </div>
-        )}
+          {activePage === 'profile' && user && (
+            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <Profile user={user} language={language} onLogout={handleLogout} />
+            </div>
+          )}
+        </Suspense>
       </main>
 
       <Footer />
-      <FloatingAssistant language={language} />
-      <AchievementToast 
-        isVisible={isToastVisible} 
-        onClose={() => setIsToastVisible(false)} 
-        language={language}
-      />
-      <PwaInstallBanner />
-      <ConceptModal 
-        isOpen={isConceptModalOpen} 
-        onClose={() => setIsConceptModalOpen(false)} 
-        language={language} 
-      />
-      <PromptLibraryModal 
-        isOpen={isPromptLibraryModalOpen} 
-        onClose={() => setIsPromptLibraryModalOpen(false)} 
-        language={language} 
-      />
+      <Suspense fallback={null}>
+        <FloatingAssistant language={language} />
+        <AchievementToast 
+          isVisible={isToastVisible} 
+          onClose={() => setIsToastVisible(false)} 
+          language={language}
+        />
+        <PwaInstallBanner />
+        <ConceptModal 
+          isOpen={isConceptModalOpen} 
+          onClose={() => setIsConceptModalOpen(false)} 
+          language={language} 
+        />
+        <PromptLibraryModal 
+          isOpen={isPromptLibraryModalOpen} 
+          onClose={() => setIsPromptLibraryModalOpen(false)} 
+          language={language} 
+        />
+        <StrategyBlueprintModal 
+          isOpen={isBlueprintOpen} 
+          onClose={() => setIsBlueprintOpen(false)} 
+          language={language} 
+        />
+      </Suspense>
     </div>
   );
 };

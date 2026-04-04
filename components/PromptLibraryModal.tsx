@@ -61,6 +61,7 @@ export const PromptLibraryModal: React.FC<PromptLibraryModalProps> = ({ isOpen, 
               </div>
               <button
                 onClick={onClose}
+                aria-label="Close prompt library modal"
                 className="p-2 hover:bg-white/5 rounded-full transition-colors"
                 id="close-prompt-modal"
               >
@@ -97,6 +98,7 @@ export const PromptLibraryModal: React.FC<PromptLibraryModalProps> = ({ isOpen, 
                 href="https://promptadvance.club/gemini-prompts"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Go to external Prompt Library"
                 className="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-2xl transition-all flex items-center justify-center gap-2 group shadow-lg shadow-blue-500/20 active:scale-[0.98]"
                 id="go-to-library-btn"
               >

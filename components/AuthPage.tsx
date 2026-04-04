@@ -131,15 +131,17 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
     <div className={`min-h-screen bg-black flex flex-col md:flex-row relative overflow-hidden ${language === 'my' ? 'myanmar-text' : ''}`}>
       {/* Language Switcher - Floating */}
       <div className="absolute top-6 right-6 z-50">
-        <div className="flex items-center bg-white/5 border border-white/10 rounded-lg p-0.5 backdrop-blur-md">
+        <div className="flex items-center bg-white/5 border border-white/10 rounded-lg p-0.5 backdrop-blur-md" role="group" aria-label="Language selector">
           <button 
             onClick={() => onLanguageChange('en')}
+            aria-label="Switch to English"
             className={`px-3 py-1 text-xs font-bold rounded-md transition-all ${language === 'en' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}
           >
             EN
           </button>
           <button 
             onClick={() => onLanguageChange('my')}
+            aria-label="Switch to Myanmar"
             className={`px-3 py-1 text-xs font-bold rounded-md transition-all ${language === 'my' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}
           >
             MM
@@ -281,6 +283,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
             <div className="absolute left-0 top-1/2 -translate-y-1/2 flex flex-col gap-4 opacity-20 group-hover/carousel:opacity-100 transition-opacity duration-300 z-20">
               <button 
                 onClick={(e) => { e.stopPropagation(); prevSlide(); }}
+                aria-label="Previous slide"
                 className="p-3 bg-white/5 hover:bg-blue-600/20 border border-white/10 hover:border-blue-500/50 rounded-full text-white/30 hover:text-blue-400 transition-all backdrop-blur-md"
               >
                 <ChevronLeft size={24} />
@@ -289,6 +292,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
             <div className="absolute right-0 top-1/2 -translate-y-1/2 flex flex-col gap-4 opacity-20 group-hover/carousel:opacity-100 transition-opacity duration-300 z-20">
               <button 
                 onClick={(e) => { e.stopPropagation(); nextSlide(); }}
+                aria-label="Next slide"
                 className="p-3 bg-white/5 hover:bg-blue-600/20 border border-white/10 hover:border-blue-500/50 rounded-full text-white/30 hover:text-blue-400 transition-all backdrop-blur-md"
               >
                 <ChevronRight size={24} />
@@ -372,10 +376,13 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
               </h2>
               
               {/* Segmented Toggle Tabs */}
-              <div className="flex p-1 bg-white/5 border border-white/10 rounded-2xl mb-2">
+              <div className="flex p-1 bg-white/5 border border-white/10 rounded-2xl mb-2" role="tablist">
                 <button
                   type="button"
                   onClick={() => setIsLogin(false)}
+                  role="tab"
+                  aria-selected={!isLogin}
+                  aria-label="Switch to Signup"
                   className={`flex-1 py-2.5 text-sm font-bold rounded-xl transition-all ${!isLogin ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/20' : 'text-gray-400 hover:text-gray-300'}`}
                 >
                   {t.auth.toggleSignup}
@@ -383,6 +390,9 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
                 <button
                   type="button"
                   onClick={() => setIsLogin(true)}
+                  role="tab"
+                  aria-selected={isLogin}
+                  aria-label="Switch to Login"
                   className={`flex-1 py-2.5 text-sm font-bold rounded-xl transition-all ${isLogin ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/20' : 'text-gray-400 hover:text-gray-300'}`}
                 >
                   {t.auth.toggleLogin}

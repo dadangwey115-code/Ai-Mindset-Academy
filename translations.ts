@@ -174,6 +174,10 @@ export const UI_STRINGS: Record<Language, any> = {
       agentSub: "Create persistent expert personas for auditing and training.",
       iterativeTitle: "Iterative Excellence",
       iterativeSub: "Optimization loops for the final 10% of quality.",
+      promptFrameworkTitle: "P.R.O.M.P.T. Framework",
+      promptFrameworkSub: "The identity-driven framework for system-level engineering and AI agents.",
+      comparisonTitle: "T-C-R-E-I vs. P.R.O.M.P.T.",
+      comparisonSub: "Choosing the right framework for your specific use case.",
       tcreiDetails: {
         title: "T-C-R-E-I Framework",
         task: { title: "Task", body: "Clearly define the objective." },
@@ -218,6 +222,23 @@ export const UI_STRINGS: Record<Language, any> = {
           { t: "Constraints", d: "Add strict 'no' and 'must' requirements." }
         ],
         hitl: { title: "Human in the Loop", body: "Always audit the output before implementation." }
+      },
+      promptFrameworkDetails: {
+        title: "P.R.O.M.P.T. Framework",
+        intro: "To move from trial-and-error to predictable excellence, we use the P.R.O.M.P.T. framework.",
+        persona: { title: "[P] Persona", body: "Assign a persona to filter generalized knowledge and access domain expertise." },
+        context: { title: "[R] Relevant Context", body: "Provide background to prevent incorrect assumptions about your tech stack or logic." },
+        objective: { title: "[O] Objective", body: "Explicit, action-oriented command using strong verbs like Write, Refactor, or Debug." },
+        manner: { title: "[M] Manner & Style", body: "Control tone, format (JSON, Markdown), and structure for system compatibility." },
+        parameters: { title: "[P] Parameters & Constraints", body: "Establish guardrails and tell the AI what NOT to do." },
+        test: { title: "[T] Test & Tweak", body: "Iterate based on initial output. Treat prompts like source code." }
+      },
+      comparisonDetails: {
+        title: "T-C-R-E-I vs. P.R.O.M.P.T.",
+        intro: "Both frameworks solve the same problem but approach it from different angles.",
+        tcrei: { title: "T-C-R-E-I", body: "Action-driven and iterative. Best for human-to-AI interaction, content creation, and workflow tools. Focuses on Examples." },
+        prompt: { title: "P.R.O.M.P.T.", body: "Identity-driven and boundary-focused. Best for system-level engineering and building AI agents. Focuses on Persona and Parameters." },
+        verdict: { title: "The Verdict", body: "Use T-C-R-E-I for quick problem solving. Use P.R.O.M.P.T. for autonomous agents or backend integrations." }
       }
     },
     notebooklm: {
@@ -569,6 +590,10 @@ export const UI_STRINGS: Record<Language, any> = {
       agentSub: "ကျွမ်းကျင်သူ အကြံပေးများ ဖန်တီး၍ အလုပ်များကို စစ်ဆေးခြင်း။",
       iterativeTitle: "Iterative Excellence (အဆင့်ဆင့် အချောသတ်ခြင်း)",
       iterativeSub: "ရလဒ် အကောင်းဆုံးဖြစ်ရန် ပြန်လည် ပြုပြင်တည်ဆောက်ခြင်း။",
+      promptFrameworkTitle: "P.R.O.M.P.T. Framework (စနစ်တကျ ညွှန်ကြားခြင်း နည်းလမ်း)",
+      promptFrameworkSub: "AI Agent များနှင့် စနစ်ပိုင်းဆိုင်ရာ တည်ဆောက်မှုများအတွက် အထူးပြု Framework ဖြစ်သည်။",
+      comparisonTitle: "T-C-R-E-I နှင့် P.R.O.M.P.T. နှိုင်းယှဉ်ချက်",
+      comparisonSub: "သင့်လုပ်ငန်းအတွက် အသင့်တော်ဆုံး နည်းလမ်းကို ရွေးချယ်ခြင်း။",
       tcreiDetails: {
         title: "T-C-R-E-I Framework အသေးစိတ်",
         task: { title: "Task (လုပ်ငန်း)", body: "တိကျသော ပန်းတိုင်ကို သတ်မှတ်ပါ။" },
@@ -613,6 +638,23 @@ export const UI_STRINGS: Record<Language, any> = {
           { t: "Constraints (ကန့်သတ်ချက်များ)", d: "မဖြစ်မနေ ပါရမည့် အချက်များနှင့် မလုပ်ရမည့် အချက်များကို သတ်မှတ်ပါ။" }
         ],
         hitl: { title: "Human in the Loop (လူသား၏ အခန်းကဏ္ဍ)", body: "AI ရလဒ်ကို လက်တွေ့မသုံးမီ အမြဲတမ်း ကိုယ်တိုင် စစ်ဆေးပါ။" }
+      },
+      promptFrameworkDetails: {
+        title: "P.R.O.M.P.T. Framework",
+        intro: "ခန့်မှန်းရုံမှသည် တိကျသော ရလဒ်များ ရရှိရန် P.R.O.M.P.T. framework ကို အသုံးပြုပါသည်။",
+        persona: { title: "[P] Persona (စရိုက်)", body: "AI အား ကျွမ်းကျင်သူ တစ်ဦးအဖြစ် သတ်မှတ်ပေးခြင်း ဖြစ်သည်။" },
+        context: { title: "[R] Relevant Context (နောက်ခံအချက်အလက်)", body: "လုပ်ငန်းစဉ်နှင့် ပတ်သက်သော အခြေအနေများကို ပေးခြင်း ဖြစ်သည်။" },
+        objective: { title: "[O] Objective (ပန်းတိုင်)", body: "တိကျသော လုပ်ဆောင်ချက် (ဥပမာ- ရေးသားပါ၊ ပြင်ဆင်ပါ) ကို ခိုင်းစေခြင်း ဖြစ်သည်။" },
+        manner: { title: "[M] Manner & Style (ပုံစံနှင့် ဟန်ပန်)", body: "ရလဒ်၏ လေသံနှင့် Format (ဥပမာ- JSON) ကို ထိန်းချုပ်ခြင်း ဖြစ်သည်။" },
+        parameters: { title: "[P] Parameters & Constraints (ကန့်သတ်ချက်များ)", body: "မလုပ်ရမည့် အချက်များနှင့် ဘောင်များကို သတ်မှတ်ပေးခြင်း ဖြစ်သည်။" },
+        test: { title: "[T] Test & Tweak (စမ်းသပ် ပြုပြင်ခြင်း)", body: "ရလဒ်ကို ကြည့်၍ ပြန်လည် အချောသတ်ခြင်း ဖြစ်သည်။" }
+      },
+      comparisonDetails: {
+        title: "T-C-R-E-I vs. P.R.O.M.P.T.",
+        intro: "နည်းလမ်း နှစ်ခုလုံးသည် အဖြေကောင်းရရန် ဖြစ်သော်လည်း အသုံးပြုပုံ ကွဲပြားပါသည်။",
+        tcrei: { title: "T-C-R-E-I", body: "လူသားနှင့် AI အပြန်အလှန် ပြောဆိုမှု၊ Content ဖန်တီးမှုများအတွက် အကောင်းဆုံး ဖြစ်သည်။" },
+        prompt: { title: "P.R.O.M.P.T.", body: "AI Agent များ တည်ဆောက်ခြင်းနှင့် စနစ်ပိုင်းဆိုင်ရာ ချိတ်ဆက်မှုများအတွက် အကောင်းဆုံး ဖြစ်သည်။" },
+        verdict: { title: "အနှစ်ချုပ်", body: "သာမန် အလုပ်များအတွက် T-C-R-E-I ကို သုံးပါ။ အထူးပြု AI စနစ်များအတွက် P.R.O.M.P.T. ကို သုံးပါ။" }
       }
     },
     notebooklm: {

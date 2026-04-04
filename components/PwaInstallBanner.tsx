@@ -110,6 +110,7 @@ export const PwaInstallBanner: React.FC = () => {
               {!isIos && installPrompt && (
                 <button
                   onClick={handleInstallClick}
+                  aria-label="Install AI Mindset Academy App"
                   className="bg-blue-600 hover:bg-blue-500 text-white px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-colors"
                 >
                   <Download size={14} />
@@ -119,6 +120,7 @@ export const PwaInstallBanner: React.FC = () => {
               
               <button
                 onClick={handleDismiss}
+                aria-label="Dismiss install banner"
                 className="p-1.5 text-gray-500 hover:text-white transition-colors"
               >
                 <X size={18} />

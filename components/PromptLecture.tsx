@@ -47,6 +47,8 @@ export const PromptLecture: React.FC<{ language: Language; onComplete: () => Pro
     }
   };
   const [showTcreiModal, setShowTcreiModal] = useState(false);
+  const [showPromptFrameworkModal, setShowPromptFrameworkModal] = useState(false);
+  const [showComparisonModal, setShowComparisonModal] = useState(false);
   const [showChainingModal, setShowChainingModal] = useState(false);
   const [showLogicModal, setShowLogicModal] = useState(false);
   const [showAgentsModal, setShowAgentsModal] = useState(false);
@@ -160,6 +162,75 @@ export const PromptLecture: React.FC<{ language: Language; onComplete: () => Pro
                       <p className="text-gray-300 text-sm leading-relaxed">{pillar.v}</p>
                     </div>
                   ))}
+                </div>
+              </section>
+
+              {/* P.R.O.M.P.T. Framework Section */}
+              <section className="mb-24">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-indigo-600/20 rounded-xl flex items-center justify-center text-indigo-500">
+                      <ShieldCheck size={24} />
+                    </div>
+                    <h2 className={`text-3xl font-bold text-white ${isMy ? 'leading-myanmar' : ''}`}>{t.promptFrameworkTitle}</h2>
+                  </div>
+                  <button 
+                    onClick={() => setShowPromptFrameworkModal(true)}
+                    className="flex items-center gap-2 px-6 py-2.5 bg-indigo-600/10 hover:bg-indigo-600 text-indigo-400 hover:text-white border border-indigo-500/20 rounded-xl font-bold transition-all group shrink-0"
+                  >
+                    <Info size={18} />
+                    {isMy ? 'အသေးစိတ်လေ့လာရန်' : 'Learn More'}
+                    <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                  </button>
+                </div>
+                <p className="text-gray-300 mb-10 leading-relaxed">{t.promptFrameworkSub}</p>
+                <div className="grid sm:grid-cols-3 gap-4">
+                  {['Persona', 'Relevant Context', 'Objective', 'Manner', 'Parameters', 'Test'].map((step, i) => (
+                    <div key={i} className="bg-white/5 border border-white/10 p-6 rounded-2xl">
+                      <h4 className="text-indigo-500 font-bold mb-2 uppercase tracking-widest text-sm">{step}</h4>
+                      <p className="text-gray-400 text-xs leading-relaxed">
+                        {i === 0 && (isMy ? 'AI အား ကျွမ်းကျင်သူ တစ်ဦးအဖြစ် သတ်မှတ်ပေးခြင်း။' : 'Assign a specific expert identity.')}
+                        {i === 1 && (isMy ? 'လုပ်ငန်းစဉ်နှင့် ပတ်သက်သော အခြေအနေများကို ပေးခြင်း။' : 'Set the background stage.')}
+                        {i === 2 && (isMy ? 'တိကျသော လုပ်ဆောင်ချက်ကို ခိုင်းစေခြင်း။' : 'Define the explicit task.')}
+                        {i === 3 && (isMy ? 'ရလဒ်၏ လေသံနှင့် Format ကို ထိန်းချုပ်ခြင်း။' : 'Control tone and format.')}
+                        {i === 4 && (isMy ? 'မလုပ်ရမည့် အချက်များနှင့် ဘောင်များကို သတ်မှတ်ခြင်း။' : 'Establish strict guardrails.')}
+                        {i === 5 && (isMy ? 'ရလဒ်ကို ကြည့်၍ ပြန်လည် အချောသတ်ခြင်း။' : 'Iterate and refine.')}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              {/* Comparison Section */}
+              <section className="mb-24">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-amber-600/20 rounded-xl flex items-center justify-center text-amber-500">
+                      <RefreshCcw size={24} />
+                    </div>
+                    <h2 className={`text-3xl font-bold text-white ${isMy ? 'leading-myanmar' : ''}`}>{t.comparisonTitle}</h2>
+                  </div>
+                  <button 
+                    onClick={() => setShowComparisonModal(true)}
+                    className="flex items-center gap-2 px-6 py-2.5 bg-amber-600/10 hover:bg-amber-600 text-amber-400 hover:text-white border border-amber-500/20 rounded-xl font-bold transition-all group shrink-0"
+                  >
+                    <Info size={18} />
+                    {isMy ? 'အသေးစိတ်လေ့လာရန်' : 'Learn More'}
+                    <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                  </button>
+                </div>
+                <p className="text-gray-300 mb-10 leading-relaxed">{t.comparisonSub}</p>
+                <div className="bg-zinc-900/50 border border-white/10 rounded-3xl p-8">
+                  <div className="grid md:grid-cols-2 gap-8">
+                    <div className="space-y-4">
+                      <h4 className="text-blue-500 font-bold uppercase tracking-widest text-sm">T-C-R-E-I</h4>
+                      <p className="text-gray-300 text-sm leading-relaxed">{t.comparisonDetails.tcrei.body}</p>
+                    </div>
+                    <div className="space-y-4">
+                      <h4 className="text-indigo-500 font-bold uppercase tracking-widest text-sm">P.R.O.M.P.T.</h4>
+                      <p className="text-gray-300 text-sm leading-relaxed">{t.comparisonDetails.prompt.body}</p>
+                    </div>
+                  </div>
                 </div>
               </section>
 
@@ -280,6 +351,62 @@ export const PromptLecture: React.FC<{ language: Language; onComplete: () => Pro
                 <div className="space-y-4"><h3 className="text-white font-bold text-xl flex items-center gap-3"><div className="w-8 h-8 rounded-lg bg-blue-600/20 flex items-center justify-center text-blue-500 text-sm">5</div>{t.tcreiDetails.iterate.title}</h3><p>{t.tcreiDetails.iterate.body}</p></div>
               </div>
               <div className="mt-10 pt-8 border-t border-white/5 text-center"><button onClick={() => setShowTcreiModal(false)} className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold transition-all shadow-lg shadow-blue-600/20">{isMy ? 'နားလည်ပါပြီ' : 'Got it!'}</button></div>
+            </div>
+          </div>
+        </div>
+      )}
+      {showPromptFrameworkModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-hidden">
+          <div className="absolute inset-0 bg-black/80 backdrop-blur-md animate-in fade-in duration-300" onClick={() => setShowPromptFrameworkModal(false)} />
+          <div className="relative w-full max-w-3xl bg-zinc-900 border border-white/10 rounded-[32px] shadow-2xl overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-4 duration-300">
+            <div className="flex items-center justify-between p-6 sm:p-8 border-b border-white/5 bg-white/[0.02]">
+              <div className="flex items-center gap-4 text-indigo-500"><div className="w-12 h-12 bg-indigo-600/20 rounded-2xl flex items-center justify-center"><ShieldCheck size={24} /></div><h2 className="text-2xl font-bold text-white">{t.promptFrameworkDetails.title}</h2></div>
+              <button onClick={() => setShowPromptFrameworkModal(false)} className="p-2 text-gray-400 hover:text-white bg-white/5 rounded-full transition-colors"><X size={24} /></button>
+            </div>
+            <div className="p-6 sm:p-8 max-h-[70vh] overflow-y-auto custom-scrollbar">
+              <div className={`space-y-8 text-gray-300 leading-relaxed ${isMy ? 'myanmar-text text-lg' : 'text-base'}`}>
+                <p className="text-xl text-white/90 font-medium italic">"{t.promptFrameworkDetails.intro}"</p>
+                <div className="space-y-6">
+                  <div className="space-y-4"><h3 className="text-white font-bold text-xl flex items-center gap-3"><div className="w-8 h-8 rounded-lg bg-indigo-600/20 flex items-center justify-center text-indigo-500 text-sm">P</div>{t.promptFrameworkDetails.persona.title}</h3><p>{t.promptFrameworkDetails.persona.body}</p></div>
+                  <div className="space-y-4"><h3 className="text-white font-bold text-xl flex items-center gap-3"><div className="w-8 h-8 rounded-lg bg-indigo-600/20 flex items-center justify-center text-indigo-500 text-sm">R</div>{t.promptFrameworkDetails.context.title}</h3><p>{t.promptFrameworkDetails.context.body}</p></div>
+                  <div className="space-y-4"><h3 className="text-white font-bold text-xl flex items-center gap-3"><div className="w-8 h-8 rounded-lg bg-indigo-600/20 flex items-center justify-center text-indigo-500 text-sm">O</div>{t.promptFrameworkDetails.objective.title}</h3><p>{t.promptFrameworkDetails.objective.body}</p></div>
+                  <div className="space-y-4"><h3 className="text-white font-bold text-xl flex items-center gap-3"><div className="w-8 h-8 rounded-lg bg-indigo-600/20 flex items-center justify-center text-indigo-500 text-sm">M</div>{t.promptFrameworkDetails.manner.title}</h3><p>{t.promptFrameworkDetails.manner.body}</p></div>
+                  <div className="space-y-4"><h3 className="text-white font-bold text-xl flex items-center gap-3"><div className="w-8 h-8 rounded-lg bg-indigo-600/20 flex items-center justify-center text-indigo-500 text-sm">P</div>{t.promptFrameworkDetails.parameters.title}</h3><p>{t.promptFrameworkDetails.parameters.body}</p></div>
+                  <div className="space-y-4"><h3 className="text-white font-bold text-xl flex items-center gap-3"><div className="w-8 h-8 rounded-lg bg-indigo-600/20 flex items-center justify-center text-indigo-500 text-sm">T</div>{t.promptFrameworkDetails.test.title}</h3><p>{t.promptFrameworkDetails.test.body}</p></div>
+                </div>
+              </div>
+              <div className="mt-10 pt-8 border-t border-white/5 text-center"><button onClick={() => setShowPromptFrameworkModal(false)} className="px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold transition-all shadow-lg shadow-indigo-600/20">{isMy ? 'နားလည်ပါပြီ' : 'Got it!'}</button></div>
+            </div>
+          </div>
+        </div>
+      )}
+      {showComparisonModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-hidden">
+          <div className="absolute inset-0 bg-black/80 backdrop-blur-md animate-in fade-in duration-300" onClick={() => setShowComparisonModal(false)} />
+          <div className="relative w-full max-w-3xl bg-zinc-900 border border-white/10 rounded-[32px] shadow-2xl overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-4 duration-300">
+            <div className="flex items-center justify-between p-6 sm:p-8 border-b border-white/5 bg-white/[0.02]">
+              <div className="flex items-center gap-4 text-amber-500"><div className="w-12 h-12 bg-amber-600/20 rounded-2xl flex items-center justify-center"><RefreshCcw size={24} /></div><h2 className="text-2xl font-bold text-white">{t.comparisonDetails.title}</h2></div>
+              <button onClick={() => setShowComparisonModal(false)} className="p-2 text-gray-400 hover:text-white bg-white/5 rounded-full transition-colors"><X size={24} /></button>
+            </div>
+            <div className="p-6 sm:p-8 max-h-[70vh] overflow-y-auto custom-scrollbar">
+              <div className={`space-y-8 text-gray-300 leading-relaxed ${isMy ? 'myanmar-text text-lg' : 'text-base'}`}>
+                <p className="text-xl text-white/90 font-medium italic">"{t.comparisonDetails.intro}"</p>
+                <div className="grid gap-6">
+                  <div className="p-6 bg-blue-600/5 border border-blue-500/20 rounded-2xl">
+                    <h3 className="text-blue-500 font-bold text-xl mb-3">{t.comparisonDetails.tcrei.title}</h3>
+                    <p>{t.comparisonDetails.tcrei.body}</p>
+                  </div>
+                  <div className="p-6 bg-indigo-600/5 border border-indigo-500/20 rounded-2xl">
+                    <h3 className="text-indigo-500 font-bold text-xl mb-3">{t.comparisonDetails.prompt.title}</h3>
+                    <p>{t.comparisonDetails.prompt.body}</p>
+                  </div>
+                  <div className="p-6 bg-amber-600/5 border border-amber-500/20 rounded-2xl">
+                    <h3 className="text-amber-500 font-bold text-xl mb-3">{t.comparisonDetails.verdict.title}</h3>
+                    <p className="font-medium text-white">{t.comparisonDetails.verdict.body}</p>
+                  </div>
+                </div>
+              </div>
+              <div className="mt-10 pt-8 border-t border-white/5 text-center"><button onClick={() => setShowComparisonModal(false)} className="px-8 py-3 bg-amber-600 hover:bg-amber-700 text-white rounded-xl font-bold transition-all shadow-lg shadow-amber-600/20">{isMy ? 'နားလည်ပါပြီ' : 'Got it!'}</button></div>
             </div>
           </div>
         </div>

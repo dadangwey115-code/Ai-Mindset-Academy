@@ -52,6 +52,7 @@ export const FloatingAssistant: React.FC<{ language: Language }> = ({ language }
       {/* Main Pulse Button */}
       <button 
         onClick={() => setIsOpen(!isOpen)}
+        aria-label={isOpen ? "Close AI Assistant Menu" : "Open AI Assistant Menu"}
         className={`w-16 h-16 rounded-full flex items-center justify-center transition-all duration-500 shadow-2xl ${
           isOpen ? 'bg-zinc-800 rotate-90 scale-90' : 'bg-blue-600 hover:scale-110 hover:bg-blue-700'
         } relative group`}

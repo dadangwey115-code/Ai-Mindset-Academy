@@ -4,7 +4,7 @@ import { Zap, BookOpen, Target, FileText, ExternalLink, ChevronRight, BrainCircu
 import { Language } from '../types';
 import { UI_STRINGS } from '../translations';
 
-export const BusinessStrategy: React.FC<{ language: Language }> = ({ language }) => {
+export const BusinessStrategy: React.FC<{ language: Language, onOpenBlueprint: () => void }> = ({ language, onOpenBlueprint }) => {
   const t = UI_STRINGS[language].sections;
   const s = UI_STRINGS[language].strategy;
   const isMy = language === 'my';
@@ -124,7 +124,10 @@ export const BusinessStrategy: React.FC<{ language: Language }> = ({ language })
                </div>
 
                <div className="mt-12 space-y-4">
-                  <button className="w-full py-5 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-bold transition-all shadow-xl shadow-blue-600/30 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3 group relative overflow-hidden">
+                  <button 
+                    onClick={onOpenBlueprint}
+                    className="w-full py-5 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-bold transition-all shadow-xl shadow-blue-600/30 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3 group relative overflow-hidden"
+                  >
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
                     <BrainCircuit size={20} />
                     {t.blueprintBtn}

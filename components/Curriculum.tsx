@@ -103,6 +103,7 @@ const CurriculumCard: React.FC<CurriculumCardProps> = ({
 
         <button 
           onClick={() => onLearnMore(module)}
+          aria-label={`Explore ${isMy ? titleMy : title} module`}
           className="relative overflow-hidden flex items-center justify-center gap-2 w-full py-4 bg-white/5 hover:bg-blue-600 text-white border border-white/10 hover:border-blue-500 rounded-2xl font-black transition-all duration-500 text-xs uppercase tracking-widest group/btn"
         >
           <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-500" />
@@ -227,6 +228,7 @@ export const Curriculum: React.FC<{ language: Language; completedLessons: string
                   href={driveLink}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Open Student Portal in Google Drive"
                   className="inline-flex items-center gap-3 px-10 py-5 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-black text-lg transition-all shadow-xl shadow-blue-600/30 hover:scale-[1.03] active:scale-95"
                 >
                   {res.btn}
@@ -240,6 +242,7 @@ export const Curriculum: React.FC<{ language: Language; completedLessons: string
             <div className="mb-8 flex justify-between items-center">
               <button 
                 onClick={() => setShowPillarQuiz(false)}
+                aria-label="Back to Lessons"
                 className="text-gray-400 hover:text-white flex items-center gap-2 text-sm font-bold uppercase tracking-widest"
               >
                 <PlayCircle className="w-5 h-5 rotate-180" />
@@ -275,6 +278,7 @@ export const Curriculum: React.FC<{ language: Language; completedLessons: string
               </div>
               <button 
                 onClick={() => setSelectedModule(null)}
+                aria-label="Close modal"
                 className="p-2 text-gray-400 hover:text-white bg-white/5 rounded-full transition-colors"
               >
                 <X size={24} />
@@ -306,6 +310,7 @@ export const Curriculum: React.FC<{ language: Language; completedLessons: string
               <div className="mt-10 pt-8 border-t border-white/5 text-center">
                 <button 
                   onClick={() => setSelectedModule(null)}
+                  aria-label="Close module details"
                   className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold transition-all shadow-lg shadow-blue-600/20"
                 >
                   {isMy ? 'နားလည်ပါပြီ' : 'Got it!'}

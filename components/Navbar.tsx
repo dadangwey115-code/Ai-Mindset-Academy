@@ -72,7 +72,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       <nav className="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            <div className="flex items-center gap-2 cursor-pointer" onClick={() => setActivePage('home')}>
+            <div className="flex items-center gap-2 cursor-pointer" onClick={() => setActivePage('home')} role="button" aria-label="Go to Home">
               <div className="bg-blue-600 p-1.5 rounded-lg">
                 <BrainCircuit className="text-white w-5 h-5 md:w-6 md:h-6" />
               </div>
@@ -95,6 +95,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                           setActiveSubMenu(null);
                         }
                       }}
+                      aria-label={item.subMenu ? `Toggle ${item.label} submenu` : `Go to ${item.label}`}
                       className={`px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 flex items-center gap-1 ${
                         activePage === item.id 
                         ? 'text-white bg-white/10' 
@@ -135,15 +136,17 @@ export const Navbar: React.FC<NavbarProps> = ({
                 ))}
               </div>
 
-              <div className="flex items-center bg-white/5 border border-white/10 rounded-lg p-0.5">
+              <div className="flex items-center bg-white/5 border border-white/10 rounded-lg p-0.5" role="group" aria-label="Language selector">
                 <button 
                   onClick={() => setLanguage('en')}
+                  aria-label="Switch to English"
                   className={`px-3 py-1 text-xs font-bold rounded-md transition-all ${language === 'en' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}
                 >
                   EN
                 </button>
                 <button 
                   onClick={() => setLanguage('my')}
+                  aria-label="Switch to Myanmar"
                   className={`px-3 py-1 text-xs font-bold rounded-md transition-all ${language === 'my' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}
                 >
                   MM
@@ -153,6 +156,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               {activePage !== 'home' && (
                 <button 
                   onClick={() => window.dispatchEvent(new CustomEvent('trigger-quiz'))}
+                  aria-label="Open Quiz"
                   className="flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-black transition-all shadow-lg shadow-emerald-600/20 animate-in zoom-in-95 duration-300"
                 >
                   <Sparkles size={14} className="animate-pulse" />
@@ -164,6 +168,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <div className="flex items-center gap-4 pl-4 border-l border-white/10 relative group" ref={dropdownRef}>
                   <button 
                     onClick={() => setActiveSubMenu(activeSubMenu === 'user' ? null : 'user')}
+                    aria-label="User menu"
                     className="flex flex-col items-end cursor-pointer hover:opacity-80 transition-opacity"
                   >
                     <div className="flex items-center gap-2">
@@ -220,15 +225,17 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             {/* Mobile Top Navbar */}
             <div className="md:hidden flex items-center gap-4">
-              <div className="flex items-center bg-white/5 border border-white/10 rounded-xl p-1">
+              <div className="flex items-center bg-white/5 border border-white/10 rounded-xl p-1" role="group" aria-label="Language selector">
                 <button 
                   onClick={() => setLanguage('en')}
+                  aria-label="Switch to English"
                   className={`px-4 py-2 min-h-[48px] text-xs font-bold rounded-lg transition-all ${language === 'en' ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/20' : 'text-gray-400 hover:text-white'}`}
                 >
                   EN
                 </button>
                 <button 
                   onClick={() => setLanguage('my')}
+                  aria-label="Switch to Myanmar"
                   className={`px-4 py-2 min-h-[48px] text-xs font-bold rounded-lg transition-all ${language === 'my' ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/20' : 'text-gray-400 hover:text-white'}`}
                 >
                   MM
@@ -252,6 +259,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   setActivePage(item.id as PageId);
                 }
               }}
+              aria-label={`Go to ${item.label}`}
               className={`flex flex-col items-center justify-center gap-1.5 w-full h-full min-h-[48px] transition-all relative ${
                 activePage === item.id 
                 ? 'text-blue-500' 
