@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
-import { CheckCircle2, PlayCircle, Award, X, ChevronRight, Info, FileText, ExternalLink, Library, Sparkles } from 'lucide-react';
+import { CheckCircle2, PlayCircle, Award, X, ChevronRight, Info, FileText, ExternalLink, Library, Sparkles, Circle } from 'lucide-react';
+import { motion } from 'motion/react';
 import { CURRICULUM_MODULES, PILLAR_QUIZ } from '../constants';
 import { CurriculumModule, Language } from '../types';
 import { UI_STRINGS } from '../translations';
@@ -19,41 +20,99 @@ const CurriculumCard: React.FC<CurriculumCardProps> = ({
   const module = { icon: Icon, title, titleMy, description, descriptionMy, points, pointsMy, ...rest };
 
   return (
-    <div className={`bg-white/5 border p-6 rounded-2xl hover:bg-white/[0.07] transition-all group h-full flex flex-col ${isCompleted ? 'border-emerald-500/50 bg-emerald-500/5' : 'border-white/10 hover:border-blue-500/30'}`}>
-      <div className="flex justify-between items-start mb-6">
-        <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-blue-500 group-hover:scale-110 transition-transform shrink-0 ${isCompleted ? 'bg-emerald-500/20 text-emerald-500' : 'bg-blue-600/20'}`}>
-          <Icon className="w-6 h-6" />
+    <motion.div 
+      whileHover={{ y: -10 }}
+      className={`relative overflow-hidden bg-white/[0.03] backdrop-blur-xl border p-8 rounded-[40px] transition-all duration-500 group h-full flex flex-col ${
+        isCompleted 
+        ? 'border-emerald-500/30 shadow-[0_0_40px_rgba(16,185,129,0.1)]' 
+        : 'border-white/10 hover:border-blue-500/50 hover:shadow-[0_0_50px_rgba(59,130,246,0.2)]'
+      }`}
+    >
+      {/* Glassmorphism highlight */}
+      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-white/[0.05] to-transparent pointer-events-none" />
+      
+      <div className="flex justify-between items-start mb-8 relative z-10">
+        <div className={`w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 ${
+          isCompleted 
+          ? 'bg-emerald-500/20 text-emerald-500 shadow-[0_0_20px_rgba(16,185,129,0.2)]' 
+          : 'bg-blue-600/20 text-blue-500 group-hover:bg-blue-600/30 shadow-[0_0_20px_rgba(59,130,246,0.1)]'
+        }`}>
+          <Icon className="w-8 h-8" />
         </div>
-        {isCompleted && (
-          <div className="flex items-center gap-1.5 px-3 py-1 bg-emerald-500/20 border border-emerald-500/30 rounded-full">
-            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
-            <span className="text-[10px] font-bold text-emerald-500 uppercase tracking-wider">
-              {isMy ? 'ပြီးစီးပါပြီ' : 'Completed'}
-            </span>
+        
+        {/* Progress Ring */}
+        <div className="relative w-14 h-14 flex items-center justify-center">
+          <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
+            <circle
+              cx="50"
+              cy="50"
+              r="40"
+              fill="transparent"
+              stroke="currentColor"
+              strokeWidth="8"
+              className="text-white/5"
+            />
+            <motion.circle
+              cx="50"
+              cy="50"
+              r="40"
+              fill="transparent"
+              stroke="currentColor"
+              strokeWidth="8"
+              strokeDasharray="251.2"
+              initial={{ strokeDashoffset: 251.2 }}
+              animate={{ strokeDashoffset: isCompleted ? 0 : 251.2 }}
+              transition={{ duration: 1.5, ease: "circOut" }}
+              strokeLinecap="round"
+              className={isCompleted ? "text-emerald-500" : "text-blue-500/20"}
+            />
+          </svg>
+          <div className="absolute inset-0 flex items-center justify-center">
+            {isCompleted ? (
+              <CheckCircle2 className="w-6 h-6 text-emerald-500 animate-in zoom-in duration-500" />
+            ) : (
+              <Circle className="w-6 h-6 text-white/10" />
+            )}
           </div>
-        )}
+        </div>
       </div>
-      <h3 className="text-xl font-bold text-white mb-1">{isMy ? titleMy : title}</h3>
-      <p className="text-blue-400 text-sm mb-4 font-medium">{isMy ? title : titleMy}</p>
-      <p className="text-gray-400 mb-6 leading-relaxed flex-grow">
-        {isMy ? descriptionMy : description}
-      </p>
-      <ul className="space-y-3 mb-8">
-        {(isMy ? pointsMy : points).map((point, idx) => (
-          <li key={idx} className="flex items-start gap-3 text-sm text-gray-300">
-            <CheckCircle2 className="w-4 h-4 text-blue-500 shrink-0 mt-0.5" />
-            {point}
-          </li>
-        ))}
-      </ul>
-      <button 
-        onClick={() => onLearnMore(module)}
-        className="flex items-center justify-center gap-2 w-full py-3 bg-white/5 hover:bg-blue-600 text-gray-300 hover:text-white border border-white/10 hover:border-blue-500 rounded-xl font-bold transition-all text-sm group/btn"
-      >
-        {isMy ? 'အသေးစိတ်လေ့လာရန်' : 'Learn More'}
-        <ChevronRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-      </button>
-    </div>
+
+      <div className="relative z-10 flex flex-col h-full">
+        <h3 className={`text-2xl font-black text-white mb-2 tracking-tight ${isMy ? 'leading-myanmar' : ''}`}>
+          {isMy ? titleMy : title}
+        </h3>
+        <div className="flex items-center gap-2 mb-6">
+           <div className="h-px w-6 bg-blue-500/50" />
+           <p className="text-blue-400 text-[10px] font-black uppercase tracking-[0.2em]">
+             {isMy ? title : titleMy}
+           </p>
+        </div>
+        
+        <p className={`text-gray-400 mb-8 leading-relaxed flex-grow text-sm ${isMy ? 'leading-myanmar' : ''}`}>
+          {isMy ? descriptionMy : description}
+        </p>
+
+        <div className="space-y-4 mb-10">
+          {(isMy ? pointsMy : points).slice(0, 3).map((point, idx) => (
+            <div key={idx} className="flex items-center gap-3 text-xs text-gray-500 group/item">
+              <div className="w-1.5 h-1.5 rounded-full bg-blue-500/30 group-hover/item:scale-150 group-hover/item:bg-blue-500 transition-all duration-300" />
+              <span className="group-hover/item:text-gray-300 transition-colors">{point}</span>
+            </div>
+          ))}
+        </div>
+
+        <button 
+          onClick={() => onLearnMore(module)}
+          className="relative overflow-hidden flex items-center justify-center gap-2 w-full py-4 bg-white/5 hover:bg-blue-600 text-white border border-white/10 hover:border-blue-500 rounded-2xl font-black transition-all duration-500 text-xs uppercase tracking-widest group/btn"
+        >
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-500" />
+          <span className="relative z-10 flex items-center gap-2">
+            {isMy ? 'အသေးစိတ်လေ့လာရန်' : 'Explore Module'}
+            <ChevronRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+          </span>
+        </button>
+      </div>
+    </motion.div>
   );
 };
 

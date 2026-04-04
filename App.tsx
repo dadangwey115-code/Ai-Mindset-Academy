@@ -85,7 +85,7 @@ const App: React.FC = () => {
   const completedLessons = user?.completed_lessons || [];
 
   return (
-    <div className={`min-h-screen bg-black text-gray-100 font-sans selection:bg-blue-500/30 selection:text-blue-200 scroll-smooth ${language === 'my' ? 'myanmar-text' : ''}`}>
+    <div className={`min-h-screen bg-black text-gray-100 selection:bg-blue-500/30 selection:text-blue-200 scroll-smooth ${language === 'my' ? 'myanmar-text antialiased' : 'font-sans'}`}>
       <Navbar 
         activePage={activePage} 
         setActivePage={setActivePage} 
