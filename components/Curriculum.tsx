@@ -116,6 +116,36 @@ const CurriculumCard: React.FC<CurriculumCardProps> = ({
   );
 };
 
+const CurriculumSkeleton: React.FC = () => (
+  <div className="relative overflow-hidden bg-white/[0.03] backdrop-blur-xl border border-white/10 p-8 rounded-[40px] h-full flex flex-col animate-pulse">
+    <div className="flex justify-between items-start mb-8">
+      <div className="w-16 h-16 rounded-2xl bg-white/5" />
+      <div className="w-14 h-14 rounded-full border-4 border-white/5" />
+    </div>
+    <div className="h-8 bg-white/10 rounded-lg w-3/4 mb-4" />
+    <div className="flex items-center gap-2 mb-6">
+      <div className="h-px w-6 bg-white/10" />
+      <div className="h-3 bg-white/5 rounded w-24" />
+    </div>
+    <div className="space-y-2 mb-8 flex-grow">
+      <div className="h-4 bg-white/5 rounded w-full" />
+      <div className="h-4 bg-white/5 rounded w-5/6" />
+      <div className="h-4 bg-white/5 rounded w-4/6" />
+    </div>
+    <div className="space-y-4 mb-10">
+      <div className="flex items-center gap-3">
+        <div className="w-1.5 h-1.5 rounded-full bg-white/10" />
+        <div className="h-3 bg-white/5 rounded w-32" />
+      </div>
+      <div className="flex items-center gap-3">
+        <div className="w-1.5 h-1.5 rounded-full bg-white/10" />
+        <div className="h-3 bg-white/5 rounded w-40" />
+      </div>
+    </div>
+    <div className="h-14 bg-white/5 rounded-2xl w-full" />
+  </div>
+);
+
 export const Curriculum: React.FC<{ language: Language; completedLessons: string[] }> = ({ language, completedLessons }) => {
   const t = UI_STRINGS[language].sections;
   const navT = UI_STRINGS[language].nav;
@@ -124,8 +154,14 @@ export const Curriculum: React.FC<{ language: Language; completedLessons: string
   const [showPillarQuiz, setShowPillarQuiz] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
   const [selectedModule, setSelectedModule] = useState<CurriculumModule | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    // Simulate loading state for perceived performance
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1200);
+
     const handleTriggerQuiz = () => setShowPillarQuiz(true);
     window.addEventListener('trigger-quiz', handleTriggerQuiz);
     
@@ -135,6 +171,7 @@ export const Curriculum: React.FC<{ language: Language; completedLessons: string
     window.addEventListener('scroll', handleScroll);
 
     return () => {
+      clearTimeout(timer);
       window.removeEventListener('trigger-quiz', handleTriggerQuiz);
       window.removeEventListener('scroll', handleScroll);
     };
@@ -153,15 +190,21 @@ export const Curriculum: React.FC<{ language: Language; completedLessons: string
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-              {CURRICULUM_MODULES.map((mod, i) => (
-                <CurriculumCard 
-                  key={i} 
-                  {...mod} 
-                  language={language} 
-                  onLearnMore={setSelectedModule}
-                  isCompleted={completedLessons.includes(mod.id)}
-                />
-              ))}
+              {isLoading ? (
+                [...Array(3)].map((_, i) => (
+                  <CurriculumSkeleton key={i} />
+                ))
+              ) : (
+                CURRICULUM_MODULES.map((mod, i) => (
+                  <CurriculumCard 
+                    key={i} 
+                    {...mod} 
+                    language={language} 
+                    onLearnMore={setSelectedModule}
+                    isCompleted={completedLessons.includes(mod.id)}
+                  />
+                ))
+              )}
             </div>
 
             {/* NEW PDF Resource Hub Section */}

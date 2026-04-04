@@ -15,6 +15,7 @@ import { Footer } from './components/Footer';
 import { FloatingAssistant } from './components/FloatingAssistant';
 import { AuthPage } from './components/AuthPage';
 import { Profile } from './components/Profile';
+import { AchievementToast } from './components/AchievementToast';
 import { PageId, Language, User } from './types';
 import pb from './services/pb';
 
@@ -27,6 +28,7 @@ const App: React.FC = () => {
   const [user, setUser] = useState<User | null>(pb.authStore.model as any);
   const [isAuthenticated, setIsAuthenticated] = useState(pb.authStore.isValid);
   const [isConceptModalOpen, setIsConceptModalOpen] = useState(false);
+  const [isToastVisible, setIsToastVisible] = useState(false);
 
   const lessonSequence: PageId[] = ['ailevels', 'prompting', 'notebooklm', 'aistudio', 'deployment'];
 
@@ -64,6 +66,7 @@ const App: React.FC = () => {
           completed_lessons: updatedCompleted
         });
         setUser(updatedUser as any);
+        setIsToastVisible(true);
       } catch (error) {
         console.error('Error updating progress:', error);
       }
@@ -97,7 +100,7 @@ const App: React.FC = () => {
         completedLessons={completedLessons}
       />
       
-      <main className="transition-all duration-500 ease-in-out">
+      <main className="transition-all duration-500 ease-in-out pb-20 md:pb-0">
         {activePage === 'home' && (
           <div className="animate-in fade-in duration-700">
             <Hero 
@@ -148,13 +151,18 @@ const App: React.FC = () => {
 
         {activePage === 'profile' && user && (
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <Profile user={user} language={language} />
+            <Profile user={user} language={language} onLogout={handleLogout} />
           </div>
         )}
       </main>
 
       <Footer />
       <FloatingAssistant language={language} />
+      <AchievementToast 
+        isVisible={isToastVisible} 
+        onClose={() => setIsToastVisible(false)} 
+        language={language}
+      />
       <ConceptModal 
         isOpen={isConceptModalOpen} 
         onClose={() => setIsConceptModalOpen(false)} 

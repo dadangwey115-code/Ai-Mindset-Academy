@@ -1,6 +1,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { Menu, X, BrainCircuit, Sparkles, Languages, ChevronDown, ExternalLink, LogIn, LogOut, User, Home, BookOpen } from 'lucide-react';
+import { motion } from 'motion/react';
 import { PageId, Language } from '../types';
 import { UI_STRINGS } from '../translations';
 
@@ -73,9 +74,9 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-2 cursor-pointer" onClick={() => setActivePage('home')}>
               <div className="bg-blue-600 p-1.5 rounded-lg">
-                <BrainCircuit className="text-white w-6 h-6" />
+                <BrainCircuit className="text-white w-5 h-5 md:w-6 md:h-6" />
               </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+              <span className="text-lg md:text-xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent truncate max-w-[150px] md:max-w-none">
                 AI Mindset Academy
               </span>
             </div>
@@ -233,101 +234,14 @@ export const Navbar: React.FC<NavbarProps> = ({
                   MM
                 </button>
               </div>
-              <button onClick={() => setIsOpen(!isOpen)} className="text-gray-400 hover:text-white transition-colors">
-                {isOpen ? <X size={24} /> : <Menu size={24} />}
-              </button>
             </div>
           </div>
         </div>
-
-        {/* Mobile Menu (Drawer) */}
-        {isOpen && (
-          <div className="md:hidden bg-black border-b border-white/10 animate-in slide-in-from-top duration-300">
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              {NAV_LINKS.map((item) => (
-                <div key={item.id}>
-                  <button
-                    onClick={() => { 
-                      if (item.subMenu) {
-                        setActiveSubMenu(activeSubMenu === item.id ? null : item.id);
-                      } else {
-                        setActivePage(item.id as PageId); 
-                        setIsOpen(false); 
-                      }
-                    }}
-                    className={`flex items-center justify-between w-full text-left px-3 py-2 rounded-md text-base font-medium transition-all ${
-                      activePage === item.id 
-                      ? 'text-white bg-white/10' 
-                      : 'text-gray-400 hover:text-white'
-                    }`}
-                  >
-                    {item.label}
-                    {item.subMenu && <ChevronDown size={18} className={`transition-transform duration-200 ${activeSubMenu === item.id ? 'rotate-180' : ''}`} />}
-                  </button>
-                  
-                  {item.subMenu && activeSubMenu === item.id && (
-                    <div className="pl-4 space-y-1 mt-1 mb-2">
-                      {item.subMenu.map((sub) => (
-                        <a
-                          key={sub.label}
-                          href={sub.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center justify-between w-full px-3 py-2 rounded-md text-sm font-medium text-gray-500 hover:text-white transition-all"
-                        >
-                          {sub.label}
-                          <ExternalLink size={14} />
-                        </a>
-                      ))}
-                      <button
-                        onClick={() => {
-                          setActivePage(item.id as PageId);
-                          setIsOpen(false);
-                          setActiveSubMenu(null);
-                        }}
-                        className="w-full text-left px-3 py-2 rounded-md text-sm font-medium text-blue-500 hover:text-blue-400"
-                      >
-                        Go to {item.label}
-                      </button>
-                    </div>
-                  )}
-                </div>
-              ))}
-              
-              <div className="pt-4 pb-2 px-3 border-t border-white/5 mt-2">
-                {!user && (
-                  <button
-                    onClick={() => {
-                      onLoginClick();
-                      setIsOpen(false);
-                    }}
-                    className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-white/5 hover:bg-white/10 text-white rounded-xl text-sm font-bold border border-white/10 transition-all"
-                  >
-                    <LogIn size={16} />
-                    {t.login} / {t.signup}
-                  </button>
-                )}
-                {user && (
-                  <button
-                    onClick={() => {
-                      onLogout();
-                      setIsOpen(false);
-                    }}
-                    className="w-full flex items-center gap-3 px-4 py-3 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-xl text-sm font-bold transition-all"
-                  >
-                    <LogOut size={16} />
-                    {t.logout}
-                  </button>
-                )}
-              </div>
-            </div>
-          </div>
-        )}
       </nav>
 
       {/* Mobile Bottom Navigation */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-t border-white/10 pb-[env(safe-area-inset-bottom)]">
-        <div className="flex items-center justify-around h-16">
+        <div className="flex items-center justify-around h-16 relative">
           {BOTTOM_NAV_ITEMS.map((item) => (
             <button
               key={item.id}
@@ -338,16 +252,29 @@ export const Navbar: React.FC<NavbarProps> = ({
                   setActivePage(item.id as PageId);
                 }
               }}
-              className={`flex flex-col items-center justify-center gap-1 w-full h-full transition-all ${
+              className={`flex flex-col items-center justify-center gap-1 w-full h-full transition-all relative ${
                 activePage === item.id 
                 ? 'text-blue-500' 
                 : 'text-gray-500 hover:text-gray-300'
               }`}
             >
-              <item.icon size={20} className={activePage === item.id ? 'animate-in zoom-in duration-300' : ''} />
-              <span className="text-[10px] font-bold uppercase tracking-tighter">{item.label}</span>
+              <div className="relative">
+                <item.icon size={20} className={activePage === item.id ? 'animate-in zoom-in duration-300 text-blue-400 drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]' : ''} />
+                {activePage === item.id && (
+                  <motion.div
+                    layoutId="activeGlow"
+                    className="absolute inset-0 bg-blue-500/20 blur-xl rounded-full"
+                  />
+                )}
+              </div>
+              <span className={`text-[10px] font-bold uppercase tracking-tighter transition-colors ${activePage === item.id ? 'text-blue-400 drop-shadow-[0_0_4px_rgba(59,130,246,0.3)]' : ''}`}>
+                {item.label}
+              </span>
               {activePage === item.id && (
-                <div className="absolute bottom-1 w-1 h-1 bg-blue-500 rounded-full shadow-[0_0_8px_rgba(59,130,246,0.5)]" />
+                <motion.div 
+                  layoutId="activeTab"
+                  className="absolute bottom-1 w-1 h-1 bg-blue-500 rounded-full shadow-[0_0_12px_rgba(59,130,246,0.8)]" 
+                />
               )}
             </button>
           ))}

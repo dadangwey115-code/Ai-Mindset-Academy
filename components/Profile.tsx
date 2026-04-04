@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { motion } from 'motion/react';
-import { Award, CheckCircle2, Lock, Download, Trophy, Star, Calendar, User as UserIcon } from 'lucide-react';
+import { Award, CheckCircle2, Lock, Download, Trophy, Star, Calendar, User as UserIcon, LogOut } from 'lucide-react';
 import { Language, User } from '../types';
 import { UI_STRINGS } from '../translations';
 import { CURRICULUM_MODULES } from '../constants';
@@ -10,9 +10,10 @@ import { jsPDF } from 'jspdf';
 interface ProfileProps {
   user: User;
   language: Language;
+  onLogout: () => void;
 }
 
-export const Profile: React.FC<ProfileProps> = ({ user, language }) => {
+export const Profile: React.FC<ProfileProps> = ({ user, language, onLogout }) => {
   const t = UI_STRINGS[language].profile;
   const completedLessons = user.completed_lessons || [];
   
@@ -213,7 +214,7 @@ export const Profile: React.FC<ProfileProps> = ({ user, language }) => {
                 <Calendar size={18} className="text-purple-400" />
                 Next Steps
               </h3>
-              <ul className="space-y-3 text-sm text-gray-400">
+              <ul className="space-y-3 text-sm text-gray-400 mb-6">
                 <li className="flex items-start gap-2">
                   <div className="w-1.5 h-1.5 rounded-full bg-purple-400 mt-1.5" />
                   Join the AI Mindset Community
@@ -227,6 +228,14 @@ export const Profile: React.FC<ProfileProps> = ({ user, language }) => {
                   Share your certificate on LinkedIn
                 </li>
               </ul>
+              
+              <button
+                onClick={onLogout}
+                className="w-full flex items-center justify-center gap-2 py-3 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-xl font-bold transition-all border border-red-500/20"
+              >
+                <LogOut size={18} />
+                {UI_STRINGS[language].nav.logout}
+              </button>
             </div>
           </div>
         </div>

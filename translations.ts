@@ -45,7 +45,7 @@ export const UI_STRINGS: Record<Language, any> = {
     },
     nav: {
       home: "Home",
-      curriculum: "Curriculum",
+      curriculum: "Courses",
       prompting: "Prompting",
       notebooklm: "NotebookLM",
       aistudio: "AI Studio",
@@ -56,6 +56,10 @@ export const UI_STRINGS: Record<Language, any> = {
       signup: "Sign Up",
       logout: "Logout",
       profile: "My Profile",
+    },
+    toast: {
+      congrats: "Congratulations!",
+      lessonCompleted: "Lesson Completed"
     },
     auth: {
       loginTitle: "Welcome Back",
@@ -420,7 +424,7 @@ export const UI_STRINGS: Record<Language, any> = {
     },
     nav: {
       home: "ပင်မစာမျက်နှာ",
-      curriculum: "သင်ရိုးညွှန်းတမ်း",
+      curriculum: "သင်တန်းများ",
       prompting: "Prompting (ညွှန်ကြားချက်ပေးခြင်း)",
       notebooklm: "NotebookLM (အချက်အလက်အခြေပြု AI)",
       aistudio: "AI Studio (ဖန်တီးမှုစတူဒီယို)",
@@ -750,6 +754,10 @@ export const UI_STRINGS: Record<Language, any> = {
       stats: "အကယ်ဒမီ စာရင်းဇယားများ",
       modulesCompleted: "ပြီးမြောက်သော သင်ခန်းစာများ",
       totalPoints: "ရရှိသော စုစုပေါင်းအမှတ်"
+    },
+    toast: {
+      congrats: "ဂုဏ်ယူပါတယ်!",
+      lessonCompleted: "သင်ခန်းစာ ပြီးမြောက်ပါပြီ"
     }
   }
 };
