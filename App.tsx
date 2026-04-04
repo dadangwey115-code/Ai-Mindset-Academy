@@ -16,6 +16,7 @@ import { FloatingAssistant } from './components/FloatingAssistant';
 import { AuthPage } from './components/AuthPage';
 import { Profile } from './components/Profile';
 import { AchievementToast } from './components/AchievementToast';
+import { PwaInstallBanner } from './components/PwaInstallBanner';
 import { PageId, Language, User } from './types';
 import pb from './services/pb';
 
@@ -163,6 +164,7 @@ const App: React.FC = () => {
         onClose={() => setIsToastVisible(false)} 
         language={language}
       />
+      <PwaInstallBanner />
       <ConceptModal 
         isOpen={isConceptModalOpen} 
         onClose={() => setIsConceptModalOpen(false)} 
