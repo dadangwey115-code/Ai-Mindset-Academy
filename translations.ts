@@ -15,9 +15,9 @@ export const UI_STRINGS: Record<Language, any> = {
       title: "Explore AI Answers",
       subtitle: "Understand the 'Why' behind the AI Mindset",
       tabs: {
-        teachers: "👨‍🏫 For Teachers",
-        parents: "🏠 For Parents",
-        business: "💼 For Business"
+        teachers: "Teachers",
+        parents: "Parents",
+        business: "Business"
       },
       sections: {
         teachers: [
@@ -432,12 +432,12 @@ export const UI_STRINGS: Record<Language, any> = {
       btnWatch: "ဗဟုသုတ ကြည့်ရှုရန်"
     },
     concept: {
-      title: "AI ၏ အဖြေများကို လေ့လာပါ",
+      title: "AI အမေးအဖြေ",
       subtitle: "AI Mindset ၏ နောက်ကွယ်မှ 'အကြောင်းရင်း' ကို နားလည်ပါ",
       tabs: {
-        teachers: "👨‍🏫 ဆရာ၊ ဆရာမများအတွက်",
-        parents: "🏠 မိဘများအတွက်",
-        business: "💼 စီးပွားရေးလုပ်ငန်းများအတွက်"
+        teachers: "ဆရာ",
+        parents: "မိဘ",
+        business: "လုပ်ငန်း"
       },
       sections: {
         teachers: [
