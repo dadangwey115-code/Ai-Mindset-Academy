@@ -379,6 +379,26 @@ export const UI_STRINGS: Record<Language, any> = {
       stats: "Academy Statistics",
       modulesCompleted: "Modules Completed",
       totalPoints: "Total Points Earned"
+    },
+    promptLibrary: {
+      title: "Prompt Library",
+      subtitle: "Access high-quality, pre-engineered prompts.",
+      btn: "Open Library",
+      modalTitle: "Mindful Prompting",
+      modalSub: "Pause. Think. Act.",
+      pause: {
+        title: "1. Pause (Before Copy)",
+        body: "Don't just copy blindly. Read the prompt structure. Understand the intent behind each instruction."
+      },
+      think: {
+        title: "2. Think (Before Paste)",
+        body: "How does this prompt fit your specific goal? What variables (Context, Task) do you need to adjust for your unique situation?"
+      },
+      act: {
+        title: "3. Act (Before Enter)",
+        body: "Paste, refine, and then hit enter. AI is your co-pilot, but you are the Director. Quality results require your final touch."
+      },
+      go: "Continue to Library"
     }
   },
   my: {
@@ -754,6 +774,26 @@ export const UI_STRINGS: Record<Language, any> = {
       stats: "အကယ်ဒမီ စာရင်းဇယားများ",
       modulesCompleted: "ပြီးမြောက်သော သင်ခန်းစာများ",
       totalPoints: "ရရှိသော စုစုပေါင်းအမှတ်"
+    },
+    promptLibrary: {
+      title: "Prompt Library (ညွှန်ကြားချက် စုစည်းမှု)",
+      subtitle: "စနစ်တကျ တည်ဆောက်ထားသော အရည်အသွေးမြင့် Prompt များကို ရယူပါ။",
+      btn: "Library သို့ သွားရန်",
+      modalTitle: "Mindful Prompting (သတိရှိသော ညွှန်ကြားချက်ပေးခြင်း)",
+      modalSub: "Pause. Think. Act. (ရပ်နားပါ။ စဉ်းစားပါ။ လုပ်ဆောင်ပါ။)",
+      pause: {
+        title: "၁။ Pause (Copy မကူးမီ ရပ်နားပါ)",
+        body: "မျက်စိမှိတ်ပြီး Copy မကူးပါနဲ့။ Prompt ရဲ့ တည်ဆောက်ပုံကို အရင်ဖတ်ပါ။ ညွှန်ကြားချက်တစ်ခုချင်းစီရဲ့ ရည်ရွယ်ချက်ကို နားလည်အောင် ကြိုးစားပါ။"
+      },
+      think: {
+        title: "၂။ Think (Paste မလုပ်မီ စဉ်းစားပါ)",
+        body: "ဒီ Prompt က သင့်ရဲ့ ပန်းတိုင်နဲ့ ဘယ်လို ကိုက်ညီသလဲ? သင့်ရဲ့ သီးခြားအခြေအနေအတွက် ဘယ်အချက်အလက် (Context, Task) တွေကို ပြင်ဆင်ဖို့ လိုမလဲ?"
+      },
+      act: {
+        title: "၃။ Act (Enter မနှိပ်မီ လုပ်ဆောင်ပါ)",
+        body: "Paste လုပ်ပါ၊ လိုအပ်တာတွေ ပြင်ဆင်ပါ၊ ပြီးမှ Enter နှိပ်ပါ။ AI က သင့်ရဲ့ လက်ထောက်သာဖြစ်ပြီး သင်ကသာ ညွှန်ကြားသူ (Director) ဖြစ်ပါတယ်။ အရည်အသွေးမြင့် ရလဒ်တွေရဖို့ သင့်ရဲ့ နောက်ဆုံးစစ်ဆေးမှု လိုအပ်ပါတယ်။"
+      },
+      go: "Library သို့ ဆက်သွားရန်"
     },
     toast: {
       congrats: "ဂုဏ်ယူပါတယ်!",

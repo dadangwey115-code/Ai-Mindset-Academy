@@ -12,10 +12,10 @@ export const Footer: React.FC = () => {
           <BrainCircuit className="text-blue-500 w-6 h-6" />
           <span className="text-2xl font-bold text-white tracking-tight">AI Mindset Academy</span>
         </div>
-        <p className="text-gray-500 text-sm max-w-md mx-auto leading-relaxed">
+        <p className="text-gray-400 text-sm max-w-md mx-auto leading-relaxed">
           Join the new class of leaders who don't fear automation, but harness it as the ultimate lever for human excellence.
         </p>
-        <div className="mt-10 flex flex-wrap justify-center gap-8 text-gray-400 text-sm font-medium">
+        <div className="mt-10 flex flex-wrap justify-center gap-8 text-gray-300 text-sm font-medium">
           <a href="#" className="hover:text-blue-500 transition-colors">Privacy Policy</a>
           <a href="#" className="hover:text-blue-500 transition-colors">Terms of Service</a>
           <a href="#" className="hover:text-blue-500 transition-colors">Support Center</a>

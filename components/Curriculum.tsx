@@ -88,13 +88,13 @@ const CurriculumCard: React.FC<CurriculumCardProps> = ({
            </p>
         </div>
         
-        <p className={`text-gray-400 mb-8 leading-relaxed flex-grow text-sm ${isMy ? 'leading-myanmar' : ''}`}>
+        <p className={`text-gray-300 mb-8 leading-relaxed flex-grow text-sm ${isMy ? 'leading-myanmar' : ''}`}>
           {isMy ? descriptionMy : description}
         </p>
 
         <div className="space-y-4 mb-10">
           {(isMy ? pointsMy : points).slice(0, 3).map((point, idx) => (
-            <div key={idx} className="flex items-center gap-3 text-xs text-gray-500 group/item">
+            <div key={idx} className="flex items-center gap-3 text-xs text-gray-400 group/item">
               <div className="w-1.5 h-1.5 rounded-full bg-blue-500/30 group-hover/item:scale-150 group-hover/item:bg-blue-500 transition-all duration-300" />
               <span className="group-hover/item:text-gray-300 transition-colors">{point}</span>
             </div>
@@ -186,7 +186,7 @@ export const Curriculum: React.FC<{ language: Language; completedLessons: string
           <div className="animate-in fade-in duration-500">
             <div className="text-center mb-16 relative">
               <h2 className="text-4xl font-bold text-white mb-4">{t.learningPath}</h2>
-              <p className="text-gray-400 max-w-2xl mx-auto">{t.learningPathSub}</p>
+              <p className="text-gray-300 max-w-2xl mx-auto">{t.learningPathSub}</p>
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
@@ -220,7 +220,7 @@ export const Curriculum: React.FC<{ language: Language; completedLessons: string
                 <h2 className={`text-3xl md:text-4xl font-black text-white mb-6 ${isMy ? 'leading-myanmar' : ''}`}>
                   {res.title}
                 </h2>
-                <p className="text-gray-400 text-lg leading-relaxed mb-10">
+                <p className="text-gray-300 text-lg leading-relaxed mb-10">
                   {res.sub}
                 </p>
                 <a 
@@ -240,7 +240,7 @@ export const Curriculum: React.FC<{ language: Language; completedLessons: string
             <div className="mb-8 flex justify-between items-center">
               <button 
                 onClick={() => setShowPillarQuiz(false)}
-                className="text-gray-500 hover:text-white flex items-center gap-2 text-sm font-bold uppercase tracking-widest"
+                className="text-gray-400 hover:text-white flex items-center gap-2 text-sm font-bold uppercase tracking-widest"
               >
                 <PlayCircle className="w-5 h-5 rotate-180" />
                 {isMy ? 'သင်ခန်းစာများသို့ ပြန်သွားရန်' : 'Back to Lessons'}
@@ -275,7 +275,7 @@ export const Curriculum: React.FC<{ language: Language; completedLessons: string
               </div>
               <button 
                 onClick={() => setSelectedModule(null)}
-                className="p-2 text-gray-500 hover:text-white bg-white/5 rounded-full transition-colors"
+                className="p-2 text-gray-400 hover:text-white bg-white/5 rounded-full transition-colors"
               >
                 <X size={24} />
               </button>

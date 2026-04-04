@@ -134,13 +134,13 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
         <div className="flex items-center bg-white/5 border border-white/10 rounded-lg p-0.5 backdrop-blur-md">
           <button 
             onClick={() => onLanguageChange('en')}
-            className={`px-3 py-1 text-xs font-bold rounded-md transition-all ${language === 'en' ? 'bg-blue-600 text-white' : 'text-gray-500 hover:text-white'}`}
+            className={`px-3 py-1 text-xs font-bold rounded-md transition-all ${language === 'en' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}
           >
             EN
           </button>
           <button 
             onClick={() => onLanguageChange('my')}
-            className={`px-3 py-1 text-xs font-bold rounded-md transition-all ${language === 'my' ? 'bg-blue-600 text-white' : 'text-gray-500 hover:text-white'}`}
+            className={`px-3 py-1 text-xs font-bold rounded-md transition-all ${language === 'my' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}
           >
             MM
           </button>
@@ -226,7 +226,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
                 className={`flex items-center gap-2 px-4 py-2 rounded-xl border transition-all duration-300 relative overflow-hidden group ${
                   currentCategory === idx 
                     ? 'bg-blue-600/20 border-blue-500/50 text-blue-400' 
-                    : 'bg-white/5 border-white/10 text-gray-500 hover:border-white/20 hover:text-white'
+                    : 'bg-white/5 border-white/10 text-gray-400 hover:border-white/20 hover:text-white'
                 }`}
               >
                 {cat.icon}
@@ -270,7 +270,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
                       <h3 className="text-xl font-bold text-white">{t.auth.carousel[currentSlide].title}</h3>
                     </div>
                   </div>
-                  <p className="text-xl text-gray-400 leading-relaxed max-w-md">
+                  <p className="text-xl text-gray-300 leading-relaxed max-w-md">
                     "{t.auth.carousel[currentSlide].description}"
                   </p>
                 </div>
@@ -296,7 +296,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
             </div>
 
             {/* Slide Counter */}
-            <div className="absolute bottom-4 right-4 text-[10px] font-mono text-gray-500 bg-black/20 px-2 py-1 rounded-md backdrop-blur-sm border border-white/5">
+            <div className="absolute bottom-4 right-4 text-[10px] font-mono text-gray-400 bg-black/20 px-2 py-1 rounded-md backdrop-blur-sm border border-white/5">
               {currentSlide % 5 + 1} / 5
             </div>
 
@@ -376,14 +376,14 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
                 <button
                   type="button"
                   onClick={() => setIsLogin(false)}
-                  className={`flex-1 py-2.5 text-sm font-bold rounded-xl transition-all ${!isLogin ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/20' : 'text-gray-500 hover:text-gray-300'}`}
+                  className={`flex-1 py-2.5 text-sm font-bold rounded-xl transition-all ${!isLogin ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/20' : 'text-gray-400 hover:text-gray-300'}`}
                 >
                   {t.auth.toggleSignup}
                 </button>
                 <button
                   type="button"
                   onClick={() => setIsLogin(true)}
-                  className={`flex-1 py-2.5 text-sm font-bold rounded-xl transition-all ${isLogin ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/20' : 'text-gray-500 hover:text-gray-300'}`}
+                  className={`flex-1 py-2.5 text-sm font-bold rounded-xl transition-all ${isLogin ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/20' : 'text-gray-400 hover:text-gray-300'}`}
                 >
                   {t.auth.toggleLogin}
                 </button>
@@ -407,7 +407,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
                     {t.auth.name}
                   </label>
                   <div className="relative group">
-                    <User className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-blue-500 transition-colors" size={18} />
+                    <User className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-blue-500 transition-colors" size={18} />
                     <input
                       type="text"
                       name="name"
@@ -426,7 +426,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
                   {t.auth.email}
                 </label>
                 <div className="relative group">
-                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-blue-500 transition-colors" size={18} />
+                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-blue-500 transition-colors" size={18} />
                   <input
                     type="email"
                     name="email"
@@ -463,7 +463,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
                     {t.auth.confirmPassword}
                   </label>
                   <div className="relative group">
-                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-blue-500 transition-colors" size={18} />
+                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-blue-500 transition-colors" size={18} />
                     <input
                       type="password"
                       name="passwordConfirm"

@@ -106,19 +106,19 @@ export const Profile: React.FC<ProfileProps> = ({ user, language, onLogout }) =>
             
             <div className="flex-1 text-center md:text-left">
               <h1 className="text-3xl font-bold text-white mb-2">{user.name || user.email.split('@')[0]}</h1>
-              <p className="text-gray-400 mb-6">{user.email}</p>
+              <p className="text-gray-300 mb-6">{user.email}</p>
               
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                 <div className="bg-white/5 border border-white/10 rounded-2xl p-4">
-                  <p className="text-[10px] uppercase tracking-wider text-gray-500 font-bold mb-1">{t.modulesCompleted}</p>
+                  <p className="text-[10px] uppercase tracking-wider text-gray-400 font-bold mb-1">{t.modulesCompleted}</p>
                   <p className="text-2xl font-black text-blue-400">{completedCount}/{totalModules}</p>
                 </div>
                 <div className="bg-white/5 border border-white/10 rounded-2xl p-4">
-                  <p className="text-[10px] uppercase tracking-wider text-gray-500 font-bold mb-1">{t.totalPoints}</p>
+                  <p className="text-[10px] uppercase tracking-wider text-gray-400 font-bold mb-1">{t.totalPoints}</p>
                   <p className="text-2xl font-black text-emerald-400">{completedCount * 100}</p>
                 </div>
                 <div className="hidden sm:block bg-white/5 border border-white/10 rounded-2xl p-4">
-                  <p className="text-[10px] uppercase tracking-wider text-gray-500 font-bold mb-1">Academy Rank</p>
+                  <p className="text-[10px] uppercase tracking-wider text-gray-400 font-bold mb-1">Academy Rank</p>
                   <p className="text-2xl font-black text-purple-400">
                     {progress === 100 ? 'Director' : progress >= 50 ? 'Strategist' : 'Learner'}
                   </p>
@@ -155,7 +155,7 @@ export const Profile: React.FC<ProfileProps> = ({ user, language, onLogout }) =>
                       <module.icon size={24} />
                     </div>
                     <div className="flex-1">
-                      <h3 className={`font-bold ${isCompleted ? 'text-white' : 'text-gray-400'}`}>
+                      <h3 className={`font-bold ${isCompleted ? 'text-white' : 'text-gray-300'}`}>
                         {language === 'my' ? module.titleMy : module.title}
                       </h3>
                       <p className="text-xs text-gray-500">

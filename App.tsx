@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { ConceptModal } from './components/ConceptModal';
+import { PromptLibraryModal } from './components/PromptLibraryModal';
 import { Curriculum } from './components/Curriculum';
 import { PromptLecture } from './components/PromptLecture';
 import { NotebookLecture } from './components/NotebookLecture';
@@ -29,6 +30,7 @@ const App: React.FC = () => {
   const [user, setUser] = useState<User | null>(pb.authStore.model as any);
   const [isAuthenticated, setIsAuthenticated] = useState(pb.authStore.isValid);
   const [isConceptModalOpen, setIsConceptModalOpen] = useState(false);
+  const [isPromptLibraryModalOpen, setIsPromptLibraryModalOpen] = useState(false);
   const [isToastVisible, setIsToastVisible] = useState(false);
 
   const lessonSequence: PageId[] = ['ailevels', 'prompting', 'notebooklm', 'aistudio', 'deployment'];
@@ -101,12 +103,13 @@ const App: React.FC = () => {
         completedLessons={completedLessons}
       />
       
-      <main className="transition-all duration-500 ease-in-out pb-20 md:pb-0">
+      <main className="transition-all duration-500 ease-in-out pb-24 md:pb-0 px-4 sm:px-6 lg:px-8">
         {activePage === 'home' && (
           <div className="animate-in fade-in duration-700">
             <Hero 
               onStart={() => setActivePage('curriculum')} 
               onOpenConcept={() => setIsConceptModalOpen(true)}
+              onOpenPromptLibrary={() => setIsPromptLibraryModalOpen(true)}
               language={language} 
             />
             <StrategicFramework language={language} onStart={() => setActivePage('curriculum')} />
@@ -168,6 +171,11 @@ const App: React.FC = () => {
       <ConceptModal 
         isOpen={isConceptModalOpen} 
         onClose={() => setIsConceptModalOpen(false)} 
+        language={language} 
+      />
+      <PromptLibraryModal 
+        isOpen={isPromptLibraryModalOpen} 
+        onClose={() => setIsPromptLibraryModalOpen(false)} 
         language={language} 
       />
     </div>

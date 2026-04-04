@@ -94,13 +94,13 @@ export const PwaInstallBanner: React.FC = () => {
               <h3 className="text-white font-bold text-sm truncate">AI Mindset Academy</h3>
               
               {isIos ? (
-                <div className="mt-1 text-gray-400 text-xs leading-tight">
+                <div className="mt-1 text-gray-300 text-xs leading-tight">
                   Tap <Share className="inline w-3 h-3 mx-0.5" /> then 
                   <span className="text-white font-medium mx-1">"Add to Home Screen"</span>
                   <PlusSquare className="inline w-3 h-3 mx-0.5" /> to install.
                 </div>
               ) : (
-                <p className="mt-1 text-gray-400 text-xs">
+                <p className="mt-1 text-gray-300 text-xs">
                   Install our app for a better experience and offline access.
                 </p>
               )}

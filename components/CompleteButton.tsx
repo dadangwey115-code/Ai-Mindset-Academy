@@ -39,19 +39,19 @@ export const CompleteButton: React.FC<CompleteButtonProps> = ({ onComplete, lang
       <button
         onClick={handleComplete}
         disabled={isSubmitting || !isUnlocked}
-        className={`group relative flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-500 hover:to-emerald-500 text-white rounded-2xl font-black text-xl transition-all shadow-2xl shadow-blue-600/20 hover:scale-[1.02] active:scale-95 disabled:opacity-30 disabled:grayscale disabled:cursor-not-allowed overflow-hidden ${!isUnlocked ? 'opacity-50' : ''}`}
+        className={`group relative flex items-center justify-center gap-3 px-8 sm:px-10 py-4 sm:py-5 min-h-[56px] sm:min-h-[64px] bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-500 hover:to-emerald-500 text-white rounded-2xl font-black text-lg sm:text-xl transition-all shadow-2xl shadow-blue-600/20 hover:scale-[1.02] active:scale-95 disabled:opacity-30 disabled:grayscale disabled:cursor-not-allowed overflow-hidden w-full sm:w-auto ${!isUnlocked ? 'opacity-50' : ''}`}
       >
         <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
         <div className="relative flex items-center gap-3">
           {isSubmitting ? (
-            <Loader2 className="w-6 h-6 animate-spin" />
+            <Loader2 className="w-5 h-5 sm:w-6 sm:h-6 animate-spin" />
           ) : (
-            <CheckCircle2 className="w-6 h-6" />
+            <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6" />
           )}
-          <span>
+          <span className="text-sm sm:text-base md:text-xl">
             {isMy ? 'သင်ခန်းစာပြီးစီးကြောင်းမှတ်သားပြီး ရှေ့ဆက်မည်' : 'Mark as Complete & Continue'}
           </span>
-          <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+          <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-1 transition-transform" />
         </div>
       </button>
     </div>

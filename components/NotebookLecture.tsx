@@ -75,7 +75,7 @@ export const NotebookLecture: React.FC<{ language: Language; onComplete: () => P
               <p className="text-xl text-blue-500 font-medium mb-8">
                 {t.subtitle}
               </p>
-              <p className="text-gray-400 text-lg leading-relaxed max-w-3xl mx-auto">
+              <p className="text-gray-300 text-lg leading-relaxed max-w-3xl mx-auto">
                 {t.intro}
               </p>
             </div>
@@ -89,7 +89,7 @@ export const NotebookLecture: React.FC<{ language: Language; onComplete: () => P
                   </div>
                   <h2 className={`text-3xl font-bold text-white ${isMy ? 'leading-myanmar' : ''}`}>{t.topicTitle}</h2>
                 </div>
-                <p className="text-gray-400 mb-10 leading-relaxed">{t.topicSub}</p>
+                <p className="text-gray-300 mb-10 leading-relaxed">{t.topicSub}</p>
                 
                 <div className="bg-zinc-900 border border-white/10 rounded-2xl overflow-hidden">
                   <table className="w-full text-left text-sm">
@@ -125,7 +125,7 @@ export const NotebookLecture: React.FC<{ language: Language; onComplete: () => P
                   </div>
                   <h2 className={`text-3xl font-bold text-white ${isMy ? 'leading-myanmar' : ''}`}>{t.formatTitle}</h2>
                 </div>
-                <p className="text-gray-400 mb-10 leading-relaxed">{t.formatSub}</p>
+                <p className="text-gray-300 mb-10 leading-relaxed">{t.formatSub}</p>
                 
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   {[
@@ -152,7 +152,7 @@ export const NotebookLecture: React.FC<{ language: Language; onComplete: () => P
                   </div>
                   <h2 className={`text-3xl font-bold text-white ${isMy ? 'leading-myanmar' : ''}`}>{t.auditTitle}</h2>
                 </div>
-                <p className="text-gray-400 mb-10 leading-relaxed">{t.auditSub}</p>
+                <p className="text-gray-300 mb-10 leading-relaxed">{t.auditSub}</p>
 
                 <div className="bg-zinc-900 border border-white/10 rounded-2xl overflow-hidden">
                    <div className="p-4 bg-zinc-800 text-xs font-bold text-gray-400 uppercase tracking-widest border-b border-white/5">The Source Validation Audit</div>
@@ -188,14 +188,14 @@ export const NotebookLecture: React.FC<{ language: Language; onComplete: () => P
                   </div>
                   <h2 className={`text-3xl font-bold text-white ${isMy ? 'leading-myanmar' : ''}`}>{t.filterTitle}</h2>
                 </div>
-                <p className="text-gray-400 mb-8 leading-relaxed">{t.filterSub}</p>
+                <p className="text-gray-300 mb-8 leading-relaxed">{t.filterSub}</p>
                 
                 <div className="bg-zinc-900 p-8 rounded-3xl border border-white/5 relative overflow-hidden group">
                    <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
                      <Filter size={80} />
                    </div>
                    <h3 className="text-lg font-bold text-white mb-4">The Logic of Isolation</h3>
-                   <p className="text-gray-400 text-sm leading-relaxed relative z-10">
+                   <p className="text-gray-300 text-sm leading-relaxed relative z-10">
                      {isMy ? "Notebook ထဲရှိ sources အားလုံးကို တပြိုင်တည်း မေးမြန်းခြင်းသည် 'noisy' results များကို ရရှိစေပါသည်။ သင့်မေးခွန်းနှင့် သက်ဆိုင်သော source ၂ ခု သို့မဟုတ် ၃ ခုကိုသာ check လုပ်၍ မေးမြန်းခြင်း (Surgical Control) က ပိုမိုတိကျသော အဖြေများကို ရရှိစေပါသည်။" : "Asking questions while all sources are active forces the system to synthesize from everything, creating vague results. Uncheck all sources and select only 2-3 relevant documents to turn your broad research into a high-precision sub-query."}
                    </p>
                 </div>
@@ -209,14 +209,14 @@ export const NotebookLecture: React.FC<{ language: Language; onComplete: () => P
                   </div>
                   <h2 className={`text-3xl font-bold text-white ${isMy ? 'leading-myanmar' : ''}`}>{t.synthesisTitle}</h2>
                 </div>
-                <p className="text-gray-400 mb-10 leading-relaxed">{t.synthesisSub}</p>
+                <p className="text-gray-300 mb-10 leading-relaxed">{t.synthesisSub}</p>
 
                 <div className="grid sm:grid-cols-2 gap-6">
                   <div className="bg-white/5 border border-white/10 p-8 rounded-3xl">
                     <h4 className="text-white font-bold mb-4 flex items-center gap-2">
                       <Youtube className="text-red-500" size={18} /> Audio Overviews
                     </h4>
-                    <p className="text-gray-400 text-xs leading-relaxed">
+                    <p className="text-gray-300 text-xs leading-relaxed">
                       Use "Debate" mode to illuminate conflicting perspectives rather than simple summaries.
                     </p>
                   </div>
@@ -224,7 +224,7 @@ export const NotebookLecture: React.FC<{ language: Language; onComplete: () => P
                     <h4 className="text-white font-bold mb-4 flex items-center gap-2">
                       <Layout className="text-blue-500" size={18} /> Professional Decks
                     </h4>
-                    <p className="text-gray-400 text-xs leading-relaxed">
+                    <p className="text-gray-300 text-xs leading-relaxed">
                       Generate infographics and structured slide decks using Nano Banana Pro technology.
                     </p>
                   </div>
@@ -242,7 +242,7 @@ export const NotebookLecture: React.FC<{ language: Language; onComplete: () => P
                         <CheckCircle2 className="text-blue-500 shrink-0" size={20} />
                         <div>
                           <span className="text-white font-bold text-sm block">{item.t}</span>
-                          <span className="text-gray-500 text-xs">{item.d}</span>
+                          <span className="text-gray-400 text-xs">{item.d}</span>
                         </div>
                       </li>
                     ))}
@@ -280,7 +280,7 @@ export const NotebookLecture: React.FC<{ language: Language; onComplete: () => P
             <div className="mb-8">
               <button 
                 onClick={() => setShowQuiz(false)}
-                className="text-gray-500 hover:text-white flex items-center gap-2 text-sm font-bold uppercase tracking-widest"
+                className="text-gray-400 hover:text-white flex items-center gap-2 text-sm font-bold uppercase tracking-widest"
               >
                 <Search className="w-5 h-5 rotate-180" />
                 {isMy ? 'သင်ခန်းစာသို့ ပြန်သွားရန်' : 'Back to Master Class'}

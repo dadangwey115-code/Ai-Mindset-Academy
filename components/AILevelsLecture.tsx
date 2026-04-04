@@ -176,7 +176,7 @@ export const AILevelsLecture: React.FC<{ language: Language; onComplete: () => P
           <div className="mb-8">
             <button 
               onClick={() => setShowQuiz(false)}
-              className="text-gray-500 hover:text-white flex items-center gap-2 text-sm font-bold uppercase tracking-widest"
+              className="text-gray-400 hover:text-white flex items-center gap-2 text-sm font-bold uppercase tracking-widest"
             >
               <Terminal className="w-5 h-5 rotate-180" />
               {t.backBtn}
@@ -206,7 +206,7 @@ export const AILevelsLecture: React.FC<{ language: Language; onComplete: () => P
           <h1 className={`text-4xl md:text-5xl font-extrabold text-white mb-6 ${isMy ? 'leading-myanmar' : 'leading-tight'}`}>
             {t.title}
           </h1>
-          <p className="text-gray-400 text-lg leading-relaxed max-w-3xl mx-auto">
+          <p className="text-gray-300 text-lg leading-relaxed max-w-3xl mx-auto">
             {t.intro}
           </p>
         </div>
@@ -242,11 +242,11 @@ export const AILevelsLecture: React.FC<{ language: Language; onComplete: () => P
                       : 'bg-zinc-900 border-white/10'
                   }`}>
                     <div className="flex items-center gap-4">
-                      <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ${activeStageId === stage.id ? 'bg-black' : 'bg-white/5 text-gray-500'}`}>
+                      <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ${activeStageId === stage.id ? 'bg-black' : 'bg-white/5 text-gray-400'}`}>
                         {activeStageId === stage.id ? stage.icon : React.cloneElement(stage.icon as React.ReactElement, { className: 'w-6 h-6' })}
                       </div>
                       <div>
-                        <p className={`text-[10px] font-bold uppercase tracking-widest ${activeStageId === stage.id ? stage.textColor : 'text-gray-500'}`}>
+                        <p className={`text-[10px] font-bold uppercase tracking-widest ${activeStageId === stage.id ? stage.textColor : 'text-gray-400'}`}>
                           {isMy ? stage.levelMy : stage.level}
                         </p>
                         <h3 className="text-base font-bold text-white mt-1">{isMy ? stage.titleMy : stage.title}</h3>
@@ -275,7 +275,7 @@ export const AILevelsLecture: React.FC<{ language: Language; onComplete: () => P
 
                 <div className="space-y-8 flex-grow">
                   <div>
-                    <h4 className="text-gray-500 text-[10px] font-bold uppercase tracking-widest mb-3">{t.howItWorks}</h4>
+                    <h4 className="text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-3">{t.howItWorks}</h4>
                     <p className="text-gray-200 text-lg leading-relaxed">{isMy ? activeStage.descriptionMy : activeStage.description}</p>
                   </div>
 
@@ -327,15 +327,15 @@ export const AILevelsLecture: React.FC<{ language: Language; onComplete: () => P
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
             <div className="bg-zinc-900 border border-white/10 rounded-3xl p-8 text-center hover:border-red-500/30 transition-colors group">
               <div className="text-4xl font-black text-red-500 mb-3 group-hover:scale-110 transition-transform">{isMy ? 'သန်း ၃၀၀' : '300M'}</div>
-              <p className="text-sm text-gray-400 leading-relaxed">{t.impact1}</p>
+              <p className="text-sm text-gray-300 leading-relaxed">{t.impact1}</p>
             </div>
             <div className="bg-zinc-900 border border-white/10 rounded-3xl p-8 text-center hover:border-emerald-500/30 transition-colors group">
               <div className="text-4xl font-black text-emerald-500 mb-3 group-hover:scale-110 transition-transform">{isMy ? '+ ၇၈ သန်း' : '+78M'}</div>
-              <p className="text-sm text-gray-400 leading-relaxed">{t.impact2}</p>
+              <p className="text-sm text-gray-300 leading-relaxed">{t.impact2}</p>
             </div>
             <div className="bg-zinc-900 border border-white/10 rounded-3xl p-8 text-center hover:border-blue-500/30 transition-colors group">
               <div className="text-4xl font-black text-blue-500 mb-3 group-hover:scale-110 transition-transform">{isMy ? '+ ၂၅%' : '+25%'}</div>
-              <p className="text-sm text-gray-400 leading-relaxed">{t.impact3}</p>
+              <p className="text-sm text-gray-300 leading-relaxed">{t.impact3}</p>
             </div>
           </div>
 

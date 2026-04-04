@@ -48,7 +48,7 @@ export const AchievementToast: React.FC<AchievementToastProps> = ({ isVisible, o
               <p className="text-white font-bold text-sm">
                 {t_en.lessonCompleted}
               </p>
-              <p className="text-gray-400 text-xs mt-0.5 myanmar-text">
+              <p className="text-gray-300 text-xs mt-0.5 myanmar-text">
                 {t_my.lessonCompleted}
               </p>
             </div>

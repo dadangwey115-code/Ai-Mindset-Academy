@@ -68,7 +68,7 @@ export const PromptLecture: React.FC<{ language: Language; onComplete: () => Pro
             <Terminal size={16} className="text-blue-500" />
             <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">{title}</span>
           </div>
-          <button onClick={copyToClipboard} className="text-gray-500 hover:text-white transition-colors">
+          <button onClick={copyToClipboard} className="text-gray-400 hover:text-white transition-colors">
             <Copy size={16} />
           </button>
         </div>
@@ -96,7 +96,7 @@ export const PromptLecture: React.FC<{ language: Language; onComplete: () => Pro
               <p className="text-xl text-blue-500 font-medium mb-8">
                 {t.subtitle}
               </p>
-              <p className="text-gray-400 text-lg leading-relaxed max-w-3xl mx-auto">
+              <p className="text-gray-300 text-lg leading-relaxed max-w-3xl mx-auto">
                 {t.intro}
               </p>
             </div>
@@ -115,7 +115,7 @@ export const PromptLecture: React.FC<{ language: Language; onComplete: () => Pro
                     </div>
                     <div className="text-center md:text-left flex-1">
                       <h3 className="text-2xl font-bold text-white mb-2">{ast.promptName}</h3>
-                      <p className="text-gray-400 text-sm leading-relaxed max-w-lg">
+                      <p className="text-gray-300 text-sm leading-relaxed max-w-lg">
                         {isMy 
                           ? "ဤ Gem ကို အသုံးပြု၍ Google ၏ အခြေခံကျောက်တိုင် ၅ ခုအတိုင်း ပိုမိုတိကျသော Prompt များကို ဖန်တီးပါ။" 
                           : "Launch this specialized Gemini Gem to help you architect perfect prompts using the T-C-R-E-I framework."}
@@ -145,14 +145,14 @@ export const PromptLecture: React.FC<{ language: Language; onComplete: () => Pro
                   </div>
                   <button 
                     onClick={() => setShowTcreiModal(true)}
-                    className="flex items-center gap-2 px-6 py-2.5 bg-blue-600/10 hover:bg-blue-600 text-blue-500 hover:text-white border border-blue-500/20 rounded-xl font-bold transition-all group shrink-0"
+                    className="flex items-center gap-2 px-6 py-2.5 bg-blue-600/10 hover:bg-blue-600 text-blue-400 hover:text-white border border-blue-500/20 rounded-xl font-bold transition-all group shrink-0"
                   >
                     <Info size={18} />
                     {isMy ? 'အသေးစိတ်လေ့လာရန်' : 'Learn More'}
                     <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
                   </button>
                 </div>
-                <p className="text-gray-400 mb-10 leading-relaxed">{t.pillarSub}</p>
+                <p className="text-gray-300 mb-10 leading-relaxed">{t.pillarSub}</p>
                 <div className="grid sm:grid-cols-2 gap-4">
                   {[{k:'Task',v:isMy?'AI အား မည်သည့်အရာကို တိကျစွာ လုပ်ဆောင်ပေးရန် ညွှန်ကြားချက် ပေးခြင်း။':'The foundational logic gate for neural path selection.'},{k:'Context',v:isMy?'အခြေအနေနှင့် နောက်ခံအချက်အလက်များကို ပြည့်စုံစွာ ပေးခြင်း။':'Background data that eliminates hallucinated guessing.'},{k:'Reference',v:isMy?'စံနမူနာများ သို့မဟုတ် ဖိုင်များကို ပြသ၍ AI ၏ အရည်အသွေးကို ထိန်းညှိခြင်း။':'Concrete examples or files establishing the target standard.'},{k:'Evaluate',v:isMy?'ရလဒ်သည် သတ်မှတ်ချက်နှင့် ကိုက်ညီမှုရှိမရှိ စစ်ဆေးခြင်း။':'Verification that output aligns with project requirements.'},{k:'Iterate',v:isMy?'အဖြေပိုကောင်းရန် ပြန်လည်ပြုပြင် တည်ဆောက်ခြင်း။':'Optimization loop to refine initial performance.'}].map((pillar, i) => (
                     <div key={i} className="bg-white/5 border border-white/10 p-6 rounded-2xl">
@@ -175,7 +175,7 @@ export const PromptLecture: React.FC<{ language: Language; onComplete: () => Pro
                     <Info size={18} /> {isMy ? 'အသေးစိတ်လေ့လာရန်' : 'Learn More'} <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
                   </button>
                 </div>
-                <p className="text-gray-400 mb-10 leading-relaxed">{t.chainingSub}</p>
+                <p className="text-gray-300 mb-10 leading-relaxed">{t.chainingSub}</p>
                 <div className="space-y-4">
                    <div className="bg-zinc-900 p-6 rounded-2xl border-l-4 border-purple-500"><span className="text-xs font-bold text-purple-500 uppercase tracking-widest">Step 1: Discovery</span><p className="text-gray-300 mt-2 text-sm">Command AI to generate 10 potential names targeting your specific niche.</p></div>
                    <div className="bg-zinc-900 p-6 rounded-2xl border-l-4 border-purple-500"><span className="text-xs font-bold text-purple-500 uppercase tracking-widest">Step 2: Refinement</span><p className="text-gray-300 mt-2 text-sm">Select top concepts and generate taglines/value propositions for each.</p></div>
@@ -188,7 +188,7 @@ export const PromptLecture: React.FC<{ language: Language; onComplete: () => Pro
                   <div className="flex items-center gap-4"><div className="w-12 h-12 bg-cyan-600/20 rounded-xl flex items-center justify-center text-cyan-500"><GitBranch size={24} /></div><h2 className={`text-3xl font-bold text-white ${isMy ? 'leading-myanmar' : ''}`}>{t.logicTitle}</h2></div>
                   <button onClick={() => setShowLogicModal(true)} className="flex items-center gap-2 px-6 py-2.5 bg-cyan-600/10 hover:bg-cyan-600 text-cyan-500 hover:text-white border border-cyan-500/20 rounded-xl font-bold transition-all group shrink-0"><Info size={18} /> {isMy ? 'အသေးစိတ်လေ့လာရန်' : 'Learn More'} <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" /></button>
                 </div>
-                <p className="text-gray-400 mb-10 leading-relaxed">{t.logicSub}</p>
+                <p className="text-gray-300 mb-10 leading-relaxed">{t.logicSub}</p>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="bg-zinc-900 p-8 rounded-3xl border border-white/5 group">
                      <div className="flex items-center gap-3 mb-4"><div className="w-8 h-8 rounded-lg bg-cyan-500/20 flex items-center justify-center text-cyan-400 group-hover:scale-110 transition-transform"><Terminal size={18} /></div><h4 className="text-white font-bold">{isMy ? "Chain of Thought (CoT)" : "Chain of Thought (CoT)"}</h4></div>
@@ -205,7 +205,7 @@ export const PromptLecture: React.FC<{ language: Language; onComplete: () => Pro
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8"><div className="flex items-center gap-4"><div className="w-12 h-12 bg-emerald-600/20 rounded-xl flex items-center justify-center text-emerald-500"><Terminal size={24} /></div><h2 className={`text-3xl font-bold text-white ${isMy ? 'leading-myanmar' : ''}`}>{t.agentTitle}</h2></div>
                   <button onClick={() => setShowAgentsModal(true)} className="flex items-center gap-2 px-6 py-2.5 bg-emerald-600/10 hover:bg-emerald-600 text-emerald-500 hover:text-white border border-emerald-500/20 rounded-xl font-bold transition-all group shrink-0"><Info size={18} /> {isMy ? 'အသေးစိတ်လေ့လာရန်' : 'Learn More'} <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" /></button>
                 </div>
-                <p className="text-gray-400 mb-8 leading-relaxed">{t.agentSub}</p>
+                <p className="text-gray-300 mb-8 leading-relaxed">{t.agentSub}</p>
                 <AgentBlueprint title="Agent Blueprint: Interview Simulator" code={`[SYSTEM ROLE]: Senior Hiring Manager\n[CONTEXT]: I am applying for a Lead Project Manager role at a FinTech firm.\n[INSTRUCTION]: Interview me using behavioral questions one at a time. Do not provide feedback until the end.\n[STOP PHRASE]: Continue until I say "End Session."\n[POST-SESSION]: Once ended, provide a brutally honest critique of my answers and suggest 3 areas for improvement.`} />
               </section>
 
@@ -246,7 +246,7 @@ export const PromptLecture: React.FC<{ language: Language; onComplete: () => Pro
             <div className="mb-8">
               <button 
                 onClick={() => setShowQuiz(false)}
-                className="text-gray-500 hover:text-white flex items-center gap-2 text-sm font-bold uppercase tracking-widest"
+                className="text-gray-400 hover:text-white flex items-center gap-2 text-sm font-bold uppercase tracking-widest"
               >
                 <Terminal className="w-5 h-5 rotate-180" />
                 {isMy ? 'သင်ခန်းစာသို့ ပြန်သွားရန်' : 'Back to Master Class'}
@@ -269,7 +269,7 @@ export const PromptLecture: React.FC<{ language: Language; onComplete: () => Pro
           <div className="relative w-full max-w-3xl bg-zinc-900 border border-white/10 rounded-[32px] shadow-2xl overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-4 duration-300">
             <div className="flex items-center justify-between p-6 sm:p-8 border-b border-white/5 bg-white/[0.02]">
               <div className="flex items-center gap-4 text-blue-500"><div className="w-12 h-12 bg-blue-600/20 rounded-2xl flex items-center justify-center"><Layers size={24} /></div><h2 className="text-2xl font-bold text-white">{t.tcreiDetails.title}</h2></div>
-              <button onClick={() => setShowTcreiModal(false)} className="p-2 text-gray-500 hover:text-white bg-white/5 rounded-full transition-colors"><X size={24} /></button>
+              <button onClick={() => setShowTcreiModal(false)} className="p-2 text-gray-400 hover:text-white bg-white/5 rounded-full transition-colors"><X size={24} /></button>
             </div>
             <div className="p-6 sm:p-8 max-h-[70vh] overflow-y-auto custom-scrollbar">
               <div className={`space-y-8 text-gray-300 leading-relaxed ${isMy ? 'myanmar-text text-lg' : 'text-base'}`}>
@@ -290,7 +290,7 @@ export const PromptLecture: React.FC<{ language: Language; onComplete: () => Pro
           <div className="relative w-full max-w-3xl bg-zinc-900 border border-white/10 rounded-[32px] shadow-2xl overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-4 duration-300">
             <div className="flex items-center justify-between p-6 sm:p-8 border-b border-white/5 bg-white/[0.02]">
               <div className="flex items-center gap-4 text-purple-500"><div className="w-12 h-12 bg-purple-600/20 rounded-2xl flex items-center justify-center"><Layers3 size={24} /></div><h2 className="text-2xl font-bold text-white">{t.chainingDetails.title}</h2></div>
-              <button onClick={() => setShowChainingModal(false)} className="p-2 text-gray-500 hover:text-white bg-white/5 rounded-full transition-colors"><X size={24} /></button>
+              <button onClick={() => setShowChainingModal(false)} className="p-2 text-gray-400 hover:text-white bg-white/5 rounded-full transition-colors"><X size={24} /></button>
             </div>
             <div className="p-6 sm:p-8 max-h-[70vh] overflow-y-auto custom-scrollbar">
               <div className={`space-y-8 text-gray-300 leading-relaxed ${isMy ? 'myanmar-text text-lg' : 'text-base'}`}>
@@ -308,7 +308,7 @@ export const PromptLecture: React.FC<{ language: Language; onComplete: () => Pro
           <div className="relative w-full max-w-3xl bg-zinc-900 border border-white/10 rounded-[32px] shadow-2xl overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-4 duration-300">
             <div className="flex items-center justify-between p-6 sm:p-8 border-b border-white/5 bg-white/[0.02]">
               <div className="flex items-center gap-4 text-cyan-500"><div className="w-12 h-12 bg-cyan-600/20 rounded-2xl flex items-center justify-center"><GitBranch size={24} /></div><h2 className="text-2xl font-bold text-white">{t.logicDetails.title}</h2></div>
-              <button onClick={() => setShowLogicModal(false)} className="p-2 text-gray-500 hover:text-white bg-white/5 rounded-full transition-colors"><X size={24} /></button>
+              <button onClick={() => setShowLogicModal(false)} className="p-2 text-gray-400 hover:text-white bg-white/5 rounded-full transition-colors"><X size={24} /></button>
             </div>
             <div className="p-6 sm:p-8 max-h-[70vh] overflow-y-auto custom-scrollbar">
               <div className={`space-y-8 text-gray-300 leading-relaxed ${isMy ? 'myanmar-text text-lg' : 'text-base'}`}>
@@ -326,7 +326,7 @@ export const PromptLecture: React.FC<{ language: Language; onComplete: () => Pro
           <div className="relative w-full max-w-3xl bg-zinc-900 border border-white/10 rounded-[32px] shadow-2xl overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-4 duration-300">
             <div className="flex items-center justify-between p-6 sm:p-8 border-b border-white/5 bg-white/[0.02]">
               <div className="flex items-center gap-4 text-emerald-500"><div className="w-12 h-12 bg-emerald-600/20 rounded-2xl flex items-center justify-center"><Terminal size={24} /></div><h2 className="text-2xl font-bold text-white">{t.agentDetails.title}</h2></div>
-              <button onClick={() => setShowAgentsModal(false)} className="p-2 text-gray-500 hover:text-white bg-white/5 rounded-full transition-colors"><X size={24} /></button>
+              <button onClick={() => setShowAgentsModal(false)} className="p-2 text-gray-400 hover:text-white bg-white/5 rounded-full transition-colors"><X size={24} /></button>
             </div>
             <div className="p-6 sm:p-8 max-h-[70vh] overflow-y-auto custom-scrollbar">
               <div className={`space-y-8 text-gray-300 leading-relaxed ${isMy ? 'myanmar-text text-lg' : 'text-base'}`}>
@@ -344,7 +344,7 @@ export const PromptLecture: React.FC<{ language: Language; onComplete: () => Pro
           <div className="relative w-full max-w-3xl bg-zinc-900 border border-white/10 rounded-[32px] shadow-2xl overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-4 duration-300">
             <div className="flex items-center justify-between p-6 sm:p-8 border-b border-white/5 bg-white/[0.02]">
               <div className="flex items-center gap-4 text-orange-500"><div className="w-12 h-12 bg-orange-600/20 rounded-2xl flex items-center justify-center"><RefreshCcw size={24} /></div><h2 className="text-2xl font-bold text-white">{t.iterativeDetails.title}</h2></div>
-              <button onClick={() => setShowIterativeModal(false)} className="p-2 text-gray-500 hover:text-white bg-white/5 rounded-full transition-colors"><X size={24} /></button>
+              <button onClick={() => setShowIterativeModal(false)} className="p-2 text-gray-400 hover:text-white bg-white/5 rounded-full transition-colors"><X size={24} /></button>
             </div>
             <div className="p-6 sm:p-8 max-h-[70vh] overflow-y-auto custom-scrollbar">
               <div className={`space-y-8 text-gray-300 leading-relaxed ${isMy ? 'myanmar-text text-lg' : 'text-base'}`}>

@@ -98,7 +98,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       className={`px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 flex items-center gap-1 ${
                         activePage === item.id 
                         ? 'text-white bg-white/10' 
-                        : 'text-gray-400 hover:text-white hover:bg-white/5'
+                        : 'text-gray-300 hover:text-white hover:bg-white/5'
                       }`}
                     >
                       {item.label}
@@ -113,7 +113,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                             href={sub.href}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center justify-between px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-white/5 transition-colors"
+                            className="flex items-center justify-between px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
                           >
                             {sub.label}
                             <ExternalLink size={12} className="opacity-50" />
@@ -138,13 +138,13 @@ export const Navbar: React.FC<NavbarProps> = ({
               <div className="flex items-center bg-white/5 border border-white/10 rounded-lg p-0.5">
                 <button 
                   onClick={() => setLanguage('en')}
-                  className={`px-3 py-1 text-xs font-bold rounded-md transition-all ${language === 'en' ? 'bg-blue-600 text-white' : 'text-gray-500 hover:text-white'}`}
+                  className={`px-3 py-1 text-xs font-bold rounded-md transition-all ${language === 'en' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}
                 >
                   EN
                 </button>
                 <button 
                   onClick={() => setLanguage('my')}
-                  className={`px-3 py-1 text-xs font-bold rounded-md transition-all ${language === 'my' ? 'bg-blue-600 text-white' : 'text-gray-500 hover:text-white'}`}
+                  className={`px-3 py-1 text-xs font-bold rounded-md transition-all ${language === 'my' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}
                 >
                   MM
                 </button>
@@ -188,7 +188,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                           setActivePage('profile');
                           setActiveSubMenu(null);
                         }}
-                        className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-400 hover:text-white hover:bg-white/5 transition-colors"
+                        className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
                       >
                         <User size={16} />
                         {t.profile}
@@ -220,16 +220,16 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             {/* Mobile Top Navbar */}
             <div className="md:hidden flex items-center gap-4">
-              <div className="flex items-center bg-white/5 border border-white/10 rounded-lg p-0.5">
+              <div className="flex items-center bg-white/5 border border-white/10 rounded-xl p-1">
                 <button 
                   onClick={() => setLanguage('en')}
-                  className={`px-2 py-1 text-[10px] font-bold rounded-md transition-all ${language === 'en' ? 'bg-blue-600 text-white' : 'text-gray-500 hover:text-white'}`}
+                  className={`px-4 py-2 min-h-[48px] text-xs font-bold rounded-lg transition-all ${language === 'en' ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/20' : 'text-gray-400 hover:text-white'}`}
                 >
                   EN
                 </button>
                 <button 
                   onClick={() => setLanguage('my')}
-                  className={`px-2 py-1 text-[10px] font-bold rounded-md transition-all ${language === 'my' ? 'bg-blue-600 text-white' : 'text-gray-500 hover:text-white'}`}
+                  className={`px-4 py-2 min-h-[48px] text-xs font-bold rounded-lg transition-all ${language === 'my' ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/20' : 'text-gray-400 hover:text-white'}`}
                 >
                   MM
                 </button>
@@ -240,8 +240,8 @@ export const Navbar: React.FC<NavbarProps> = ({
       </nav>
 
       {/* Mobile Bottom Navigation */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-t border-white/10 pb-[env(safe-area-inset-bottom)]">
-        <div className="flex items-center justify-around h-16 relative">
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-xl border-t border-white/10 pb-[env(safe-area-inset-bottom)]">
+        <div className="flex items-center justify-around h-20 relative px-2">
           {BOTTOM_NAV_ITEMS.map((item) => (
             <button
               key={item.id}
@@ -252,10 +252,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                   setActivePage(item.id as PageId);
                 }
               }}
-              className={`flex flex-col items-center justify-center gap-1 w-full h-full transition-all relative ${
+              className={`flex flex-col items-center justify-center gap-1.5 w-full h-full min-h-[48px] transition-all relative ${
                 activePage === item.id 
                 ? 'text-blue-500' 
-                : 'text-gray-500 hover:text-gray-300'
+                : 'text-gray-400 hover:text-gray-200'
               }`}
             >
               <div className="relative">
