@@ -239,6 +239,16 @@ export const UI_STRINGS: Record<Language, any> = {
         tcrei: { title: "T-C-R-E-I", body: "Action-driven and iterative. Best for human-to-AI interaction, content creation, and workflow tools. Focuses on Examples." },
         prompt: { title: "P.R.O.M.P.T.", body: "Identity-driven and boundary-focused. Best for system-level engineering and building AI agents. Focuses on Persona and Parameters." },
         verdict: { title: "The Verdict", body: "Use T-C-R-E-I for quick problem solving. Use P.R.O.M.P.T. for autonomous agents or backend integrations." }
+      },
+      intentSection: {
+        title: "Intent-Based Prompting",
+        subtitle: "The Core Philosophy of Effective AI Communication",
+        prompting: "Prompting is what you say.",
+        context: "Context is what you know.",
+        intent: "Intent is what you want.",
+        focus: "Focus on the goal, not just the words.",
+        learnMore: "Learn More",
+        url: "https://intent-architect.mindset-it.online/"
       }
     },
     notebooklm: {
@@ -655,6 +665,16 @@ export const UI_STRINGS: Record<Language, any> = {
         tcrei: { title: "T-C-R-E-I", body: "လူသားနှင့် AI အပြန်အလှန် ပြောဆိုမှု၊ Content ဖန်တီးမှုများအတွက် အကောင်းဆုံး ဖြစ်သည်။" },
         prompt: { title: "P.R.O.M.P.T.", body: "AI Agent များ တည်ဆောက်ခြင်းနှင့် စနစ်ပိုင်းဆိုင်ရာ ချိတ်ဆက်မှုများအတွက် အကောင်းဆုံး ဖြစ်သည်။" },
         verdict: { title: "အနှစ်ချုပ်", body: "သာမန် အလုပ်များအတွက် T-C-R-E-I ကို သုံးပါ။ အထူးပြု AI စနစ်များအတွက် P.R.O.M.P.T. ကို သုံးပါ။" }
+      },
+      intentSection: {
+        title: "Intent-Based Prompting",
+        subtitle: "ထိရောက်သော AI ဆက်သွယ်မှု၏ အဓိက ဒဿန",
+        prompting: "Prompting (ညွှန်ကြားခြင်း) ဆိုသည်မှာ သင်ပြောဆိုလိုက်သော အရာဖြစ်သည်။",
+        context: "Context (အခြေအနေ) ဆိုသည်မှာ သင်သိရှိထားသော အရာဖြစ်သည်။",
+        intent: "Intent (ရည်ရွယ်ချက်) ဆိုသည်မှာ သင်အမှန်တကယ် လိုလားသောအရာဖြစ်သည်။",
+        focus: "စကားလုံးများထက် ပန်းတိုင်ကိုသာ အဓိက အာရုံစိုက်ပါ။",
+        learnMore: "အသေးစိတ်လေ့လာရန်",
+        url: "https://intent-architect.mindset-it.online/"
       }
     },
     notebooklm: {

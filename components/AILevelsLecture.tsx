@@ -129,7 +129,7 @@ export const AILevelsLecture: React.FC<{ language: Language; onComplete: () => P
   const content = {
     en: {
       tag: "The Future is Here",
-      title: <>The <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Five Levels</span> of AI & Future Roadmap</>,
+      title: <>The <span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Five Levels</span> of AI & Future Roadmap</>,
       intro: "In June 2024, Ilya Sutskever left OpenAI and founded a new company with $3 billion to safely build 'Level 5 AI'. Currently, we are only at Level 2. Let's explore what lies ahead.",
       stagesTitle: "AI Progression Levels",
       howItWorks: "How it Works",
@@ -148,7 +148,7 @@ export const AILevelsLecture: React.FC<{ language: Language; onComplete: () => P
     },
     my: {
       tag: "The Future is Here",
-      title: <>ဉာဏ်ရည်တု၏ <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">အဆင့်ငါးဆင့်</span> နှင့်<br />အနာဂတ် ခရီးစဉ်</>,
+      title: <>ဉာဏ်ရည်တု၏ <span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">အဆင့်ငါးဆင့်</span> နှင့်<br />အနာဂတ် ခရီးစဉ်</>,
       intro: "၂၀၂၄ ဇွန်လတွင် Ilya Sutskever သည် OpenAI မှထွက်ခွာပြီး \"အဆင့် (၅) ဉာဏ်ရည်တု\" ကို ဘေးကင်းစွာတည်ဆောက်ရန် $3 ဘီလီယံဖြင့် ကုမ္ပဏီသစ်ထောင်ခဲ့သည်။ လက်ရှိတွင် ကျွန်ုပ်တို့သည် အဆင့် (၂) ၌သာ ရှိနေသေးသည်။ ရှေ့ဆက်ဘာတွေဖြစ်လာမလဲ စူးစမ်းကြည့်ရအောင်။",
       stagesTitle: "AI တိုးတက်မှု အဆင့်များ",
       howItWorks: "အလုပ်လုပ်ပုံ",

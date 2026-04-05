@@ -207,7 +207,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
                 return (
                   <React.Fragment key={i}>
                     {i === 1 ? (
-                      <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+                      <span className="inline-block bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
                         {part}{punctuation}
                       </span>
                     ) : (

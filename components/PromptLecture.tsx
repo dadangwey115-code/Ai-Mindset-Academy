@@ -281,10 +281,68 @@ export const PromptLecture: React.FC<{ language: Language; onComplete: () => Pro
               </section>
 
               <section className="mb-24">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8"><div className="flex items-center gap-4"><div className="w-12 h-12 bg-orange-600/20 rounded-xl flex items-center justify-center text-orange-500"><ShieldAlert size={24} /></div><h2 className={`text-3xl font-bold text-white ${isMy ? 'leading-myanmar' : ''}`}>{t.iterativeTitle}</h2></div>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-orange-600/20 rounded-xl flex items-center justify-center text-orange-500"><ShieldAlert size={24} /></div><h2 className={`text-3xl font-bold text-white ${isMy ? 'leading-myanmar' : ''}`}>{t.iterativeTitle}</h2></div>
                   <button onClick={() => setShowIterativeModal(true)} className="flex items-center gap-2 px-6 py-2.5 bg-orange-600/10 hover:bg-orange-600 text-orange-500 hover:text-white border border-orange-500/20 rounded-xl font-bold transition-all group shrink-0"><Info size={18} /> {isMy ? 'အသေးစိတ်လေ့လာရန်' : 'Learn More'} <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" /></button>
                 </div>
                 <div className="bg-white/5 border border-white/10 p-8 rounded-[32px]"><h3 className="text-xl font-bold text-white mb-6">Metaprompting: The Architect’s Cheat Code</h3><div className="bg-zinc-950 p-6 rounded-2xl border border-white/5 font-mono text-sm text-orange-400 italic">"I am trying to achieve [Outcome]. Analyze my current prompt and identify what context or specificity I am missing to get a Tier-1 result. Suggest a revised version."</div></div>
+              </section>
+
+              {/* Intent-Based Prompting Section */}
+              <section className="mb-24">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-pink-600/20 rounded-xl flex items-center justify-center text-pink-500">
+                      <Sparkles size={24} />
+                    </div>
+                    <h2 className={`text-3xl font-bold text-white ${isMy ? 'leading-myanmar' : ''}`}>{t.intentSection.title}</h2>
+                  </div>
+                  <a 
+                    href={t.intentSection.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-6 py-2.5 bg-pink-600/10 hover:bg-pink-600 text-pink-400 hover:text-white border border-pink-500/20 rounded-xl font-bold transition-all group shrink-0"
+                  >
+                    <ExternalLink size={18} />
+                    {t.intentSection.learnMore}
+                    <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                  </a>
+                </div>
+                <p className="text-gray-300 mb-10 leading-relaxed">{t.intentSection.subtitle}</p>
+                
+                <div className="grid sm:grid-cols-2 gap-6">
+                  <div className="bg-zinc-900/50 border border-white/10 p-8 rounded-3xl relative overflow-hidden group">
+                    <div className="absolute -right-4 -bottom-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                      <Terminal size={120} />
+                    </div>
+                    <h4 className="text-pink-500 font-bold uppercase tracking-widest text-xs mb-4">The Definition</h4>
+                    <ul className="space-y-4">
+                      <li className="flex items-start gap-3">
+                        <div className="w-1.5 h-1.5 rounded-full bg-pink-500 mt-2 shrink-0" />
+                        <p className="text-gray-200 font-medium">{t.intentSection.prompting}</p>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <div className="w-1.5 h-1.5 rounded-full bg-pink-500 mt-2 shrink-0" />
+                        <p className="text-gray-200 font-medium">{t.intentSection.context}</p>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <div className="w-1.5 h-1.5 rounded-full bg-pink-500 mt-2 shrink-0" />
+                        <p className="text-gray-200 font-medium">{t.intentSection.intent}</p>
+                      </li>
+                    </ul>
+                  </div>
+                  
+                  <div className="bg-gradient-to-br from-pink-600/20 to-purple-600/20 border border-pink-500/30 p-8 rounded-3xl flex flex-col justify-center items-center text-center">
+                    <div className="w-16 h-16 bg-pink-500/20 rounded-2xl flex items-center justify-center text-pink-400 mb-6 border border-pink-500/20">
+                      <Brain size={32} />
+                    </div>
+                    <h3 className="text-2xl font-bold text-white mb-4">{isMy ? 'အဓိက ပန်းတိုင်' : 'The Golden Rule'}</h3>
+                    <p className="text-pink-100 text-lg font-medium leading-relaxed italic">
+                      "{t.intentSection.focus}"
+                    </p>
+                  </div>
+                </div>
               </section>
 
               {/* PDF DOWNLOAD SECTION */}

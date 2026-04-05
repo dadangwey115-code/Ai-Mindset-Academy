@@ -1,6 +1,6 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Menu, X, BrainCircuit, Sparkles, Languages, ChevronDown, ExternalLink, LogIn, LogOut, User, Home, BookOpen } from 'lucide-react';
+import { BrainCircuit, Sparkles, ChevronDown, LogIn, LogOut, User, Home, BookOpen } from 'lucide-react';
 import { motion } from 'motion/react';
 import { PageId, Language } from '../types';
 import { UI_STRINGS } from '../translations';
@@ -48,13 +48,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: 'home', label: t.home },
     { id: 'curriculum', label: t.curriculum },
     { id: 'ailevels', label: t.ailevels },
-    { 
-      id: 'prompting', 
-      label: t.prompting,
-      subMenu: [
-        { label: 'Intent Architect', href: 'https://intent-architect.mindset-it.online/' }
-      ]
-    },
+    { id: 'prompting', label: t.prompting },
     { id: 'notebooklm', label: t.notebooklm },
     { id: 'aistudio', label: t.aistudio },
     { id: 'deployment', label: t.deployment },
@@ -76,7 +70,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <div className="bg-blue-600 p-1.5 rounded-lg">
                 <BrainCircuit className="text-white w-5 h-5 md:w-6 md:h-6" />
               </div>
-              <span className="text-lg md:text-xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent truncate max-w-[150px] md:max-w-none">
+              <span className="inline-block text-lg md:text-xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent truncate max-w-[150px] md:max-w-none">
                 AI Mindset Academy
               </span>
             </div>
@@ -85,54 +79,21 @@ export const Navbar: React.FC<NavbarProps> = ({
             <div className="hidden md:flex items-center gap-8">
               <div className="flex items-baseline space-x-4">
                 {NAV_LINKS.map((item) => (
-                  <div key={item.id} className="relative group" ref={item.subMenu ? dropdownRef : null}>
-                    <button
-                      onClick={() => {
-                        if (item.subMenu) {
-                          setActiveSubMenu(activeSubMenu === item.id ? null : item.id);
-                        } else {
-                          setActivePage(item.id as PageId);
-                          setActiveSubMenu(null);
-                        }
-                      }}
-                      aria-label={item.subMenu ? `Toggle ${item.label} submenu` : `Go to ${item.label}`}
-                      className={`px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 flex items-center gap-1 ${
-                        activePage === item.id 
-                        ? 'text-white bg-white/10' 
-                        : 'text-gray-300 hover:text-white hover:bg-white/5'
-                      }`}
-                    >
-                      {item.label}
-                      {item.subMenu && <ChevronDown size={14} className={`transition-transform duration-200 ${activeSubMenu === item.id ? 'rotate-180' : ''}`} />}
-                    </button>
-
-                    {item.subMenu && activeSubMenu === item.id && (
-                      <div className="absolute left-0 mt-2 w-48 rounded-xl bg-zinc-900 border border-white/10 shadow-2xl py-2 animate-in fade-in slide-in-from-top-2 duration-200">
-                        {item.subMenu.map((sub) => (
-                          <a
-                            key={sub.label}
-                            href={sub.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center justify-between px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
-                          >
-                            {sub.label}
-                            <ExternalLink size={12} className="opacity-50" />
-                          </a>
-                        ))}
-                        <div className="mx-2 my-1 border-t border-white/5" />
-                        <button
-                          onClick={() => {
-                            setActivePage(item.id as PageId);
-                            setActiveSubMenu(null);
-                          }}
-                          className="w-full text-left px-4 py-2 text-sm text-blue-400 hover:text-blue-300 hover:bg-white/5 transition-colors"
-                        >
-                          Go to {item.label}
-                        </button>
-                      </div>
-                    )}
-                  </div>
+                  <button
+                    key={item.id}
+                    onClick={() => {
+                      setActivePage(item.id as PageId);
+                      setActiveSubMenu(null);
+                    }}
+                    aria-label={`Go to ${item.label}`}
+                    className={`px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 flex items-center gap-1 ${
+                      activePage === item.id 
+                      ? 'text-white bg-white/10' 
+                      : 'text-gray-300 hover:text-white hover:bg-white/5'
+                    }`}
+                  >
+                    {item.label}
+                  </button>
                 ))}
               </div>
 
