@@ -4,6 +4,7 @@ import { Mail, Lock, User, AlertCircle, Info, Loader2, BrainCircuit, GraduationC
 import pb from '../services/pb';
 import { UI_STRINGS } from '../translations';
 import { Language } from '../types';
+import { InstallPWAButton } from './InstallPWAButton';
 
 interface AuthPageProps {
   language: Language;
@@ -523,6 +524,14 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
                 )}
               </button>
             </form>
+
+            {/* PWA Install Button */}
+            <div className="mt-8 pt-8 border-t border-gray-200 dark:border-white/10 flex flex-col items-center gap-4">
+              <p className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em]">
+                {language === 'my' ? 'အက်ပ်အဖြစ် အသုံးပြုရန်' : 'Experience as an App'}
+              </p>
+              <InstallPWAButton language={language} />
+            </div>
           </div>
         </motion.div>
       </div>

@@ -8,8 +8,35 @@
 }
 
 @layer base {
+  html, body {
+    @apply h-full overflow-x-hidden;
+    /* Disable text selection for a native app feel */
+    user-select: none;
+    -webkit-user-select: none;
+    /* Disable tap highlight color on mobile */
+    -webkit-tap-highlight-color: transparent;
+    /* Smooth scrolling */
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-gray-50 text-gray-900 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-300;
+  }
+
+  /* Allow text selection in inputs and textareas */
+  input, textarea, [contenteditable="true"] {
+    user-select: text;
+    -webkit-user-select: text;
+  }
+
+  /* Hide default web scrollbars for a cleaner native look */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  
+  * {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
   }
 }
 
