@@ -10,7 +10,7 @@ export const Footer: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 text-center">
         <div className="flex items-center justify-center gap-2 mb-8">
           <BrainCircuit className="text-blue-500 w-6 h-6" />
-          <span className="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">AI Mindset Academy</span>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">AI Mindset Academy</h2>
         </div>
         <p className="text-gray-600 dark:text-gray-400 text-sm max-w-md mx-auto leading-relaxed">
           Join the new class of leaders who don't fear automation, but harness it as the ultimate lever for human excellence.

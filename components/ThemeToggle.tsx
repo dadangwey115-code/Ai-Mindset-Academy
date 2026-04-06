@@ -17,7 +17,7 @@ export function ThemeToggle() {
     <button
       onClick={cycleTheme}
       className="relative flex items-center justify-center w-11 h-11 rounded-xl bg-white/5 dark:bg-white/5 border border-white/10 hover:bg-white/10 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500/50"
-      aria-label="Toggle theme"
+      aria-label={`Switch theme (current: ${theme})`}
       title={`Current theme: ${theme}`}
     >
       <AnimatePresence mode="wait" initial={false}>

@@ -20,44 +20,43 @@ export const Hero: React.FC<HeroProps> = ({ onStart, onOpenConcept, onOpenPrompt
   const isMy = language === 'my';
   
   return (
-    <div className="relative pt-24 md:pt-32 pb-16 md:pb-20 overflow-hidden">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_center,rgba(37,99,235,0.15)_0,transparent_70%)] pointer-events-none" />
+    <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 text-center relative z-10">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs md:text-sm font-bold mb-8 animate-fade-in uppercase tracking-widest">
-          <Zap className="w-4 h-4" />
-          <span>{t.tag}</span>
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card glow-shadow mb-8 animate-fade-in">
+          <Zap className="w-4 h-4 text-indigo-500" />
+          <span className="text-xs md:text-sm font-black uppercase tracking-[0.3em] ai-gradient-text">{t.tag}</span>
         </div>
         <h1 className={`
-          ${isMy ? 'text-3xl sm:text-4xl md:text-6xl leading-myanmar' : 'text-4xl sm:text-5xl md:text-7xl leading-tight tracking-tight'} 
-          font-black text-gray-900 dark:text-white mb-6
+          ${isMy ? 'text-4xl sm:text-5xl md:text-7xl leading-myanmar' : 'text-5xl sm:text-6xl md:text-8xl leading-[0.9]'} 
+          font-black text-gray-900 dark:text-white mb-8
         `}>
           {t.title1}<br />
-          <span className="text-blue-500">{t.title2}</span>
+          <span className="ai-gradient-text">{t.title2}</span>
         </h1>
-        <p className={`max-w-2xl mx-auto text-base md:text-xl text-gray-600 dark:text-gray-300 mb-10 ${isMy ? 'leading-relaxed' : 'leading-relaxed'}`}>
+        <p className={`max-w-2xl mx-auto text-lg md:text-xl text-gray-600 dark:text-slate-300 mb-12 ${isMy ? 'leading-relaxed' : 'leading-relaxed'}`}>
           {t.subtitle}
         </p>
-        <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4 px-4 sm:px-0">
+        <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-6 px-4 sm:px-0">
           <button 
             onClick={onStart}
             aria-label="Start Learning Now"
-            className="w-full sm:w-auto px-10 py-4 min-h-[56px] bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-black text-lg flex items-center justify-center gap-3 transition-all hover:scale-105 active:scale-95 shadow-xl shadow-blue-600/30"
+            className="w-full sm:w-auto px-12 py-5 ai-gradient-bg text-white rounded-2xl font-black text-xl flex items-center justify-center gap-3 transition-all hover:scale-105 active:scale-95 glow-shadow"
           >
-            {t.btnStart} <ArrowRight className="w-5 h-5" />
+            {t.btnStart} <ArrowRight className="w-6 h-6" />
           </button>
           <button 
             onClick={onOpenStrategyBlueprint}
             aria-label="Get Full Strategy Blueprint"
-            className="w-full sm:w-auto px-10 py-4 min-h-[56px] bg-purple-600/10 hover:bg-purple-600/20 text-purple-400 border border-purple-500/20 rounded-2xl font-black text-lg flex items-center justify-center gap-3 transition-all hover:scale-105 active:scale-95 backdrop-blur-sm"
+            className="w-full sm:w-auto px-12 py-5 glass-card text-gray-900 dark:text-white rounded-2xl font-black text-xl flex items-center justify-center gap-3 transition-all hover:scale-105 active:scale-95"
           >
-            <Map className="w-5 h-5" /> {st.blueprintBtn}
+            <Map className="w-6 h-6 text-indigo-500" /> {st.blueprintBtn}
           </button>
           <button 
             onClick={onOpenConcept}
             aria-label="Watch Concept Video"
-            className="w-full sm:w-auto px-10 py-4 min-h-[56px] bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 text-gray-900 dark:text-white border border-gray-200 dark:border-white/10 rounded-2xl font-black text-lg flex items-center justify-center gap-3 transition-all hover:scale-105 active:scale-95 backdrop-blur-sm"
+            className="w-full sm:w-auto px-12 py-5 glass-card text-gray-900 dark:text-white rounded-2xl font-black text-xl flex items-center justify-center gap-3 transition-all hover:scale-105 active:scale-95"
           >
-            <Sparkles className="w-5 h-5 text-blue-400" /> {t.btnWatch}
+            <Sparkles className="w-6 h-6 ai-gradient-text" /> {t.btnWatch}
           </button>
         </div>
 
@@ -72,22 +71,22 @@ export const Hero: React.FC<HeroProps> = ({ onStart, onOpenConcept, onOpenPrompt
             <button
               onClick={onOpenPromptLibrary}
               aria-label="Open Prompt Library"
-              className="group relative w-full p-6 rounded-3xl bg-white dark:bg-gradient-to-br dark:from-zinc-900 dark:to-zinc-950 border border-gray-200 dark:border-white/10 hover:border-blue-500/50 transition-all duration-300 text-left overflow-hidden active:scale-[0.98] h-full shadow-sm dark:shadow-none"
+              className="group relative w-full p-8 rounded-[32px] glass-card hover:border-indigo-500/50 transition-all duration-500 text-left overflow-hidden active:scale-[0.98] h-full glow-shadow"
               id="hero-prompt-library-btn"
             >
-              <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
-                <Sparkles className="w-16 h-16 text-blue-500" />
+              <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
+                <Sparkles className="w-24 h-24 text-indigo-500" />
               </div>
               <div className="relative z-10 flex items-center gap-6">
-                <div className="p-4 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-400 group-hover:scale-110 transition-transform duration-300">
-                  <Zap className="w-8 h-8" />
+                <div className="p-5 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-500 group-hover:scale-110 transition-transform duration-500">
+                  <Zap className="w-10 h-10" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1 flex items-center gap-2">
+                  <h2 className="text-2xl font-black text-gray-900 dark:text-white mb-2 flex items-center gap-2">
                     {pt.title}
-                    <ArrowRight className="w-5 h-5 text-blue-500 group-hover:translate-x-1 transition-transform" />
-                  </h3>
-                  <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
+                    <ArrowRight className="w-6 h-6 text-indigo-500 group-hover:translate-x-2 transition-transform" />
+                  </h2>
+                  <p className="text-gray-600 dark:text-slate-400 text-sm leading-relaxed">
                     {pt.subtitle}
                   </p>
                 </div>
@@ -104,22 +103,22 @@ export const Hero: React.FC<HeroProps> = ({ onStart, onOpenConcept, onOpenPrompt
             <button
               onClick={onOpenStrategyBlueprint}
               aria-label="Open Strategy Blueprint"
-              className="group relative w-full p-6 rounded-3xl bg-white dark:bg-gradient-to-br dark:from-zinc-900 dark:to-zinc-950 border border-gray-200 dark:border-white/10 hover:border-purple-500/50 transition-all duration-300 text-left overflow-hidden active:scale-[0.98] h-full shadow-sm dark:shadow-none"
+              className="group relative w-full p-8 rounded-[32px] glass-card hover:border-purple-500/50 transition-all duration-500 text-left overflow-hidden active:scale-[0.98] h-full glow-shadow"
               id="hero-strategy-blueprint-btn"
             >
-              <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
-                <Briefcase className="w-16 h-16 text-purple-500" />
+              <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
+                <Briefcase className="w-24 h-24 text-purple-500" />
               </div>
               <div className="relative z-10 flex items-center gap-6">
-                <div className="p-4 rounded-2xl bg-purple-500/10 border border-purple-500/20 text-purple-400 group-hover:scale-110 transition-transform duration-300">
-                  <Shield className="w-8 h-8" />
+                <div className="p-5 rounded-2xl bg-purple-500/10 border border-purple-500/20 text-purple-500 group-hover:scale-110 transition-transform duration-500">
+                  <Shield className="w-10 h-10" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1 flex items-center gap-2">
+                  <h2 className="text-2xl font-black text-gray-900 dark:text-white mb-2 flex items-center gap-2">
                     {st.strategyHighlight}
-                    <ArrowRight className="w-5 h-5 text-purple-500 group-hover:translate-x-1 transition-transform" />
-                  </h3>
-                  <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
+                    <ArrowRight className="w-6 h-6 text-purple-500 group-hover:translate-x-2 transition-transform" />
+                  </h2>
+                  <p className="text-gray-600 dark:text-slate-400 text-sm leading-relaxed">
                     {st.blueprintBtn}
                   </p>
                 </div>
@@ -128,6 +127,6 @@ export const Hero: React.FC<HeroProps> = ({ onStart, onOpenConcept, onOpenPrompt
           </motion.div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };

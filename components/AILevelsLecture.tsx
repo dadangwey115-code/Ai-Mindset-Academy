@@ -129,7 +129,17 @@ export const AILevelsLecture: React.FC<{ language: Language; onComplete: () => P
   const content = {
     en: {
       tag: "The Future is Here",
-      title: <>The <span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Five Levels</span> of AI & Future Roadmap</>,
+      title: <>The <span 
+        className="inline-block"
+        style={{ 
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          backgroundClip: 'text',
+          color: 'transparent',
+          padding: '0 4px',
+          backgroundImage: 'linear-gradient(to right, #60a5fa, #c084fc)'
+        }}
+      >Five Levels</span> of AI & Future Roadmap</>,
       intro: "In June 2024, Ilya Sutskever left OpenAI and founded a new company with $3 billion to safely build 'Level 5 AI'. Currently, we are only at Level 2. Let's explore what lies ahead.",
       stagesTitle: "AI Progression Levels",
       howItWorks: "How it Works",
@@ -148,7 +158,17 @@ export const AILevelsLecture: React.FC<{ language: Language; onComplete: () => P
     },
     my: {
       tag: "The Future is Here",
-      title: <>ဉာဏ်ရည်တု၏ <span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">အဆင့်ငါးဆင့်</span> နှင့်<br />အနာဂတ် ခရီးစဉ်</>,
+      title: <>ဉာဏ်ရည်တု၏ <span 
+        className="inline-block"
+        style={{ 
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          backgroundClip: 'text',
+          color: 'transparent',
+          padding: '0 4px',
+          backgroundImage: 'linear-gradient(to right, #60a5fa, #c084fc)'
+        }}
+      >အဆင့်ငါးဆင့်</span> နှင့်<br />အနာဂတ် ခရီးစဉ်</>,
       intro: "၂၀၂၄ ဇွန်လတွင် Ilya Sutskever သည် OpenAI မှထွက်ခွာပြီး \"အဆင့် (၅) ဉာဏ်ရည်တု\" ကို ဘေးကင်းစွာတည်ဆောက်ရန် $3 ဘီလီယံဖြင့် ကုမ္ပဏီသစ်ထောင်ခဲ့သည်။ လက်ရှိတွင် ကျွန်ုပ်တို့သည် အဆင့် (၂) ၌သာ ရှိနေသေးသည်။ ရှေ့ဆက်ဘာတွေဖြစ်လာမလဲ စူးစမ်းကြည့်ရအောင်။",
       stagesTitle: "AI တိုးတက်မှု အဆင့်များ",
       howItWorks: "အလုပ်လုပ်ပုံ",
@@ -194,7 +214,7 @@ export const AILevelsLecture: React.FC<{ language: Language; onComplete: () => P
   }
 
   return (
-    <div className={`py-24 bg-black ${isMy ? 'myanmar-text' : ''}`}>
+    <section className={`py-24 bg-black ${isMy ? 'myanmar-text' : ''}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header Section */}
@@ -203,7 +223,7 @@ export const AILevelsLecture: React.FC<{ language: Language; onComplete: () => P
             <BrainCircuit className="w-4 h-4" />
             <span>{t.tag}</span>
           </div>
-          <h1 className={`text-4xl md:text-5xl font-extrabold text-white mb-6 ${isMy ? 'leading-myanmar' : 'leading-tight'}`}>
+          <h1 className={`text-4xl md:text-5xl font-black text-white mb-6 ${isMy ? 'leading-myanmar' : 'leading-tight'}`}>
             {t.title}
           </h1>
           <p className="text-gray-300 text-lg leading-relaxed max-w-3xl mx-auto">
@@ -225,7 +245,11 @@ export const AILevelsLecture: React.FC<{ language: Language; onComplete: () => P
                 <div 
                   key={stage.id}
                   onClick={() => setActiveStageId(stage.id)}
-                  className={`relative cursor-pointer group transition-all duration-300 ${
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`View details for ${isMy ? stage.titleMy : stage.title}`}
+                  onKeyDown={(e) => e.key === 'Enter' && setActiveStageId(stage.id)}
+                  className={`relative cursor-pointer group transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-2xl ${
                     activeStageId === stage.id ? "opacity-100 scale-105" : "opacity-50 hover:opacity-80"
                   }`}
                 >
@@ -355,6 +379,6 @@ export const AILevelsLecture: React.FC<{ language: Language; onComplete: () => P
 
         <CompleteButton onComplete={onComplete} language={language} isUnlocked={isUnlocked} />
       </div>
-    </div>
+    </section>
   );
 };

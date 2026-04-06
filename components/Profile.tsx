@@ -84,7 +84,7 @@ export const Profile: React.FC<ProfileProps> = ({ user, language, onLogout }) =>
   };
 
   return (
-    <div className="min-h-screen pt-24 pb-12 px-4 sm:px-6 lg:px-8 bg-white dark:bg-black transition-colors duration-300">
+    <section className="min-h-screen pt-24 pb-12 px-4 sm:px-6 lg:px-8 bg-white dark:bg-black transition-colors duration-300">
       <div className="max-w-4xl mx-auto">
         {/* Header Section */}
         <motion.div 
@@ -240,6 +240,6 @@ export const Profile: React.FC<ProfileProps> = ({ user, language, onLogout }) =>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };

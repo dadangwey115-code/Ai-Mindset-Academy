@@ -9,8 +9,29 @@
 
 @layer base {
   body {
-    @apply bg-white text-gray-900 dark:bg-black dark:text-gray-100 transition-colors duration-300;
+    @apply bg-gray-50 text-gray-900 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-300;
   }
+}
+
+.glass-card {
+  @apply backdrop-blur-md bg-white/70 dark:bg-slate-900/40 border border-gray-200/50 dark:border-white/10 shadow-xl;
+}
+
+.ai-gradient-text {
+  @apply bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.ai-gradient-bg {
+  @apply bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600;
+}
+
+.glow-shadow {
+  @apply shadow-[0_0_20px_rgba(99,102,241,0.3)] dark:shadow-[0_0_30px_rgba(168,85,247,0.2)];
 }
 
 .myanmar-text {

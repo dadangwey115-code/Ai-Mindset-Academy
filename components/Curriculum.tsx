@@ -181,13 +181,25 @@ export const Curriculum: React.FC<{ language: Language; completedLessons: string
   const driveLink = "https://drive.google.com/drive/folders/1a0vAqN6TzpkTX4V1MDKAvi3YGN-uXmTE?usp=sharing";
 
   return (
-    <div className="py-20 bg-white dark:bg-black min-h-screen transition-colors duration-300">
+    <section className="py-20 bg-gray-50 dark:bg-slate-950 min-h-screen transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {!showPillarQuiz ? (
           <div className="animate-in fade-in duration-500">
             <div className="text-center mb-16 relative">
-              <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">{t.learningPath}</h2>
-              <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">{t.learningPathSub}</p>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card glow-shadow mb-6"
+              >
+                <Sparkles className="text-indigo-500 w-4 h-4" />
+                <span className="text-xs font-black uppercase tracking-[0.3em] ai-gradient-text">{t.learningPath}</span>
+              </motion.div>
+              <h2 className={`text-5xl md:text-6xl font-black text-gray-900 dark:text-white mb-6 tracking-tighter ${isMy ? 'leading-myanmar' : ''}`}>
+                {t.learningPath}
+              </h2>
+              <p className="text-gray-600 dark:text-slate-300 max-w-2xl mx-auto text-lg">
+                {t.learningPathSub}
+              </p>
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
@@ -209,19 +221,19 @@ export const Curriculum: React.FC<{ language: Language; completedLessons: string
             </div>
 
             {/* NEW PDF Resource Hub Section */}
-            <div className="bg-gray-50 dark:bg-zinc-900 border border-gray-200 dark:border-white/10 rounded-[48px] p-10 md:p-16 relative overflow-hidden shadow-2xl group/hub transition-colors duration-300">
+            <div className="glass-card rounded-[48px] p-10 md:p-16 relative overflow-hidden shadow-2xl group/hub transition-colors duration-300 glow-shadow">
               <div className="absolute top-0 right-0 p-12 opacity-5 group-hover/hub:scale-110 group-hover/hub:rotate-6 transition-transform duration-700">
-                <Library size={200} className="text-blue-500" />
+                <Library size={200} className="text-indigo-500" />
               </div>
               <div className="relative z-10 max-w-2xl">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-bold uppercase tracking-widest mb-6">
-                  <FileText className="w-3 h-3" />
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card border border-indigo-500/20 ai-gradient-text text-[10px] font-black uppercase tracking-widest mb-6">
+                  <FileText className="w-4 h-4" />
                   <span>Student Portal</span>
                 </div>
-                <h2 className={`text-3xl md:text-4xl font-black text-gray-900 dark:text-white mb-6 ${isMy ? 'leading-myanmar' : ''}`}>
+                <h2 className={`text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-6 tracking-tight ${isMy ? 'leading-myanmar' : ''}`}>
                   {res.title}
                 </h2>
-                <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed mb-10">
+                <p className="text-gray-600 dark:text-slate-300 text-lg leading-relaxed mb-10">
                   {res.sub}
                 </p>
                 <a 
@@ -229,7 +241,7 @@ export const Curriculum: React.FC<{ language: Language; completedLessons: string
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Open Student Portal in Google Drive"
-                  className="inline-flex items-center gap-3 px-10 py-5 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-black text-lg transition-all shadow-xl shadow-blue-600/30 hover:scale-[1.03] active:scale-95"
+                  className="inline-flex items-center gap-3 px-10 py-5 ai-gradient-bg text-white rounded-2xl font-black text-lg transition-all shadow-xl shadow-indigo-600/30 hover:scale-[1.03] active:scale-95 glow-shadow"
                 >
                   {res.btn}
                   <ExternalLink size={20} />
@@ -320,6 +332,6 @@ export const Curriculum: React.FC<{ language: Language; completedLessons: string
           </div>
         </div>
       )}
-    </div>
+    </section>
   );
 };

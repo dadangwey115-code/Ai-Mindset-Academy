@@ -1,12 +1,14 @@
 
 import React, { useState, useEffect, lazy, Suspense } from 'react';
+import { motion } from 'motion/react';
+import { Sparkles } from 'lucide-react';
 import { Navbar } from './components/Navbar';
-import { Hero } from './components/Hero';
 import { Footer } from './components/Footer';
 import { PageId, Language, User } from './types';
 import pb from './services/pb';
 
 // Lazy loaded components
+const Hero = lazy(() => import('./components/Hero').then(m => ({ default: m.Hero })));
 const ConceptModal = lazy(() => import('./components/ConceptModal').then(m => ({ default: m.ConceptModal })));
 const PromptLibraryModal = lazy(() => import('./components/PromptLibraryModal').then(m => ({ default: m.PromptLibraryModal })));
 const StrategyBlueprintModal = lazy(() => import('./components/StrategyBlueprintModal').then(m => ({ default: m.StrategyBlueprintModal })));
@@ -27,8 +29,89 @@ const PwaInstallBanner = lazy(() => import('./components/PwaInstallBanner').then
 import { ThemeProvider } from './components/ThemeProvider';
 
 const LoadingSpinner = () => (
-  <div className="flex items-center justify-center min-h-[400px] w-full">
-    <div className="w-12 h-12 border-4 border-blue-500/20 border-t-blue-500 rounded-full animate-spin" />
+  <div className="flex flex-col items-center justify-center min-h-[400px] w-full gap-8">
+    <div className="relative w-28 h-28">
+      {/* Outer spinning ring with gradient */}
+      <motion.div 
+        className="absolute inset-0 rounded-full border-4 border-transparent border-t-indigo-500 border-r-purple-500"
+        animate={{ rotate: 360 }}
+        transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+      />
+      {/* Inner counter-rotating ring */}
+      <motion.div 
+        className="absolute inset-2 rounded-full border-4 border-transparent border-b-pink-500 border-l-blue-500 opacity-60"
+        animate={{ rotate: -360 }}
+        transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
+      />
+      {/* Pulsing AI Core */}
+      <motion.div 
+        className="absolute inset-6 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(99,102,241,0.4)]"
+        animate={{ 
+          scale: [1, 1.1, 1],
+          boxShadow: [
+            "0 0 20px rgba(99,102,241,0.3)",
+            "0 0 50px rgba(168,85,247,0.6)",
+            "0 0 20px rgba(99,102,241,0.3)"
+          ]
+        }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <Sparkles className="text-white w-8 h-8" />
+      </motion.div>
+      
+      {/* Orbiting particles */}
+      {[0, 120, 240].map((angle, i) => (
+        <motion.div
+          key={i}
+          className="absolute w-2 h-2 bg-indigo-400 rounded-full"
+          animate={{
+            rotate: [angle, angle + 360],
+            scale: [1, 1.5, 1],
+          }}
+          transition={{
+            rotate: { duration: 4, repeat: Infinity, ease: "linear" },
+            scale: { duration: 2, repeat: Infinity, ease: "easeInOut" }
+          }}
+          style={{
+            originX: "50%",
+            originY: "50%",
+            top: "calc(50% - 4px)",
+            left: "calc(50% - 4px)",
+            transform: `rotate(${angle}deg) translateX(56px)`
+          }}
+        />
+      ))}
+    </div>
+    
+    <div className="flex flex-col items-center gap-4">
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="flex flex-col items-center"
+      >
+        <h3 
+          className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 px-2 py-1"
+          style={{ 
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent'
+          }}
+        >
+          Neural Syncing
+        </h3>
+        <p className="text-slate-500 dark:text-slate-400 text-sm font-medium tracking-[0.2em] uppercase">
+          Optimizing Experience
+        </p>
+      </motion.div>
+      
+      <div className="w-56 h-1.5 bg-white/5 dark:bg-slate-800/50 rounded-full overflow-hidden border border-white/5">
+        <motion.div 
+          className="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"
+          initial={{ x: "-100%" }}
+          animate={{ x: "100%" }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        />
+      </div>
+    </div>
   </div>
 );
 
@@ -110,8 +193,15 @@ const App: React.FC = () => {
 
   return (
     <ThemeProvider>
-      <div className={`min-h-screen bg-white dark:bg-black text-gray-900 dark:text-gray-100 selection:bg-blue-500/30 selection:text-blue-200 scroll-smooth transition-colors duration-300 ${language === 'my' ? 'myanmar-text antialiased' : 'font-sans'}`}>
-        <Navbar 
+      <div className={`min-h-screen bg-gray-50 dark:bg-slate-950 text-gray-900 dark:text-slate-100 selection:bg-purple-500/30 selection:text-white scroll-smooth transition-colors duration-300 ${language === 'my' ? 'myanmar-text antialiased' : 'font-sans'}`}>
+        {/* Global AI Background Elements */}
+        <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+          <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-500/5 dark:bg-indigo-600/5 blur-[120px] rounded-full animate-pulse" />
+          <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-500/5 dark:bg-purple-600/5 blur-[120px] rounded-full animate-pulse delay-1000" />
+        </div>
+
+        <div className="relative z-10">
+          <Navbar 
         activePage={activePage} 
         setActivePage={setActivePage} 
         language={language} 
@@ -124,15 +214,15 @@ const App: React.FC = () => {
       
       <main className="transition-all duration-500 ease-in-out pb-24 md:pb-0 px-4 sm:px-6 lg:px-8">
         {activePage === 'home' && (
-          <div className="animate-in fade-in duration-700">
-            <Hero 
-              onStart={() => setActivePage('curriculum')} 
-              onOpenConcept={() => setIsConceptModalOpen(true)}
-              onOpenPromptLibrary={() => setIsPromptLibraryModalOpen(true)}
-              onOpenStrategyBlueprint={() => setIsBlueprintOpen(true)}
-              language={language} 
-            />
-            <Suspense fallback={<LoadingSpinner />}>
+          <Suspense fallback={<LoadingSpinner />}>
+            <div className="animate-in fade-in duration-700">
+              <Hero 
+                onStart={() => setActivePage('curriculum')} 
+                onOpenConcept={() => setIsConceptModalOpen(true)}
+                onOpenPromptLibrary={() => setIsPromptLibraryModalOpen(true)}
+                onOpenStrategyBlueprint={() => setIsBlueprintOpen(true)}
+                language={language} 
+              />
               <StrategicFramework 
                 language={language} 
                 onStart={() => setActivePage('curriculum')} 
@@ -142,8 +232,8 @@ const App: React.FC = () => {
                 language={language} 
                 onOpenBlueprint={() => setIsBlueprintOpen(true)}
               />
-            </Suspense>
-          </div>
+            </div>
+          </Suspense>
         )}
         
         <Suspense fallback={<LoadingSpinner />}>
@@ -216,6 +306,7 @@ const App: React.FC = () => {
           language={language} 
         />
       </Suspense>
+        </div>
       </div>
     </ThemeProvider>
   );

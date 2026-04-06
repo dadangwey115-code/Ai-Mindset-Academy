@@ -64,32 +64,33 @@ export const StrategicFramework: React.FC<{ language: Language, onStart: () => v
   ];
 
   return (
-    <div className="bg-white dark:bg-black text-gray-900 dark:text-white py-24 overflow-hidden transition-colors duration-300">
+    <section className="bg-gray-50 dark:bg-slate-950 text-gray-900 dark:text-white py-24 overflow-hidden transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Intro Section */}
         <div className="mb-32">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="animate-in slide-in-from-left duration-700">
-              <span className="text-blue-500 font-bold tracking-[0.3em] uppercase text-xs mb-4 block">Executive Framework</span>
-              <h2 className={`text-4xl md:text-5xl font-black mb-8 ${isMy ? 'leading-myanmar' : 'leading-tight'}`}>
+              <span className="ai-gradient-text font-black tracking-[0.3em] uppercase text-xs mb-4 block">Executive Framework</span>
+              <h2 className={`text-5xl md:text-6xl font-black mb-8 tracking-tighter ${isMy ? 'leading-myanmar' : 'leading-tight'}`}>
                 {isMy ? "လုပ်ငန်းဆောင်ရွက်သူမှ AI ညွှန်ကြားသူအဖြစ်သို့ ကူးပြောင်းခြင်း" : "From Operator to AI Director"}
               </h2>
-              <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed mb-8">
+              <p className="text-gray-600 dark:text-slate-300 text-lg leading-relaxed mb-8">
                 {isMy 
                   ? "AI ကို မိမိ၏ လုပ်ဆောင်နိုင်စွမ်းကို လျော့ကျစေသည့် အရာဟု မရှုမြင်ဘဲ၊ မိမိ၏ ဆုံးဖြတ်ချက်ချမှတ်နိုင်စွမ်းကို အဆပေါင်းများစွာ မြှင့်တင်ပေးမည့် 'Executive Force Multiplier' အဖြစ် အသုံးချတတ်ရန် လိုအပ်ပါသည်။"
                   : "Leadership today requires shifting from manual operations to strategic orchestration. AI is the lever that amplifies your potential."}
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <button onClick={onStart} className="px-8 py-4 bg-blue-600 rounded-2xl font-bold hover:bg-blue-700 transition-all flex items-center justify-center gap-2 group shadow-xl shadow-blue-600/20">
+                <button onClick={onStart} aria-label="Explore the Curriculum" className="px-8 py-4 ai-gradient-bg text-white rounded-2xl font-black hover:scale-105 transition-all flex items-center justify-center gap-2 group glow-shadow">
                   {isMy ? "သင်ရိုးညွှန်းတမ်းကို စတင်ရန်" : "Explore the Curriculum"}
                   <ArrowRight className="group-hover:translate-x-1 transition-transform" />
                 </button>
                 <button 
                   onClick={onOpenStrategyBlueprint}
-                  className="px-8 py-4 bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl font-bold hover:bg-gray-200 dark:hover:bg-white/10 transition-all flex items-center justify-center gap-2 group text-gray-900 dark:text-white"
+                  aria-label="Open Strategy Blueprint"
+                  className="px-8 py-4 glass-card rounded-2xl font-black hover:bg-gray-100 dark:hover:bg-white/10 transition-all flex items-center justify-center gap-2 group text-gray-900 dark:text-white"
                 >
-                  <ShieldCheck className="text-blue-500" />
+                  <ShieldCheck className="text-indigo-500" />
                   {t.blueprintBtn}
                 </button>
               </div>
@@ -137,44 +138,44 @@ export const StrategicFramework: React.FC<{ language: Language, onStart: () => v
         {/* Framework Pillars Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-32">
           {sections.map((s, i) => (
-            <div key={i} className="group bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 p-8 rounded-3xl hover:bg-gray-100 dark:hover:bg-white/[0.08] transition-all duration-500">
-              <div className={`w-14 h-14 ${s.bg} ${s.color} rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform`}>
-                <s.icon size={28} />
+            <div key={i} className="group glass-card p-8 rounded-[32px] hover:bg-gray-100 dark:hover:bg-white/[0.08] transition-all duration-500 glow-shadow">
+              <div className={`w-16 h-16 ${s.bg} ${s.color} rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform`}>
+                <s.icon size={32} />
               </div>
-              <h4 className="text-xs font-bold tracking-widest text-gray-400 dark:text-gray-500 uppercase mb-2">{s.title}</h4>
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">{s.highlight}</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">{s.desc}</p>
+              <p className="text-xs font-black tracking-widest text-gray-400 dark:text-slate-500 uppercase mb-2">{s.title}</p>
+              <h3 className="text-2xl font-black text-gray-900 dark:text-white mb-4 tracking-tight">{s.highlight}</h3>
+              <p className="text-gray-600 dark:text-slate-400 text-sm leading-relaxed">{s.desc}</p>
             </div>
           ))}
         </div>
 
         {/* 10/80/10 Rule Section */}
-        <div className="bg-gray-50 dark:bg-zinc-900 border border-gray-200 dark:border-white/10 rounded-[48px] p-12 lg:p-20 relative overflow-hidden mb-32 transition-colors duration-300">
-          <div className="absolute top-0 right-0 w-1/2 h-full bg-[radial-gradient(circle_at_center,rgba(37,99,235,0.05)_0%,transparent_70%)] pointer-events-none" />
+        <div className="glass-card rounded-[48px] p-12 lg:p-20 relative overflow-hidden mb-32 transition-colors duration-300 glow-shadow">
+          <div className="absolute top-0 right-0 w-1/2 h-full bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.05)_0%,transparent_70%)] pointer-events-none" />
           <div className="max-w-3xl relative z-10">
-            <h2 className={`text-4xl font-bold text-gray-900 dark:text-white mb-8 ${isMy ? 'leading-myanmar' : ''}`}>
+            <h2 className={`text-5xl font-black text-gray-900 dark:text-white mb-10 tracking-tighter ${isMy ? 'leading-myanmar' : ''}`}>
               {isMy ? "၁၀/၈၀/၁၀ စည်းမျဉ်း- AI ကို လက်တွေ့အသုံးချ၍ စီမံခန့်ခွဲမှုပုံစံ" : "The 10/80/10 Rule for AI Orchestration"}
             </h2>
             <div className="space-y-12">
                <div className="flex gap-8 group">
-                 <div className="text-3xl font-black text-gray-200 dark:text-white/10 group-hover:text-blue-500 transition-colors">10%</div>
+                 <div className="text-4xl font-black text-gray-200 dark:text-white/10 group-hover:text-indigo-500 transition-colors">10%</div>
                  <div>
-                   <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{isMy ? "ပထမ ၁၀% (Ideation)" : "First 10%: Ideation"}</h4>
-                   <p className="text-gray-600 dark:text-gray-400">{isMy ? "ခေါင်းဆောင်က စိတ်ကူးဖော်ထုတ်ခြင်းနှင့် လမ်းညွှန်မှုပေးခြင်း။" : "The leader defines the vision, sets the constraints, and provides the strategic spark."}</p>
+                   <h3 className="text-2xl font-black text-gray-900 dark:text-white mb-2">{isMy ? "ပထမ ၁၀% (Ideation)" : "First 10%: Ideation"}</h3>
+                   <p className="text-gray-600 dark:text-slate-400 text-lg">{isMy ? "ခေါင်းဆောင်က စိတ်ကူးဖော်ထုတ်ခြင်းနှင့် လမ်းညွှန်မှုပေးခြင်း။" : "The leader defines the vision, sets the constraints, and provides the strategic spark."}</p>
                  </div>
                </div>
                <div className="flex gap-8 group">
-                 <div className="text-3xl font-black text-gray-200 dark:text-white/10 group-hover:text-blue-500 transition-colors">80%</div>
+                 <div className="text-4xl font-black text-gray-200 dark:text-white/10 group-hover:text-purple-500 transition-colors">80%</div>
                  <div>
-                   <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{isMy ? "အလယ် ၈၀% (AI Execution)" : "Middle 80%: AI Execution"}</h4>
-                   <p className="text-gray-600 dark:text-gray-400">{isMy ? "AI ကို အသုံးပြု၍ အလုပ်များကို လက်တွေ့လုပ်ဆောင်စေခြင်း။" : "The AI agents handle the high-volume heavy lifting, research, and technical construction."}</p>
+                   <h3 className="text-2xl font-black text-gray-900 dark:text-white mb-2">{isMy ? "အလယ် ၈၀% (AI Execution)" : "Middle 80%: AI Execution"}</h3>
+                   <p className="text-gray-600 dark:text-slate-400 text-lg">{isMy ? "AI ကို အသုံးပြု၍ အလုပ်များကို လက်တွေ့လုပ်ဆောင်စေခြင်း။" : "The AI agents handle the high-volume heavy lifting, research, and technical construction."}</p>
                  </div>
                </div>
                <div className="flex gap-8 group">
-                 <div className="text-3xl font-black text-gray-200 dark:text-white/10 group-hover:text-blue-500 transition-colors">10%</div>
+                 <div className="text-4xl font-black text-gray-200 dark:text-white/10 group-hover:text-pink-500 transition-colors">10%</div>
                  <div>
-                   <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{isMy ? "နောက်ဆုံး ၁၀% (Integration & Taste)" : "Last 10%: Taste & Polish"}</h4>
-                   <p className="text-gray-600 dark:text-gray-400">{isMy ? "လူသား၏ 'Taste' ကို အသုံးပြု၍ အချောသတ်ခြင်းနှင့် ပေါင်းစပ်ခြင်း။" : "The leader applies human curation, quality control, and the final 10% of excellence."}</p>
+                   <h3 className="text-2xl font-black text-gray-900 dark:text-white mb-2">{isMy ? "နောက်ဆုံး ၁၀% (Integration & Taste)" : "Last 10%: Taste & Polish"}</h3>
+                   <p className="text-gray-600 dark:text-slate-400 text-lg">{isMy ? "လူသား၏ 'Taste' ကို အသုံးပြု၍ အချောသတ်ခြင်းနှင့် ပေါင်းစပ်ခြင်း။" : "The leader applies human curation, quality control, and the final 10% of excellence."}</p>
                  </div>
                </div>
             </div>
@@ -182,31 +183,31 @@ export const StrategicFramework: React.FC<{ language: Language, onStart: () => v
         </div>
 
         {/* Conclusion / CTA */}
-        <div className="text-center bg-blue-600 rounded-[48px] py-20 px-8 relative overflow-hidden shadow-2xl shadow-blue-600/20">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.1)_0%,transparent_50%)]" />
-          <h2 className={`text-4xl font-bold text-white mb-8 ${isMy ? 'leading-myanmar' : ''}`}>
+        <div className="text-center ai-gradient-bg rounded-[48px] py-24 px-8 relative overflow-hidden glow-shadow">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.2)_0%,transparent_50%)]" />
+          <h2 className={`text-5xl font-black text-white mb-10 tracking-tighter ${isMy ? 'leading-myanmar' : ''}`}>
             {isMy ? "AI ခေတ်တွင် အစားထိုးမခံရမည့် ခေါင်းဆောင်တစ်ဦး ဖြစ်လာပါ" : "Become an Irreplaceable AI-First Leader"}
           </h2>
-          <div className="flex flex-wrap justify-center gap-12 mb-12">
+          <div className="flex flex-wrap justify-center gap-12 mb-16">
             <div className="flex items-center gap-3">
-              <Zap className="text-blue-200" />
-              <span className="font-bold">{isMy ? "ရှင်းလင်းစွာ စဉ်းစားခြင်း" : "Think Clearly"}</span>
+              <Zap className="text-indigo-200" />
+              <span className="font-black text-white uppercase tracking-widest">{isMy ? "ရှင်းလင်းစွာ စဉ်းစားခြင်း" : "Think Clearly"}</span>
             </div>
             <div className="flex items-center gap-3">
-              <UserCheck className="text-blue-200" />
-              <span className="font-bold">{isMy ? "ရဲဝံ့စွာ ဦးဆောင်ခြင်း" : "Lead Boldly"}</span>
+              <UserCheck className="text-purple-200" />
+              <span className="font-black text-white uppercase tracking-widest">{isMy ? "ရဲဝံ့စွာ ဦးဆောင်ခြင်း" : "Lead Boldly"}</span>
             </div>
             <div className="flex items-center gap-3">
-              <Heart className="text-blue-200" />
-              <span className="font-bold">{isMy ? "နက်ရှိုင်းစွာ ဂရုစိုက်ခြင်း" : "Care Deeply"}</span>
+              <Heart className="text-pink-200" />
+              <span className="font-black text-white uppercase tracking-widest">{isMy ? "နက်ရှိုင်းစွာ ဂရုစိုက်ခြင်း" : "Care Deeply"}</span>
             </div>
           </div>
-          <button onClick={onStart} className="px-12 py-6 bg-white text-blue-600 rounded-2xl font-black text-xl hover:scale-105 transition-all shadow-xl">
+          <button onClick={onStart} aria-label="Start the Full Curriculum" className="px-16 py-6 bg-white text-indigo-600 rounded-2xl font-black text-2xl hover:scale-105 transition-all shadow-2xl">
             {isMy ? "သင်ရိုးညွှန်းတမ်းကို စတင်လေ့လာရန်" : "Start the Full Curriculum"}
           </button>
         </div>
 
       </div>
-    </div>
+    </section>
   );
 };
