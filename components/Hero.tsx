@@ -29,12 +29,12 @@ export const Hero: React.FC<HeroProps> = ({ onStart, onOpenConcept, onOpenPrompt
         </div>
         <h1 className={`
           ${isMy ? 'text-3xl sm:text-4xl md:text-6xl leading-myanmar' : 'text-4xl sm:text-5xl md:text-7xl leading-tight tracking-tight'} 
-          font-black text-white mb-6
+          font-black text-gray-900 dark:text-white mb-6
         `}>
           {t.title1}<br />
           <span className="text-blue-500">{t.title2}</span>
         </h1>
-        <p className={`max-w-2xl mx-auto text-base md:text-xl text-gray-300 mb-10 ${isMy ? 'leading-relaxed' : 'leading-relaxed'}`}>
+        <p className={`max-w-2xl mx-auto text-base md:text-xl text-gray-600 dark:text-gray-300 mb-10 ${isMy ? 'leading-relaxed' : 'leading-relaxed'}`}>
           {t.subtitle}
         </p>
         <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4 px-4 sm:px-0">
@@ -55,7 +55,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart, onOpenConcept, onOpenPrompt
           <button 
             onClick={onOpenConcept}
             aria-label="Watch Concept Video"
-            className="w-full sm:w-auto px-10 py-4 min-h-[56px] bg-white/5 hover:bg-white/10 text-white border border-white/10 rounded-2xl font-black text-lg flex items-center justify-center gap-3 transition-all hover:scale-105 active:scale-95 backdrop-blur-sm"
+            className="w-full sm:w-auto px-10 py-4 min-h-[56px] bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 text-gray-900 dark:text-white border border-gray-200 dark:border-white/10 rounded-2xl font-black text-lg flex items-center justify-center gap-3 transition-all hover:scale-105 active:scale-95 backdrop-blur-sm"
           >
             <Sparkles className="w-5 h-5 text-blue-400" /> {t.btnWatch}
           </button>
@@ -72,7 +72,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart, onOpenConcept, onOpenPrompt
             <button
               onClick={onOpenPromptLibrary}
               aria-label="Open Prompt Library"
-              className="group relative w-full p-6 rounded-3xl bg-gradient-to-br from-zinc-900 to-zinc-950 border border-white/10 hover:border-blue-500/50 transition-all duration-300 text-left overflow-hidden active:scale-[0.98] h-full"
+              className="group relative w-full p-6 rounded-3xl bg-white dark:bg-gradient-to-br dark:from-zinc-900 dark:to-zinc-950 border border-gray-200 dark:border-white/10 hover:border-blue-500/50 transition-all duration-300 text-left overflow-hidden active:scale-[0.98] h-full shadow-sm dark:shadow-none"
               id="hero-prompt-library-btn"
             >
               <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
@@ -83,11 +83,11 @@ export const Hero: React.FC<HeroProps> = ({ onStart, onOpenConcept, onOpenPrompt
                   <Zap className="w-8 h-8" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-white mb-1 flex items-center gap-2">
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1 flex items-center gap-2">
                     {pt.title}
                     <ArrowRight className="w-5 h-5 text-blue-500 group-hover:translate-x-1 transition-transform" />
                   </h3>
-                  <p className="text-gray-400 text-sm leading-relaxed">
+                  <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
                     {pt.subtitle}
                   </p>
                 </div>
@@ -104,7 +104,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart, onOpenConcept, onOpenPrompt
             <button
               onClick={onOpenStrategyBlueprint}
               aria-label="Open Strategy Blueprint"
-              className="group relative w-full p-6 rounded-3xl bg-gradient-to-br from-zinc-900 to-zinc-950 border border-white/10 hover:border-purple-500/50 transition-all duration-300 text-left overflow-hidden active:scale-[0.98] h-full"
+              className="group relative w-full p-6 rounded-3xl bg-white dark:bg-gradient-to-br dark:from-zinc-900 dark:to-zinc-950 border border-gray-200 dark:border-white/10 hover:border-purple-500/50 transition-all duration-300 text-left overflow-hidden active:scale-[0.98] h-full shadow-sm dark:shadow-none"
               id="hero-strategy-blueprint-btn"
             >
               <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
@@ -115,11 +115,11 @@ export const Hero: React.FC<HeroProps> = ({ onStart, onOpenConcept, onOpenPrompt
                   <Shield className="w-8 h-8" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-white mb-1 flex items-center gap-2">
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1 flex items-center gap-2">
                     {st.strategyHighlight}
                     <ArrowRight className="w-5 h-5 text-purple-500 group-hover:translate-x-1 transition-transform" />
                   </h3>
-                  <p className="text-gray-400 text-sm leading-relaxed">
+                  <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
                     {st.blueprintBtn}
                   </p>
                 </div>

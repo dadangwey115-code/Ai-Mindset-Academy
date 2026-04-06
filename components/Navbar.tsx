@@ -1,9 +1,10 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { BrainCircuit, Sparkles, ChevronDown, LogIn, LogOut, User, Home, BookOpen } from 'lucide-react';
+import { BrainCircuit, Sparkles, ChevronDown, LogIn, LogOut, User, Home, BookOpen, Sun, Moon } from 'lucide-react';
 import { motion } from 'motion/react';
 import { PageId, Language } from '../types';
 import { UI_STRINGS } from '../translations';
+import { ThemeToggle } from './ThemeToggle';
 
 interface NavbarProps {
   activePage: PageId;
@@ -63,14 +64,14 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <>
-      <nav className="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
+      <nav className="fixed top-0 w-full z-50 bg-white/80 dark:bg-black/80 backdrop-blur-md border-b border-gray-200 dark:border-white/10 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-2 cursor-pointer" onClick={() => setActivePage('home')} role="button" aria-label="Go to Home">
               <div className="bg-blue-600 p-1.5 rounded-lg">
                 <BrainCircuit className="text-white w-5 h-5 md:w-6 md:h-6" />
               </div>
-              <span className="inline-block text-lg md:text-xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent truncate max-w-[150px] md:max-w-none">
+              <span className="inline-block text-lg md:text-xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent truncate max-w-[150px] md:max-w-none">
                 AI Mindset Academy
               </span>
             </div>
@@ -88,8 +89,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                     aria-label={`Go to ${item.label}`}
                     className={`px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 flex items-center gap-1 ${
                       activePage === item.id 
-                      ? 'text-white bg-white/10' 
-                      : 'text-gray-300 hover:text-white hover:bg-white/5'
+                      ? 'text-gray-900 dark:text-white bg-gray-100 dark:bg-white/10' 
+                      : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-white/5'
                     }`}
                   >
                     {item.label}
@@ -97,22 +98,25 @@ export const Navbar: React.FC<NavbarProps> = ({
                 ))}
               </div>
 
-              <div className="flex items-center bg-white/5 border border-white/10 rounded-lg p-0.5" role="group" aria-label="Language selector">
+              <div className="flex items-center gap-4">
+                <ThemeToggle />
+                <div className="flex items-center bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-0.5" role="group" aria-label="Language selector">
                 <button 
                   onClick={() => setLanguage('en')}
                   aria-label="Switch to English"
-                  className={`px-3 py-1 text-xs font-bold rounded-md transition-all ${language === 'en' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}
+                  className={`px-3 py-1 text-xs font-bold rounded-md transition-all ${language === 'en' ? 'bg-blue-600 text-white' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'}`}
                 >
                   EN
                 </button>
                 <button 
                   onClick={() => setLanguage('my')}
                   aria-label="Switch to Myanmar"
-                  className={`px-3 py-1 text-xs font-bold rounded-md transition-all ${language === 'my' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}
+                  className={`px-3 py-1 text-xs font-bold rounded-md transition-all ${language === 'my' ? 'bg-blue-600 text-white' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'}`}
                 >
                   MM
                 </button>
               </div>
+            </div>
 
               {activePage !== 'home' && (
                 <button 
@@ -186,7 +190,8 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             {/* Mobile Top Navbar */}
             <div className="md:hidden flex items-center gap-4">
-              <div className="flex items-center bg-white/5 border border-white/10 rounded-xl p-1" role="group" aria-label="Language selector">
+              <ThemeToggle />
+              <div className="flex items-center bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl p-1" role="group" aria-label="Language selector">
                 <button 
                   onClick={() => setLanguage('en')}
                   aria-label="Switch to English"
@@ -208,7 +213,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       </nav>
 
       {/* Mobile Bottom Navigation */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-xl border-t border-white/10 pb-[env(safe-area-inset-bottom)]">
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/90 dark:bg-black/90 backdrop-blur-xl border-t border-gray-200 dark:border-white/10 pb-[env(safe-area-inset-bottom)] transition-colors duration-300">
         <div className="flex items-center justify-around h-20 relative px-2">
           {BOTTOM_NAV_ITEMS.map((item) => (
             <button

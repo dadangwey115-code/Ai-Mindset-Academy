@@ -84,13 +84,13 @@ export const Profile: React.FC<ProfileProps> = ({ user, language, onLogout }) =>
   };
 
   return (
-    <div className="min-h-screen pt-24 pb-12 px-4 sm:px-6 lg:px-8 bg-black">
+    <div className="min-h-screen pt-24 pb-12 px-4 sm:px-6 lg:px-8 bg-white dark:bg-black transition-colors duration-300">
       <div className="max-w-4xl mx-auto">
         {/* Header Section */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-zinc-900/50 border border-white/10 rounded-3xl p-8 mb-8 backdrop-blur-xl"
+          className="bg-gray-50 dark:bg-zinc-900/50 border border-gray-200 dark:border-white/10 rounded-3xl p-8 mb-8 backdrop-blur-xl transition-colors duration-300"
         >
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="relative">
@@ -105,19 +105,19 @@ export const Profile: React.FC<ProfileProps> = ({ user, language, onLogout }) =>
             </div>
             
             <div className="flex-1 text-center md:text-left">
-              <h1 className="text-3xl font-bold text-white mb-2">{user.name || user.email.split('@')[0]}</h1>
-              <p className="text-gray-300 mb-6">{user.email}</p>
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{user.name || user.email.split('@')[0]}</h1>
+              <p className="text-gray-600 dark:text-gray-300 mb-6">{user.email}</p>
               
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                <div className="bg-white/5 border border-white/10 rounded-2xl p-4">
+                <div className="bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl p-4">
                   <p className="text-[10px] uppercase tracking-wider text-gray-400 font-bold mb-1">{t.modulesCompleted}</p>
                   <p className="text-2xl font-black text-blue-400">{completedCount}/{totalModules}</p>
                 </div>
-                <div className="bg-white/5 border border-white/10 rounded-2xl p-4">
+                <div className="bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl p-4">
                   <p className="text-[10px] uppercase tracking-wider text-gray-400 font-bold mb-1">{t.totalPoints}</p>
                   <p className="text-2xl font-black text-emerald-400">{completedCount * 100}</p>
                 </div>
-                <div className="hidden sm:block bg-white/5 border border-white/10 rounded-2xl p-4">
+                <div className="hidden sm:block bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl p-4">
                   <p className="text-[10px] uppercase tracking-wider text-gray-400 font-bold mb-1">Academy Rank</p>
                   <p className="text-2xl font-black text-purple-400">
                     {progress === 100 ? 'Director' : progress >= 50 ? 'Strategist' : 'Learner'}
@@ -131,7 +131,7 @@ export const Profile: React.FC<ProfileProps> = ({ user, language, onLogout }) =>
         {/* Progress Section */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="md:col-span-2 space-y-6">
-            <h2 className="text-xl font-bold text-white flex items-center gap-2">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
               <Star className="text-yellow-500" size={20} />
               {t.journey}
             </h2>
@@ -148,14 +148,14 @@ export const Profile: React.FC<ProfileProps> = ({ user, language, onLogout }) =>
                     className={`flex items-center gap-4 p-4 rounded-2xl border transition-all ${
                       isCompleted 
                       ? 'bg-blue-600/10 border-blue-600/30' 
-                      : 'bg-zinc-900/30 border-white/5 opacity-60'
+                      : 'bg-gray-50 dark:bg-zinc-900/30 border-gray-200 dark:border-white/5 opacity-60'
                     }`}
                   >
-                    <div className={`p-3 rounded-xl ${isCompleted ? 'bg-blue-600 text-white' : 'bg-white/5 text-gray-500'}`}>
+                    <div className={`p-3 rounded-xl ${isCompleted ? 'bg-blue-600 text-white' : 'bg-gray-100 dark:bg-white/5 text-gray-500'}`}>
                       <module.icon size={24} />
                     </div>
                     <div className="flex-1">
-                      <h3 className={`font-bold ${isCompleted ? 'text-white' : 'text-gray-300'}`}>
+                      <h3 className={`font-bold ${isCompleted ? 'text-gray-900 dark:text-white' : 'text-gray-600 dark:text-gray-300'}`}>
                         {language === 'my' ? module.titleMy : module.title}
                       </h3>
                       <p className="text-xs text-gray-500">
@@ -175,7 +175,7 @@ export const Profile: React.FC<ProfileProps> = ({ user, language, onLogout }) =>
 
           {/* Certificate Section */}
           <div className="space-y-6">
-            <h2 className="text-xl font-bold text-white flex items-center gap-2">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
               <Award className="text-blue-500" size={20} />
               Academy Honors
             </h2>
@@ -183,13 +183,13 @@ export const Profile: React.FC<ProfileProps> = ({ user, language, onLogout }) =>
             <div className={`p-6 rounded-3xl border text-center transition-all ${
               isFullyCompleted 
               ? 'bg-gradient-to-b from-blue-600/20 to-indigo-600/20 border-blue-600/50' 
-              : 'bg-zinc-900/50 border-white/10 grayscale opacity-50'
+              : 'bg-gray-50 dark:bg-zinc-900/50 border-gray-200 dark:border-white/10 grayscale opacity-50'
             }`}>
               <div className="w-20 h-20 mx-auto bg-blue-600/20 rounded-full flex items-center justify-center mb-4">
                 <Award className={isFullyCompleted ? "text-blue-400" : "text-gray-600"} size={40} />
               </div>
-              <h3 className="text-lg font-bold text-white mb-2">{t.certTitle}</h3>
-              <p className="text-sm text-gray-400 mb-6">
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{t.certTitle}</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
                 {isFullyCompleted 
                   ? "Congratulations! You have mastered the AI Mindset curriculum."
                   : "Complete all 5 modules to unlock your official Academy Certificate."}
@@ -201,7 +201,7 @@ export const Profile: React.FC<ProfileProps> = ({ user, language, onLogout }) =>
                 className={`w-full flex items-center justify-center gap-2 py-3 rounded-xl font-bold transition-all ${
                   isFullyCompleted
                   ? 'bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/20'
-                  : 'bg-white/5 text-gray-600 cursor-not-allowed'
+                  : 'bg-gray-100 dark:bg-white/5 text-gray-600 cursor-not-allowed'
                 }`}
               >
                 <Download size={18} />
@@ -209,8 +209,8 @@ export const Profile: React.FC<ProfileProps> = ({ user, language, onLogout }) =>
               </button>
             </div>
 
-            <div className="p-6 rounded-3xl bg-zinc-900/50 border border-white/10">
-              <h3 className="font-bold text-white mb-4 flex items-center gap-2">
+            <div className="p-6 rounded-3xl bg-gray-50 dark:bg-zinc-900/50 border border-gray-200 dark:border-white/10 transition-colors duration-300">
+              <h3 className="font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                 <Calendar size={18} className="text-purple-400" />
                 Next Steps
               </h3>

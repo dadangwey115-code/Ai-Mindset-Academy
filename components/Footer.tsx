@@ -6,16 +6,16 @@ export const Footer: React.FC = () => {
   const driveLink = "https://drive.google.com/drive/folders/1a0vAqN6TzpkTX4V1MDKAvi3YGN-uXmTE?usp=sharing";
 
   return (
-    <footer className="bg-black py-16 border-t border-white/10">
+    <footer className="bg-white dark:bg-black py-16 border-t border-gray-100 dark:border-white/10 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 text-center">
         <div className="flex items-center justify-center gap-2 mb-8">
           <BrainCircuit className="text-blue-500 w-6 h-6" />
-          <span className="text-2xl font-bold text-white tracking-tight">AI Mindset Academy</span>
+          <span className="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">AI Mindset Academy</span>
         </div>
-        <p className="text-gray-400 text-sm max-w-md mx-auto leading-relaxed">
+        <p className="text-gray-600 dark:text-gray-400 text-sm max-w-md mx-auto leading-relaxed">
           Join the new class of leaders who don't fear automation, but harness it as the ultimate lever for human excellence.
         </p>
-        <div className="mt-10 flex flex-wrap justify-center gap-8 text-gray-300 text-sm font-medium">
+        <div className="mt-10 flex flex-wrap justify-center gap-8 text-gray-600 dark:text-gray-300 text-sm font-medium">
           <a href="#" className="hover:text-blue-500 transition-colors">Privacy Policy</a>
           <a href="#" className="hover:text-blue-500 transition-colors">Terms of Service</a>
           <a href="#" className="hover:text-blue-500 transition-colors">Support Center</a>

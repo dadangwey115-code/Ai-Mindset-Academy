@@ -64,7 +64,7 @@ export const StrategicFramework: React.FC<{ language: Language, onStart: () => v
   ];
 
   return (
-    <div className="bg-black text-white py-24 overflow-hidden">
+    <div className="bg-white dark:bg-black text-gray-900 dark:text-white py-24 overflow-hidden transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Intro Section */}
@@ -75,7 +75,7 @@ export const StrategicFramework: React.FC<{ language: Language, onStart: () => v
               <h2 className={`text-4xl md:text-5xl font-black mb-8 ${isMy ? 'leading-myanmar' : 'leading-tight'}`}>
                 {isMy ? "လုပ်ငန်းဆောင်ရွက်သူမှ AI ညွှန်ကြားသူအဖြစ်သို့ ကူးပြောင်းခြင်း" : "From Operator to AI Director"}
               </h2>
-              <p className="text-gray-400 text-lg leading-relaxed mb-8">
+              <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed mb-8">
                 {isMy 
                   ? "AI ကို မိမိ၏ လုပ်ဆောင်နိုင်စွမ်းကို လျော့ကျစေသည့် အရာဟု မရှုမြင်ဘဲ၊ မိမိ၏ ဆုံးဖြတ်ချက်ချမှတ်နိုင်စွမ်းကို အဆပေါင်းများစွာ မြှင့်တင်ပေးမည့် 'Executive Force Multiplier' အဖြစ် အသုံးချတတ်ရန် လိုအပ်ပါသည်။"
                   : "Leadership today requires shifting from manual operations to strategic orchestration. AI is the lever that amplifies your potential."}
@@ -87,7 +87,7 @@ export const StrategicFramework: React.FC<{ language: Language, onStart: () => v
                 </button>
                 <button 
                   onClick={onOpenStrategyBlueprint}
-                  className="px-8 py-4 bg-white/5 border border-white/10 rounded-2xl font-bold hover:bg-white/10 transition-all flex items-center justify-center gap-2 group"
+                  className="px-8 py-4 bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl font-bold hover:bg-gray-200 dark:hover:bg-white/10 transition-all flex items-center justify-center gap-2 group text-gray-900 dark:text-white"
                 >
                   <ShieldCheck className="text-blue-500" />
                   {t.blueprintBtn}
@@ -96,34 +96,34 @@ export const StrategicFramework: React.FC<{ language: Language, onStart: () => v
             </div>
             <div className="relative">
               <div className="absolute -inset-10 bg-blue-600/10 blur-[100px] rounded-full" />
-              <div className="relative border border-white/10 p-1 bg-white/5 rounded-[40px] overflow-hidden">
-                <div className="bg-zinc-900 rounded-[39px] p-10">
+              <div className="relative border border-gray-200 dark:border-white/10 p-1 bg-gray-100 dark:bg-white/5 rounded-[40px] overflow-hidden">
+                <div className="bg-white dark:bg-zinc-900 rounded-[39px] p-10">
                   <div className="flex justify-between mb-8">
                     <div className="space-y-2">
                        <div className="h-2 w-24 bg-blue-600/50 rounded-full" />
-                       <div className="h-2 w-40 bg-white/10 rounded-full" />
+                       <div className="h-2 w-40 bg-gray-200 dark:bg-white/10 rounded-full" />
                     </div>
                     <ShieldCheck className="text-blue-500" />
                   </div>
                   <div className="space-y-6">
-                    <div className="p-4 bg-white/5 rounded-2xl border border-white/5 flex items-center justify-between">
+                    <div className="p-4 bg-gray-50 dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/5 flex items-center justify-between">
                        <div className="flex items-center gap-3">
-                         <div className="w-8 h-8 rounded-lg bg-zinc-800 flex items-center justify-center text-[10px] font-bold">01</div>
-                         <span className="text-sm font-medium">Strategic Ideation</span>
+                         <div className="w-8 h-8 rounded-lg bg-gray-200 dark:bg-zinc-800 flex items-center justify-center text-[10px] font-bold text-gray-600 dark:text-gray-300">01</div>
+                         <span className="text-sm font-medium text-gray-900 dark:text-white">Strategic Ideation</span>
                        </div>
                        <div className="text-blue-500 text-xs font-bold">10%</div>
                     </div>
                     <div className="p-4 bg-blue-600/10 rounded-2xl border border-blue-500/20 flex items-center justify-between scale-105 shadow-xl shadow-blue-600/5">
                        <div className="flex items-center gap-3">
-                         <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-[10px] font-bold">02</div>
-                         <span className="text-sm font-bold">AI Execution</span>
+                         <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-[10px] font-bold text-white">02</div>
+                         <span className="text-sm font-bold text-gray-900 dark:text-white">AI Execution</span>
                        </div>
                        <div className="text-blue-400 text-xs font-bold">80%</div>
                     </div>
-                    <div className="p-4 bg-white/5 rounded-2xl border border-white/5 flex items-center justify-between">
+                    <div className="p-4 bg-gray-50 dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/5 flex items-center justify-between">
                        <div className="flex items-center gap-3">
-                         <div className="w-8 h-8 rounded-lg bg-zinc-800 flex items-center justify-center text-[10px] font-bold">03</div>
-                         <span className="text-sm font-medium">Human Integration</span>
+                         <div className="w-8 h-8 rounded-lg bg-gray-200 dark:bg-zinc-800 flex items-center justify-center text-[10px] font-bold text-gray-600 dark:text-gray-300">03</div>
+                         <span className="text-sm font-medium text-gray-900 dark:text-white">Human Integration</span>
                        </div>
                        <div className="text-blue-500 text-xs font-bold">10%</div>
                     </div>
@@ -137,44 +137,44 @@ export const StrategicFramework: React.FC<{ language: Language, onStart: () => v
         {/* Framework Pillars Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-32">
           {sections.map((s, i) => (
-            <div key={i} className="group bg-white/5 border border-white/10 p-8 rounded-3xl hover:bg-white/[0.08] transition-all duration-500">
+            <div key={i} className="group bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 p-8 rounded-3xl hover:bg-gray-100 dark:hover:bg-white/[0.08] transition-all duration-500">
               <div className={`w-14 h-14 ${s.bg} ${s.color} rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform`}>
                 <s.icon size={28} />
               </div>
-              <h4 className="text-xs font-bold tracking-widest text-gray-500 uppercase mb-2">{s.title}</h4>
-              <h3 className="text-xl font-bold text-white mb-4">{s.highlight}</h3>
-              <p className="text-gray-400 text-sm leading-relaxed">{s.desc}</p>
+              <h4 className="text-xs font-bold tracking-widest text-gray-400 dark:text-gray-500 uppercase mb-2">{s.title}</h4>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">{s.highlight}</h3>
+              <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">{s.desc}</p>
             </div>
           ))}
         </div>
 
         {/* 10/80/10 Rule Section */}
-        <div className="bg-zinc-900 border border-white/10 rounded-[48px] p-12 lg:p-20 relative overflow-hidden mb-32">
+        <div className="bg-gray-50 dark:bg-zinc-900 border border-gray-200 dark:border-white/10 rounded-[48px] p-12 lg:p-20 relative overflow-hidden mb-32 transition-colors duration-300">
           <div className="absolute top-0 right-0 w-1/2 h-full bg-[radial-gradient(circle_at_center,rgba(37,99,235,0.05)_0%,transparent_70%)] pointer-events-none" />
           <div className="max-w-3xl relative z-10">
-            <h2 className={`text-4xl font-bold mb-8 ${isMy ? 'leading-myanmar' : ''}`}>
+            <h2 className={`text-4xl font-bold text-gray-900 dark:text-white mb-8 ${isMy ? 'leading-myanmar' : ''}`}>
               {isMy ? "၁၀/၈၀/၁၀ စည်းမျဉ်း- AI ကို လက်တွေ့အသုံးချ၍ စီမံခန့်ခွဲမှုပုံစံ" : "The 10/80/10 Rule for AI Orchestration"}
             </h2>
             <div className="space-y-12">
                <div className="flex gap-8 group">
-                 <div className="text-3xl font-black text-white/10 group-hover:text-blue-500 transition-colors">10%</div>
+                 <div className="text-3xl font-black text-gray-200 dark:text-white/10 group-hover:text-blue-500 transition-colors">10%</div>
                  <div>
-                   <h4 className="text-xl font-bold text-white mb-2">{isMy ? "ပထမ ၁၀% (Ideation)" : "First 10%: Ideation"}</h4>
-                   <p className="text-gray-400">{isMy ? "ခေါင်းဆောင်က စိတ်ကူးဖော်ထုတ်ခြင်းနှင့် လမ်းညွှန်မှုပေးခြင်း။" : "The leader defines the vision, sets the constraints, and provides the strategic spark."}</p>
+                   <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{isMy ? "ပထမ ၁၀% (Ideation)" : "First 10%: Ideation"}</h4>
+                   <p className="text-gray-600 dark:text-gray-400">{isMy ? "ခေါင်းဆောင်က စိတ်ကူးဖော်ထုတ်ခြင်းနှင့် လမ်းညွှန်မှုပေးခြင်း။" : "The leader defines the vision, sets the constraints, and provides the strategic spark."}</p>
                  </div>
                </div>
                <div className="flex gap-8 group">
-                 <div className="text-3xl font-black text-white/10 group-hover:text-blue-500 transition-colors">80%</div>
+                 <div className="text-3xl font-black text-gray-200 dark:text-white/10 group-hover:text-blue-500 transition-colors">80%</div>
                  <div>
-                   <h4 className="text-xl font-bold text-white mb-2">{isMy ? "အလယ် ၈၀% (AI Execution)" : "Middle 80%: AI Execution"}</h4>
-                   <p className="text-gray-400">{isMy ? "AI ကို အသုံးပြု၍ အလုပ်များကို လက်တွေ့လုပ်ဆောင်စေခြင်း။" : "The AI agents handle the high-volume heavy lifting, research, and technical construction."}</p>
+                   <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{isMy ? "အလယ် ၈၀% (AI Execution)" : "Middle 80%: AI Execution"}</h4>
+                   <p className="text-gray-600 dark:text-gray-400">{isMy ? "AI ကို အသုံးပြု၍ အလုပ်များကို လက်တွေ့လုပ်ဆောင်စေခြင်း။" : "The AI agents handle the high-volume heavy lifting, research, and technical construction."}</p>
                  </div>
                </div>
                <div className="flex gap-8 group">
-                 <div className="text-3xl font-black text-white/10 group-hover:text-blue-500 transition-colors">10%</div>
+                 <div className="text-3xl font-black text-gray-200 dark:text-white/10 group-hover:text-blue-500 transition-colors">10%</div>
                  <div>
-                   <h4 className="text-xl font-bold text-white mb-2">{isMy ? "နောက်ဆုံး ၁၀% (Integration & Taste)" : "Last 10%: Taste & Polish"}</h4>
-                   <p className="text-gray-400">{isMy ? "လူသား၏ 'Taste' ကို အသုံးပြု၍ အချောသတ်ခြင်းနှင့် ပေါင်းစပ်ခြင်း။" : "The leader applies human curation, quality control, and the final 10% of excellence."}</p>
+                   <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{isMy ? "နောက်ဆုံး ၁၀% (Integration & Taste)" : "Last 10%: Taste & Polish"}</h4>
+                   <p className="text-gray-600 dark:text-gray-400">{isMy ? "လူသား၏ 'Taste' ကို အသုံးပြု၍ အချောသတ်ခြင်းနှင့် ပေါင်းစပ်ခြင်း။" : "The leader applies human curation, quality control, and the final 10% of excellence."}</p>
                  </div>
                </div>
             </div>

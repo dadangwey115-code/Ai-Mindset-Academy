@@ -22,10 +22,10 @@ const CurriculumCard: React.FC<CurriculumCardProps> = ({
   return (
     <motion.div 
       whileHover={{ y: -10 }}
-      className={`relative overflow-hidden bg-white/[0.03] backdrop-blur-xl border p-8 rounded-[40px] transition-all duration-500 group h-full flex flex-col ${
+      className={`relative overflow-hidden bg-gray-50 dark:bg-white/[0.03] backdrop-blur-xl border p-8 rounded-[40px] transition-all duration-500 group h-full flex flex-col ${
         isCompleted 
         ? 'border-emerald-500/30 shadow-[0_0_40px_rgba(16,185,129,0.1)]' 
-        : 'border-white/10 hover:border-blue-500/50 hover:shadow-[0_0_50px_rgba(59,130,246,0.2)]'
+        : 'border-gray-200 dark:border-white/10 hover:border-blue-500/50 hover:shadow-[0_0_50px_rgba(59,130,246,0.2)]'
       }`}
     >
       {/* Glassmorphism highlight */}
@@ -78,7 +78,7 @@ const CurriculumCard: React.FC<CurriculumCardProps> = ({
       </div>
 
       <div className="relative z-10 flex flex-col h-full">
-        <h3 className={`text-2xl font-black text-white mb-2 tracking-tight ${isMy ? 'leading-myanmar' : ''}`}>
+        <h3 className={`text-2xl font-black text-gray-900 dark:text-white mb-2 tracking-tight ${isMy ? 'leading-myanmar' : ''}`}>
           {isMy ? titleMy : title}
         </h3>
         <div className="flex items-center gap-2 mb-6">
@@ -88,15 +88,15 @@ const CurriculumCard: React.FC<CurriculumCardProps> = ({
            </p>
         </div>
         
-        <p className={`text-gray-300 mb-8 leading-relaxed flex-grow text-sm ${isMy ? 'leading-myanmar' : ''}`}>
+        <p className={`text-gray-600 dark:text-gray-300 mb-8 leading-relaxed flex-grow text-sm ${isMy ? 'leading-myanmar' : ''}`}>
           {isMy ? descriptionMy : description}
         </p>
 
         <div className="space-y-4 mb-10">
           {(isMy ? pointsMy : points).slice(0, 3).map((point, idx) => (
-            <div key={idx} className="flex items-center gap-3 text-xs text-gray-400 group/item">
+            <div key={idx} className="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400 group/item">
               <div className="w-1.5 h-1.5 rounded-full bg-blue-500/30 group-hover/item:scale-150 group-hover/item:bg-blue-500 transition-all duration-300" />
-              <span className="group-hover/item:text-gray-300 transition-colors">{point}</span>
+              <span className="group-hover/item:text-gray-900 dark:group-hover/item:text-gray-300 transition-colors">{point}</span>
             </div>
           ))}
         </div>
@@ -104,7 +104,7 @@ const CurriculumCard: React.FC<CurriculumCardProps> = ({
         <button 
           onClick={() => onLearnMore(module)}
           aria-label={`Explore ${isMy ? titleMy : title} module`}
-          className="relative overflow-hidden flex items-center justify-center gap-2 w-full py-4 bg-white/5 hover:bg-blue-600 text-white border border-white/10 hover:border-blue-500 rounded-2xl font-black transition-all duration-500 text-xs uppercase tracking-widest group/btn"
+          className="relative overflow-hidden flex items-center justify-center gap-2 w-full py-4 bg-gray-100 dark:bg-white/5 hover:bg-blue-600 text-gray-900 dark:text-white border border-gray-200 dark:border-white/10 hover:border-blue-500 rounded-2xl font-black transition-all duration-500 text-xs uppercase tracking-widest group/btn"
         >
           <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-500" />
           <span className="relative z-10 flex items-center gap-2">
@@ -181,13 +181,13 @@ export const Curriculum: React.FC<{ language: Language; completedLessons: string
   const driveLink = "https://drive.google.com/drive/folders/1a0vAqN6TzpkTX4V1MDKAvi3YGN-uXmTE?usp=sharing";
 
   return (
-    <div className="py-20 bg-black min-h-screen">
+    <div className="py-20 bg-white dark:bg-black min-h-screen transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {!showPillarQuiz ? (
           <div className="animate-in fade-in duration-500">
             <div className="text-center mb-16 relative">
-              <h2 className="text-4xl font-bold text-white mb-4">{t.learningPath}</h2>
-              <p className="text-gray-300 max-w-2xl mx-auto">{t.learningPathSub}</p>
+              <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">{t.learningPath}</h2>
+              <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">{t.learningPathSub}</p>
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
@@ -209,7 +209,7 @@ export const Curriculum: React.FC<{ language: Language; completedLessons: string
             </div>
 
             {/* NEW PDF Resource Hub Section */}
-            <div className="bg-zinc-900 border border-white/10 rounded-[48px] p-10 md:p-16 relative overflow-hidden shadow-2xl group/hub">
+            <div className="bg-gray-50 dark:bg-zinc-900 border border-gray-200 dark:border-white/10 rounded-[48px] p-10 md:p-16 relative overflow-hidden shadow-2xl group/hub transition-colors duration-300">
               <div className="absolute top-0 right-0 p-12 opacity-5 group-hover/hub:scale-110 group-hover/hub:rotate-6 transition-transform duration-700">
                 <Library size={200} className="text-blue-500" />
               </div>
@@ -218,10 +218,10 @@ export const Curriculum: React.FC<{ language: Language; completedLessons: string
                   <FileText className="w-3 h-3" />
                   <span>Student Portal</span>
                 </div>
-                <h2 className={`text-3xl md:text-4xl font-black text-white mb-6 ${isMy ? 'leading-myanmar' : ''}`}>
+                <h2 className={`text-3xl md:text-4xl font-black text-gray-900 dark:text-white mb-6 ${isMy ? 'leading-myanmar' : ''}`}>
                   {res.title}
                 </h2>
-                <p className="text-gray-300 text-lg leading-relaxed mb-10">
+                <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed mb-10">
                   {res.sub}
                 </p>
                 <a 
@@ -266,26 +266,26 @@ export const Curriculum: React.FC<{ language: Language; completedLessons: string
             className="absolute inset-0 bg-black/80 backdrop-blur-md animate-in fade-in duration-300"
             onClick={() => setSelectedModule(null)}
           />
-          <div className="relative w-full max-w-3xl bg-zinc-900 border border-white/10 rounded-[32px] shadow-2xl overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-4 duration-300">
-            <div className="flex items-center justify-between p-6 sm:p-8 border-b border-white/5 bg-white/[0.02]">
+          <div className="relative w-full max-w-3xl bg-white dark:bg-zinc-900 border border-gray-200 dark:border-white/10 rounded-[32px] shadow-2xl overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-4 duration-300">
+            <div className="flex items-center justify-between p-6 sm:p-8 border-b border-gray-100 dark:border-white/5 bg-gray-50/50 dark:bg-white/[0.02]">
               <div className="flex items-center gap-4 text-blue-500">
                 <div className="w-12 h-12 bg-blue-600/20 rounded-2xl flex items-center justify-center">
                   <selectedModule.icon size={24} />
                 </div>
-                <h2 className="text-2xl font-bold text-white">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
                   {isMy ? selectedModule.extendedContent?.titleMy : selectedModule.extendedContent?.title}
                 </h2>
               </div>
               <button 
                 onClick={() => setSelectedModule(null)}
                 aria-label="Close modal"
-                className="p-2 text-gray-400 hover:text-white bg-white/5 rounded-full transition-colors"
+                className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-white bg-gray-100 dark:bg-white/5 rounded-full transition-colors"
               >
                 <X size={24} />
               </button>
             </div>
             <div className="p-6 sm:p-8 max-h-[70vh] overflow-y-auto custom-scrollbar">
-              <div className={`space-y-6 text-gray-300 leading-relaxed ${isMy ? 'myanmar-text text-lg' : 'text-base'}`}>
+              <div className={`space-y-6 text-gray-600 dark:text-gray-300 leading-relaxed ${isMy ? 'myanmar-text text-lg' : 'text-base'}`}>
                 <div className="bg-blue-600/5 border border-blue-500/20 p-6 rounded-2xl flex gap-4">
                   <Info className="text-blue-500 shrink-0 mt-1" size={20} />
                   <p>
@@ -293,7 +293,7 @@ export const Curriculum: React.FC<{ language: Language; completedLessons: string
                   </p>
                 </div>
                 
-                <h4 className="text-white font-bold uppercase tracking-widest text-xs border-b border-white/5 pb-2">
+                <h4 className="text-gray-900 dark:text-white font-bold uppercase tracking-widest text-xs border-b border-gray-100 dark:border-white/5 pb-2">
                   {isMy ? 'အဓိက အချက်များ' : 'Key Pillars of Mastery'}
                 </h4>
                 

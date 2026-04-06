@@ -128,21 +128,21 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
   };
 
   return (
-    <div className={`min-h-screen bg-black flex flex-col md:flex-row relative overflow-hidden ${language === 'my' ? 'myanmar-text' : ''}`}>
+    <div className={`min-h-screen bg-white dark:bg-black flex flex-col md:flex-row relative overflow-hidden transition-colors duration-300 ${language === 'my' ? 'myanmar-text' : ''}`}>
       {/* Language Switcher - Floating */}
       <div className="absolute top-6 right-6 z-50">
-        <div className="flex items-center bg-white/5 border border-white/10 rounded-lg p-0.5 backdrop-blur-md" role="group" aria-label="Language selector">
+        <div className="flex items-center bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-0.5 backdrop-blur-md" role="group" aria-label="Language selector">
           <button 
             onClick={() => onLanguageChange('en')}
             aria-label="Switch to English"
-            className={`px-3 py-1 text-xs font-bold rounded-md transition-all ${language === 'en' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}
+            className={`px-3 py-1 text-xs font-bold rounded-md transition-all ${language === 'en' ? 'bg-blue-600 text-white' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'}`}
           >
             EN
           </button>
           <button 
             onClick={() => onLanguageChange('my')}
             aria-label="Switch to Myanmar"
-            className={`px-3 py-1 text-xs font-bold rounded-md transition-all ${language === 'my' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}
+            className={`px-3 py-1 text-xs font-bold rounded-md transition-all ${language === 'my' ? 'bg-blue-600 text-white' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'}`}
           >
             MM
           </button>
@@ -150,7 +150,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
       </div>
 
       {/* Left Side: Presentation Area */}
-      <div className="hidden md:flex md:w-1/2 relative flex-col justify-center px-12 lg:px-24 overflow-hidden bg-[#050505]">
+      <div className="hidden md:flex md:w-1/2 relative flex-col justify-center px-12 lg:px-24 overflow-hidden bg-gray-50 dark:bg-[#050505] transition-colors duration-300">
         {/* Deep Tech Background */}
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-purple-900/20 to-black" />
@@ -201,7 +201,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
               </div>
               <span className="text-blue-500 font-bold tracking-[0.3em] uppercase text-xs">AI Mindset Academy</span>
             </div>
-            <h1 className="text-5xl lg:text-7xl font-black text-white leading-tight tracking-tighter">
+            <h1 className="text-5xl lg:text-7xl font-black text-gray-900 dark:text-white leading-tight tracking-tighter">
               {t.auth.authHeadline.split(/[.။]/).filter(Boolean).map((part: string, i: number) => {
                 const punctuation = (language === 'my' && /[\u1000-\u109F]/.test(t.auth.authHeadline)) ? '။' : '.';
                 return (
@@ -228,7 +228,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
                 className={`flex items-center gap-2 px-4 py-2 rounded-xl border transition-all duration-300 relative overflow-hidden group ${
                   currentCategory === idx 
                     ? 'bg-blue-600/20 border-blue-500/50 text-blue-400' 
-                    : 'bg-white/5 border-white/10 text-gray-400 hover:border-white/20 hover:text-white'
+                    : 'bg-gray-100 dark:bg-white/5 border-gray-200 dark:border-white/10 text-gray-500 dark:text-gray-400 hover:border-gray-300 dark:hover:border-white/20 hover:text-gray-900 dark:hover:text-white'
                 }`}
               >
                 {cat.icon}
@@ -264,15 +264,15 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
               >
                 <div className="flex flex-col gap-4">
                   <div className="flex items-center gap-4">
-                    <div className="p-4 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-sm group-hover/carousel:border-blue-500/50 transition-colors">
+                    <div className="p-4 bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl backdrop-blur-sm group-hover/carousel:border-blue-500/50 transition-colors">
                       {CAROUSEL_ITEMS[currentSlide].icon}
                     </div>
                     <div>
                       <span className="text-2xl">{CAROUSEL_ITEMS[currentSlide].label}</span>
-                      <h3 className="text-xl font-bold text-white">{t.auth.carousel[currentSlide].title}</h3>
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-white">{t.auth.carousel[currentSlide].title}</h3>
                     </div>
                   </div>
-                  <p className="text-xl text-gray-300 leading-relaxed max-w-md">
+                  <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed max-w-md">
                     "{t.auth.carousel[currentSlide].description}"
                   </p>
                 </div>
@@ -284,7 +284,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
               <button 
                 onClick={(e) => { e.stopPropagation(); prevSlide(); }}
                 aria-label="Previous slide"
-                className="p-3 bg-white/5 hover:bg-blue-600/20 border border-white/10 hover:border-blue-500/50 rounded-full text-white/30 hover:text-blue-400 transition-all backdrop-blur-md"
+                className="p-3 bg-gray-100 dark:bg-white/5 hover:bg-blue-600/20 border border-gray-200 dark:border-white/10 hover:border-blue-500/50 rounded-full text-gray-400 dark:text-white/30 hover:text-blue-400 transition-all backdrop-blur-md"
               >
                 <ChevronLeft size={24} />
               </button>
@@ -293,7 +293,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
               <button 
                 onClick={(e) => { e.stopPropagation(); nextSlide(); }}
                 aria-label="Next slide"
-                className="p-3 bg-white/5 hover:bg-blue-600/20 border border-white/10 hover:border-blue-500/50 rounded-full text-white/30 hover:text-blue-400 transition-all backdrop-blur-md"
+                className="p-3 bg-gray-100 dark:bg-white/5 hover:bg-blue-600/20 border border-gray-200 dark:border-white/10 hover:border-blue-500/50 rounded-full text-gray-400 dark:text-white/30 hover:text-blue-400 transition-all backdrop-blur-md"
               >
                 <ChevronRight size={24} />
               </button>
@@ -349,7 +349,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
       </div>
 
       {/* Right Side: Auth Form */}
-      <div className="w-full md:w-1/2 flex items-center justify-center p-6 md:p-12 lg:p-24 bg-black">
+      <div className="w-full md:w-1/2 flex items-center justify-center p-6 md:p-12 lg:p-24 bg-white dark:bg-black transition-colors duration-300">
         <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -361,7 +361,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
             <div className="bg-blue-600 p-3 rounded-2xl mb-4 shadow-lg shadow-blue-600/20">
               <BrainCircuit className="text-white w-8 h-8" />
             </div>
-            <h1 className="text-2xl font-black text-white tracking-tighter uppercase text-center">
+            <h1 className="text-2xl font-black text-gray-900 dark:text-white tracking-tighter uppercase text-center">
               AI Mindset Academy
             </h1>
             <p className="text-blue-500 text-xs font-bold tracking-[0.2em] uppercase mt-2">
@@ -369,21 +369,21 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
             </p>
           </div>
 
-          <div className="bg-zinc-900/50 border border-white/10 rounded-[40px] p-8 md:p-10 backdrop-blur-xl shadow-2xl relative overflow-hidden ring-1 ring-white/5">
+          <div className="bg-gray-50 dark:bg-zinc-900/50 border border-gray-200 dark:border-white/10 rounded-[40px] p-8 md:p-10 backdrop-blur-xl shadow-2xl relative overflow-hidden ring-1 ring-gray-100 dark:ring-white/5 transition-colors duration-300">
             <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-white tracking-tight mb-6">
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-white tracking-tight mb-6">
                 {isLogin ? t.auth.loginTitle : t.auth.signupTitle}
               </h2>
               
               {/* Segmented Toggle Tabs */}
-              <div className="flex p-1 bg-white/5 border border-white/10 rounded-2xl mb-2" role="tablist">
+              <div className="flex p-1 bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl mb-2" role="tablist">
                 <button
                   type="button"
                   onClick={() => setIsLogin(false)}
                   role="tab"
                   aria-selected={!isLogin}
                   aria-label="Switch to Signup"
-                  className={`flex-1 py-2.5 text-sm font-bold rounded-xl transition-all ${!isLogin ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/20' : 'text-gray-400 hover:text-gray-300'}`}
+                  className={`flex-1 py-2.5 text-sm font-bold rounded-xl transition-all ${!isLogin ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/20' : 'text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'}`}
                 >
                   {t.auth.toggleSignup}
                 </button>
@@ -393,7 +393,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
                   role="tab"
                   aria-selected={isLogin}
                   aria-label="Switch to Login"
-                  className={`flex-1 py-2.5 text-sm font-bold rounded-xl transition-all ${isLogin ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/20' : 'text-gray-400 hover:text-gray-300'}`}
+                  className={`flex-1 py-2.5 text-sm font-bold rounded-xl transition-all ${isLogin ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/20' : 'text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'}`}
                 >
                   {t.auth.toggleLogin}
                 </button>
@@ -424,7 +424,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
                       required
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-white focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all placeholder:text-gray-600"
+                      className="w-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 text-gray-900 dark:text-white focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all placeholder:text-gray-600"
                       placeholder="John Doe"
                     />
                   </div>
@@ -443,7 +443,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
                     required
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-white focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all placeholder:text-gray-600"
+                    className="w-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 text-gray-900 dark:text-white focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all placeholder:text-gray-600"
                     placeholder="email@example.com"
                   />
                 </div>
@@ -461,7 +461,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
                     required
                     value={formData.password}
                     onChange={handleChange}
-                    className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-white focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all placeholder:text-gray-600"
+                    className="w-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 text-gray-900 dark:text-white focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all placeholder:text-gray-600"
                     placeholder="••••••••"
                   />
                 </div>
@@ -480,7 +480,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
                       required
                       value={formData.passwordConfirm}
                       onChange={handleChange}
-                      className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-white focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all placeholder:text-gray-600"
+                      className="w-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 text-gray-900 dark:text-white focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all placeholder:text-gray-600"
                       placeholder="••••••••"
                     />
                   </div>

@@ -24,6 +24,8 @@ const Profile = lazy(() => import('./components/Profile').then(m => ({ default: 
 const AchievementToast = lazy(() => import('./components/AchievementToast').then(m => ({ default: m.AchievementToast })));
 const PwaInstallBanner = lazy(() => import('./components/PwaInstallBanner').then(m => ({ default: m.PwaInstallBanner })));
 
+import { ThemeProvider } from './components/ThemeProvider';
+
 const LoadingSpinner = () => (
   <div className="flex items-center justify-center min-h-[400px] w-full">
     <div className="w-12 h-12 border-4 border-blue-500/20 border-t-blue-500 rounded-full animate-spin" />
@@ -96,17 +98,20 @@ const App: React.FC = () => {
 
   if (!isAuthenticated) {
     return (
-      <Suspense fallback={<LoadingSpinner />}>
-        <AuthPage language={language} onLanguageChange={setLanguage} />
-      </Suspense>
+      <ThemeProvider>
+        <Suspense fallback={<LoadingSpinner />}>
+          <AuthPage language={language} onLanguageChange={setLanguage} />
+        </Suspense>
+      </ThemeProvider>
     );
   }
 
   const completedLessons = user?.completed_lessons || [];
 
   return (
-    <div className={`min-h-screen bg-black text-gray-100 selection:bg-blue-500/30 selection:text-blue-200 scroll-smooth ${language === 'my' ? 'myanmar-text antialiased' : 'font-sans'}`}>
-      <Navbar 
+    <ThemeProvider>
+      <div className={`min-h-screen bg-white dark:bg-black text-gray-900 dark:text-gray-100 selection:bg-blue-500/30 selection:text-blue-200 scroll-smooth transition-colors duration-300 ${language === 'my' ? 'myanmar-text antialiased' : 'font-sans'}`}>
+        <Navbar 
         activePage={activePage} 
         setActivePage={setActivePage} 
         language={language} 
@@ -211,7 +216,8 @@ const App: React.FC = () => {
           language={language} 
         />
       </Suspense>
-    </div>
+      </div>
+    </ThemeProvider>
   );
 };
 
