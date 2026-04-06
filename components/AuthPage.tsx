@@ -135,14 +135,14 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
           <button 
             onClick={() => onLanguageChange('en')}
             aria-label="Switch to English"
-            className={`px-3 py-1 text-xs font-bold rounded-md transition-all ${language === 'en' ? 'bg-blue-600 text-white' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'}`}
+            className={`px-3 py-1 text-xs font-bold rounded-md transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500 ${language === 'en' ? 'bg-blue-600 text-white' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'}`}
           >
             EN
           </button>
           <button 
             onClick={() => onLanguageChange('my')}
             aria-label="Switch to Myanmar"
-            className={`px-3 py-1 text-xs font-bold rounded-md transition-all ${language === 'my' ? 'bg-blue-600 text-white' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'}`}
+            className={`px-3 py-1 text-xs font-bold rounded-md transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500 ${language === 'my' ? 'bg-blue-600 text-white' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'}`}
           >
             MM
           </button>
@@ -229,7 +229,8 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
               <button
                 key={cat.id}
                 onClick={() => setCurrentSlide(cat.startIdx)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl border transition-all duration-300 relative overflow-hidden group ${
+                aria-label={`Show ${cat.label} category`}
+                className={`flex items-center gap-2 px-4 py-2 rounded-xl border transition-all duration-300 relative overflow-hidden group focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
                   currentCategory === idx 
                     ? 'bg-blue-600/20 border-blue-500/50 text-blue-400' 
                     : 'bg-gray-100 dark:bg-white/5 border-gray-200 dark:border-white/10 text-gray-500 dark:text-gray-400 hover:border-gray-300 dark:hover:border-white/20 hover:text-gray-900 dark:hover:text-white'
@@ -288,7 +289,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
               <button 
                 onClick={(e) => { e.stopPropagation(); prevSlide(); }}
                 aria-label="Previous slide"
-                className="p-3 bg-gray-100 dark:bg-white/5 hover:bg-blue-600/20 border border-gray-200 dark:border-white/10 hover:border-blue-500/50 rounded-full text-gray-400 dark:text-white/30 hover:text-blue-400 transition-all backdrop-blur-md"
+                className="p-3 bg-gray-100 dark:bg-white/5 hover:bg-blue-600/20 border border-gray-200 dark:border-white/10 hover:border-blue-500/50 rounded-full text-gray-400 dark:text-white/30 hover:text-blue-400 transition-all backdrop-blur-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
               >
                 <ChevronLeft size={24} />
               </button>
@@ -297,7 +298,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
               <button 
                 onClick={(e) => { e.stopPropagation(); nextSlide(); }}
                 aria-label="Next slide"
-                className="p-3 bg-gray-100 dark:bg-white/5 hover:bg-blue-600/20 border border-gray-200 dark:border-white/10 hover:border-blue-500/50 rounded-full text-gray-400 dark:text-white/30 hover:text-blue-400 transition-all backdrop-blur-md"
+                className="p-3 bg-gray-100 dark:bg-white/5 hover:bg-blue-600/20 border border-gray-200 dark:border-white/10 hover:border-blue-500/50 rounded-full text-gray-400 dark:text-white/30 hover:text-blue-400 transition-all backdrop-blur-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
               >
                 <ChevronRight size={24} />
               </button>
@@ -332,9 +333,11 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
               
               return (
                 <button
+                  idx={idx}
                   key={idx}
                   onClick={() => setCurrentSlide(idx)}
-                  className="relative h-1 bg-white/20 rounded-full overflow-hidden transition-all duration-300"
+                  aria-label={`Go to slide ${idx + 1}`}
+                  className="relative h-1 bg-white/20 rounded-full overflow-hidden transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   style={{ width: idx === currentSlide ? '32px' : '8px' }}
                 >
                   {idx === currentSlide && (
@@ -387,7 +390,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
                   role="tab"
                   aria-selected={!isLogin}
                   aria-label="Switch to Signup"
-                  className={`flex-1 py-2.5 text-sm font-bold rounded-xl transition-all ${!isLogin ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/20' : 'text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'}`}
+                  className={`flex-1 py-2.5 text-sm font-bold rounded-xl transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500 ${!isLogin ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/20' : 'text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'}`}
                 >
                   {t.auth.toggleSignup}
                 </button>
@@ -397,7 +400,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
                   role="tab"
                   aria-selected={isLogin}
                   aria-label="Switch to Login"
-                  className={`flex-1 py-2.5 text-sm font-bold rounded-xl transition-all ${isLogin ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/20' : 'text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'}`}
+                  className={`flex-1 py-2.5 text-sm font-bold rounded-xl transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500 ${isLogin ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/20' : 'text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'}`}
                 >
                   {t.auth.toggleLogin}
                 </button>
@@ -428,7 +431,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
                       required
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 text-gray-900 dark:text-white focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all placeholder:text-gray-600"
+                      className="w-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 text-gray-900 dark:text-white focus:outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900 transition-all placeholder:text-gray-600"
                       placeholder="John Doe"
                     />
                   </div>
@@ -447,7 +450,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
                     required
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 text-gray-900 dark:text-white focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all placeholder:text-gray-600"
+                    className="w-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 text-gray-900 dark:text-white focus:outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900 transition-all placeholder:text-gray-600"
                     placeholder="email@example.com"
                   />
                 </div>
@@ -465,7 +468,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
                     required
                     value={formData.password}
                     onChange={handleChange}
-                    className="w-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 text-gray-900 dark:text-white focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all placeholder:text-gray-600"
+                    className="w-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 text-gray-900 dark:text-white focus:outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900 transition-all placeholder:text-gray-600"
                     placeholder="••••••••"
                   />
                 </div>
@@ -484,7 +487,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
                       required
                       value={formData.passwordConfirm}
                       onChange={handleChange}
-                      className="w-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 text-gray-900 dark:text-white focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all placeholder:text-gray-600"
+                      className="w-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 text-gray-900 dark:text-white focus:outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900 transition-all placeholder:text-gray-600"
                       placeholder="••••••••"
                     />
                   </div>
@@ -508,7 +511,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-600/50 text-white font-bold py-4 rounded-2xl transition-all flex items-center justify-center gap-3 shadow-xl shadow-blue-600/20 mt-8 group"
+                className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-600/50 text-white font-bold py-4 rounded-2xl transition-all flex items-center justify-center gap-3 shadow-xl shadow-blue-600/20 mt-8 group focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900"
               >
                 {loading ? (
                   <Loader2 className="animate-spin" size={20} />

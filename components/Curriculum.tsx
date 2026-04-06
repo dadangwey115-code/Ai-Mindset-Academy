@@ -104,7 +104,7 @@ const CurriculumCard: React.FC<CurriculumCardProps> = ({
         <button 
           onClick={() => onLearnMore(module)}
           aria-label={`Explore ${isMy ? titleMy : title} module`}
-          className="relative overflow-hidden flex items-center justify-center gap-2 w-full py-4 bg-gray-100 dark:bg-white/5 hover:bg-blue-600 text-gray-900 dark:text-white border border-gray-200 dark:border-white/10 hover:border-blue-500 rounded-2xl font-black transition-all duration-500 text-xs uppercase tracking-widest group/btn"
+          className="relative overflow-hidden flex items-center justify-center gap-2 w-full py-4 bg-gray-100 dark:bg-white/5 hover:bg-blue-600 text-gray-900 dark:text-white border border-gray-200 dark:border-white/10 hover:border-blue-500 rounded-2xl font-black transition-all duration-500 text-xs uppercase tracking-widest group/btn focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900"
         >
           <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-500" />
           <span className="relative z-10 flex items-center gap-2">
@@ -241,7 +241,7 @@ export const Curriculum: React.FC<{ language: Language; completedLessons: string
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Open Student Portal in Google Drive"
-                  className="inline-flex items-center gap-3 px-10 py-5 ai-gradient-bg text-white rounded-2xl font-black text-lg transition-all shadow-xl shadow-indigo-600/30 hover:scale-[1.03] active:scale-95 glow-shadow"
+                  className="inline-flex items-center gap-3 px-10 py-5 ai-gradient-bg text-white rounded-2xl font-black text-lg transition-all shadow-xl shadow-indigo-600/30 hover:scale-[1.03] active:scale-95 glow-shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900"
                 >
                   {res.btn}
                   <ExternalLink size={20} />
@@ -255,7 +255,7 @@ export const Curriculum: React.FC<{ language: Language; completedLessons: string
               <button 
                 onClick={() => setShowPillarQuiz(false)}
                 aria-label="Back to Lessons"
-                className="text-gray-400 hover:text-white flex items-center gap-2 text-sm font-bold uppercase tracking-widest"
+                className="text-gray-400 hover:text-white flex items-center gap-2 text-sm font-bold uppercase tracking-widest focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-md p-1"
               >
                 <PlayCircle className="w-5 h-5 rotate-180" />
                 {isMy ? 'သင်ခန်းစာများသို့ ပြန်သွားရန်' : 'Back to Lessons'}
@@ -291,7 +291,7 @@ export const Curriculum: React.FC<{ language: Language; completedLessons: string
               <button 
                 onClick={() => setSelectedModule(null)}
                 aria-label="Close modal"
-                className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-white bg-gray-100 dark:bg-white/5 rounded-full transition-colors"
+                className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-white bg-gray-100 dark:bg-white/5 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900"
               >
                 <X size={24} />
               </button>
@@ -323,7 +323,7 @@ export const Curriculum: React.FC<{ language: Language; completedLessons: string
                 <button 
                   onClick={() => setSelectedModule(null)}
                   aria-label="Close module details"
-                  className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold transition-all shadow-lg shadow-blue-600/20"
+                  className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold transition-all shadow-lg shadow-blue-600/20 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900"
                 >
                   {isMy ? 'နားလည်ပါပြီ' : 'Got it!'}
                 </button>

@@ -141,7 +141,8 @@ export const ConceptModal: React.FC<ConceptModalProps> = ({ isOpen, onClose, lan
               
               <button
                 onClick={onClose}
-                className="absolute top-6 right-6 md:relative md:top-0 md:right-0 z-10 p-2 md:p-4 hover:bg-white/5 rounded-full transition-all text-gray-500 hover:text-white border border-transparent hover:border-white/10 group"
+                aria-label="Close modal"
+                className="absolute top-6 right-6 md:relative md:top-0 md:right-0 z-10 p-2 md:p-4 hover:bg-white/5 rounded-full transition-all text-gray-500 hover:text-white border border-transparent hover:border-white/10 group focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900"
               >
                 <X size={24} className="md:w-8 md:h-8 group-hover:rotate-90 transition-transform duration-300" />
               </button>
@@ -154,7 +155,8 @@ export const ConceptModal: React.FC<ConceptModalProps> = ({ isOpen, onClose, lan
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`flex-1 min-w-[90px] md:min-w-[140px] py-3 md:py-4 px-2 md:px-6 flex items-center justify-center gap-1.5 md:gap-3 transition-all rounded-xl md:rounded-[18px] relative group ${
+                    aria-label={`Switch to ${tab.label} tab`}
+                    className={`flex-1 min-w-[90px] md:min-w-[140px] py-3 md:py-4 px-2 md:px-6 flex items-center justify-center gap-1.5 md:gap-3 transition-all rounded-xl md:rounded-[18px] relative group focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900 ${
                       activeTab === tab.id 
                         ? 'bg-white/10 text-white shadow-lg border border-white/10' 
                         : 'text-gray-500 hover:text-gray-300 hover:bg-white/5'
@@ -209,7 +211,8 @@ export const ConceptModal: React.FC<ConceptModalProps> = ({ isOpen, onClose, lan
               </div>
               <button
                 onClick={onClose}
-                className={`w-full md:w-auto px-8 md:px-12 py-4 md:py-5 ${activeBgClass} hover:opacity-90 text-white font-black uppercase tracking-widest text-xs md:text-sm rounded-xl md:rounded-2xl transition-all shadow-2xl shadow-blue-600/20 hover:scale-105 active:scale-95 flex items-center justify-center gap-3`}
+                aria-label="Close modal"
+                className={`w-full md:w-auto px-8 md:px-12 py-4 md:py-5 ${activeBgClass} hover:opacity-90 text-white font-black uppercase tracking-widest text-xs md:text-sm rounded-xl md:rounded-2xl transition-all shadow-2xl shadow-blue-600/20 hover:scale-105 active:scale-95 flex items-center justify-center gap-3 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900`}
               >
                 {language === 'my' ? 'နားလည်ပါပြီ' : 'Got it, thanks!'}
                 <ChevronRight size={18} className="md:w-5 md:h-5" />

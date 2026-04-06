@@ -198,7 +198,8 @@ export const Profile: React.FC<ProfileProps> = ({ user, language, onLogout }) =>
               <button
                 disabled={!isFullyCompleted}
                 onClick={generateCertificate}
-                className={`w-full flex items-center justify-center gap-2 py-3 rounded-xl font-bold transition-all ${
+                aria-label={isFullyCompleted ? "Download your official Academy Certificate" : "Complete all modules to unlock your certificate"}
+                className={`w-full flex items-center justify-center gap-2 py-3 rounded-xl font-bold transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900 ${
                   isFullyCompleted
                   ? 'bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/20'
                   : 'bg-gray-100 dark:bg-white/5 text-gray-600 cursor-not-allowed'
@@ -231,7 +232,8 @@ export const Profile: React.FC<ProfileProps> = ({ user, language, onLogout }) =>
               
               <button
                 onClick={onLogout}
-                className="w-full flex items-center justify-center gap-2 py-3 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-xl font-bold transition-all border border-red-500/20"
+                aria-label="Logout from your account"
+                className="w-full flex items-center justify-center gap-2 py-3 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-xl font-bold transition-all border border-red-500/20 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 dark:focus:ring-offset-slate-900"
               >
                 <LogOut size={18} />
                 {UI_STRINGS[language].nav.logout}

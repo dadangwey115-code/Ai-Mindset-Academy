@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Bot, Zap, Users, Brain, BrainCircuit, Sparkles, CheckCircle2, AlertTriangle, Briefcase, TrendingUp, Terminal } from 'lucide-react';
+import { motion } from 'motion/react';
+import { Bot, Zap, Users, Brain, BrainCircuit, Sparkles, CheckCircle2, AlertTriangle, Briefcase, TrendingUp, Terminal, Cake, ExternalLink, Layers, Layout, Cloud, Cpu, Dna, Activity, Lightbulb, X, BookOpen } from 'lucide-react';
 import { Language } from '../types';
 import { LessonQuiz } from './LessonQuiz';
 import { AILEVELS_MASTER_QUIZ } from '../constants';
@@ -104,6 +105,7 @@ export const AILevelsLecture: React.FC<{ language: Language; onComplete: () => P
   const [activeStageId, setActiveStageId] = useState(1);
   const [showQuiz, setShowQuiz] = useState(false);
   const [isUnlocked, setIsUnlocked] = useState(false);
+  const [isIntelligenceModalOpen, setIsIntelligenceModalOpen] = useState(false);
   const activeStage = aiStages.find(s => s.id === activeStageId) || aiStages[0];
   const isMy = language === 'my';
 
@@ -154,7 +156,30 @@ export const AILevelsLecture: React.FC<{ language: Language; onComplete: () => P
       conclusionTitle: "Conclusion & Advice",
       conclusionBody: "The most certain fact is that those who prepare and learn early will have a significant advantage. It is crucial to build a system for continuous learning rather than just learning a single tool.",
       quizBtn: "Start AI Levels Quiz",
-      backBtn: "Back to AI Levels"
+      backBtn: "Back to AI Levels",
+      cakeTitle: "The AI Five-Layer Cake",
+      cakeSubtitle: "AI is not Magic. It's Infrastructure.",
+      cakeDescription: "Thinking of AI like a cake makes it easy to see how it works! Understanding these 5 infrastructure layers is essential to mastering the 5 progression levels of AI. Remember: AI is not magic, it's infrastructure.",
+      cakeLinkBtn: "Explore the 5 Layers",
+      intelligenceTitle: "The Highest Form of Intelligence",
+      intelligenceSubtitle: "Learning from Neuroscientists",
+      intelligenceDescription: "AI is evolving from a 'math machine' to a 'biological mimic'. By studying the human brain, researchers are moving AI from simple calculation toward Artificial Wisdom.",
+      intelligencePoint1: "Reverse-Engineering the Brain: Mimicking the Prefrontal Cortex for planning.",
+      intelligencePoint2: "Dopamine Loop: Using Reinforcement Learning to learn from rewards and mistakes.",
+      intelligencePoint3: "Metacognition: Teaching AI to monitor its own thoughts to avoid bias.",
+      intelligenceLearnMore: "External Resource",
+      intelligenceDetailBtn: "Detailed Explanation",
+      intelligenceModalTitle: "The Great Convergence: Neuroscience & AI",
+      intelligenceModalIntro: "We are witnessing a 'Great Convergence' where the boundaries between computer science and biology are blurring. AI is becoming a biological mimic.",
+      intelligenceSection1Title: "1. Reverse-Engineering the Brain's 'CEO'",
+      intelligenceSection1Body: "Early AI was 'symbolic,' following rigid rules. Modern AI (Neural Networks) mimics biological neurons. The newest frontier is the Prefrontal Cortex, which handles executive function—planning and decision-making.",
+      intelligenceSection2Title: "2. Reinforcement Learning: The Dopamine Loop",
+      intelligenceSection2Body: "Reinforcement Learning (RL) was directly inspired by how dopamine signals rewards and mistakes. Neuroscientists discovered that neurons calculate 'Reward Prediction Errors' mathematically similar to RL algorithms.",
+      intelligenceSection3Title: "3. The 'Highest Form' of Intelligence",
+      intelligenceSection3Body: "The peak of cognitive development is Neuroplasticity (rewiring based on experience) and Metacognition (monitoring thoughts to avoid bias). AI is now developing 'layers' to evaluate its own output.",
+      intelligenceSection4Title: "4. The Bidirectional Relationship",
+      intelligenceSection4Body: "While AI learns from the brain, neuroscience uses AI to understand the brain better, transforming messy fMRI data into 'trajectories' of thought.",
+      intelligenceModalSummary: "We are teaching machines to think by looking in the mirror. We are building digital reflections of our own cognitive architecture."
     },
     my: {
       tag: "The Future is Here",
@@ -183,7 +208,30 @@ export const AILevelsLecture: React.FC<{ language: Language; onComplete: () => P
       conclusionTitle: "နိဂုံးချုပ်အကြံပြုချက်",
       conclusionBody: "အသေချာဆုံးအချက်မှာ အစောပိုင်းကတည်းက ကြိုတင်လေ့လာပြင်ဆင်ထားသူများက ပိုမိုအသာစီးရရှိမည်ဖြစ်သည်။ ကိရိယာတစ်ခုတည်းကို လေ့လာခြင်းထက် ခေတ်နှင့်အညီ အမြဲမပြတ် လေ့လာသင်ယူနိုင်မည့် စနစ်တစ်ခုကို တည်ဆောက်ထားရန် အလွန်အရေးကြီးပါသည်။",
       quizBtn: "AI အဆင့်များ Quiz စတင်ရန်",
-      backBtn: "သင်ခန်းစာသို့ ပြန်သွားရန်"
+      backBtn: "သင်ခန်းစာသို့ ပြန်သွားရန်",
+      cakeTitle: "AI အလွှာ ၅ ဆင့် ကိတ်မုန့်",
+      cakeSubtitle: "AI ဆိုတာ မှော်ပညာမဟုတ်ပါ၊ အခြေခံအဆောက်အအုံဖြစ်ပါတယ်။",
+      cakeDescription: "AI ကို ကိတ်မုန့်တစ်ခုလို စဉ်းစားကြည့်ရင် နားလည်ရတာ ပိုလွယ်ကူပါတယ်။ ဒီအခြေခံအလွှာ ၅ ဆင့်ကို နားလည်ခြင်းက AI တိုးတက်မှုအဆင့် ၅ ဆင့်ကို ကျွမ်းကျင်ပိုင်နိုင်ဖို့အတွက် မရှိမဖြစ်လိုအပ်ပါတယ်။ မှတ်ထားရမှာက AI ဆိုတာ မှော်ပညာမဟုတ်ပါ၊ အခြေခံအဆောက်အအုံဖြစ်ပါတယ်။",
+      cakeLinkBtn: "အလွှာ ၅ ဆင့်ကို လေ့လာရန်",
+      intelligenceTitle: "အမြင့်ဆုံးသော ဉာဏ်ရည်အဆင့်",
+      intelligenceSubtitle: "အာရုံကြောသိပ္ပံပညာရှင်များထံမှ သင်ယူခြင်း",
+      intelligenceDescription: "AI သည် 'သင်္ချာစက်' အဆင့်မှ 'ဇီဝဗေဒဆိုင်ရာ အတုယူမှု' အဆင့်သို့ ကူးပြောင်းနေပြီဖြစ်သည်။ လူသားဦးနှောက်ကို လေ့လာခြင်းဖြင့် AI ကို ရိုးရှင်းသော တွက်ချက်မှုမှသည် 'ဉာဏ်ပညာရှိသော AI' (Artificial Wisdom) အဖြစ်သို့ ပြောင်းလဲပေးနေသည်။",
+      intelligencePoint1: "ဦးနှောက်ကို အတုယူခြင်း: စီမံကိန်းချမှတ်ရန် Prefrontal Cortex ကို ပုံတူကူးခြင်း။",
+      intelligencePoint2: "Dopamine Loop: ဆုလာဘ်နှင့် အမှားများမှတစ်ဆင့် သင်ယူရန် RL စနစ်ကို သုံးခြင်း။",
+      intelligencePoint3: "Metacognition: အမှားနှင့် ဘက်လိုက်မှုကင်းရန် AI ကိုယ်တိုင် ပြန်လည်စစ်ဆေးတတ်စေခြင်း။",
+      intelligenceLearnMore: "ပြင်ပရင်းမြစ်",
+      intelligenceDetailBtn: "အသေးစိတ်ရှင်းလင်းချက်",
+      intelligenceModalTitle: "အာရုံကြောသိပ္ပံ နှင့် AI ၏ ပေါင်းဆုံမှု",
+      intelligenceModalIntro: "ကွန်ပျူတာသိပ္ပံနှင့် ဇီဝဗေဒအကြား နယ်နိမိတ်များ ဝေဝါးလာသည့် 'ကြီးမားသော ပေါင်းဆုံမှု' ကို ကျွန်ုပ်တို့ မြင်တွေ့နေရသည်။ AI သည် ဇီဝဗေဒဆိုင်ရာ အတုယူမှုတစ်ခု ဖြစ်လာနေသည်။",
+      intelligenceSection1Title: "၁။ ဦးနှောက်၏ 'CEO' ကို ပုံတူကူးခြင်း",
+      intelligenceSection1Body: "အစောပိုင်း AI များသည် တင်းကျပ်သော စည်းမျဉ်းများကို လိုက်နာခဲ့သည်။ ခေတ်သစ် AI (Neural Networks) များသည် ဇီဝဗေဒဆိုင်ရာ နျူရွန်များကို အတုယူထားသည်။ အသစ်ဆုံး နယ်ပယ်မှာ စီမံကိန်းချမှတ်ခြင်းနှင့် ဆုံးဖြတ်ချက်ချခြင်းတို့ကို လုပ်ဆောင်သော Prefrontal Cortex ဖြစ်သည်။",
+      intelligenceSection2Title: "၂။ Dopamine Loop နှင့် သင်ယူမှု",
+      intelligenceSection2Body: "Reinforcement Learning (RL) သည် ဦးနှောက်အတွင်းရှိ dopamine က ဆုလာဘ်နှင့် အမှားများကို မည်သို့ အချက်ပြသည်ဆိုသည့်အပေါ် အခြေခံထားသည်။ နျူရွန်များသည် RL algorithms များကဲ့သို့ပင် 'Reward Prediction Errors' ကို တွက်ချက်ကြောင်း သိပ္ပံပညာရှင်များ ရှာဖွေတွေ့ရှိခဲ့သည်။",
+      intelligenceSection3Title: "၃။ အမြင့်ဆုံးသော ဉာဏ်ရည်အဆင့်",
+      intelligenceSection3Body: "သိမြင်မှုဆိုင်ရာ ဖွံ့ဖြိုးတိုးတက်မှု၏ အထွတ်အထိပ်မှာ အတွေ့အကြုံပေါ်မူတည်၍ ဦးနှောက်ကို ပြန်လည်ဖွဲ့စည်းခြင်း (Neuroplasticity) နှင့် မိမိ၏ အတွေးများကို ပြန်လည်စစ်ဆေးခြင်း (Metacognition) တို့ ဖြစ်သည်။ AI သည် ယခုအခါ မိမိ၏ ရလဒ်များကို ကိုယ်တိုင် ပြန်လည်အကဲဖြတ်သည့် 'layers' များကို တည်ဆောက်နေပြီဖြစ်သည်။",
+      intelligenceSection4Title: "၄။ နှစ်ဦးနှစ်ဖက် အကျိုးပြုမှု",
+      intelligenceSection4Body: "AI က ဦးနှောက်ထံမှ သင်ယူနေသကဲ့သို့ အာရုံကြောသိပ္ပံသည်လည်း ဦးနှောက်ကို ပိုမိုနားလည်ရန် AI ကို အသုံးပြုနေသည်။ fMRI အချက်အလက်များကို အတွေးများ၏ 'လမ်းကြောင်း' များအဖြစ် ပြောင်းလဲကြည့်ရှုနိုင်လာသည်။",
+      intelligenceModalSummary: "ကျွန်ုပ်တို့သည် မှန်ထဲတွင် ကိုယ့်ကိုယ်ကိုယ် ပြန်ကြည့်ခြင်းဖြင့် စက်များကို တွေးခေါ်တတ်ရန် သင်ကြားပေးနေခြင်း ဖြစ်သည်။ ကျွန်ုပ်တို့၏ ကိုယ်ပိုင် သိမြင်မှုဆိုင်ရာ တည်ဆောက်ပုံများကို ဒစ်ဂျစ်တယ်ပုံရိပ်များအဖြစ် တည်ဆောက်နေခြင်း ဖြစ်သည်။"
     }
   };
 
@@ -196,7 +244,8 @@ export const AILevelsLecture: React.FC<{ language: Language; onComplete: () => P
           <div className="mb-8">
             <button 
               onClick={() => setShowQuiz(false)}
-              className="text-gray-400 hover:text-white flex items-center gap-2 text-sm font-bold uppercase tracking-widest"
+              className="text-gray-400 hover:text-white flex items-center gap-2 text-sm font-bold uppercase tracking-widest transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-4 focus:ring-offset-black rounded-lg px-2 py-1"
+              aria-label={t.backBtn}
             >
               <Terminal className="w-5 h-5 rotate-180" />
               {t.backBtn}
@@ -249,7 +298,7 @@ export const AILevelsLecture: React.FC<{ language: Language; onComplete: () => P
                   tabIndex={0}
                   aria-label={`View details for ${isMy ? stage.titleMy : stage.title}`}
                   onKeyDown={(e) => e.key === 'Enter' && setActiveStageId(stage.id)}
-                  className={`relative cursor-pointer group transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-2xl ${
+                  className={`relative cursor-pointer group transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-4 focus:ring-offset-black rounded-2xl ${
                     activeStageId === stage.id ? "opacity-100 scale-105" : "opacity-50 hover:opacity-80"
                   }`}
                 >
@@ -341,6 +390,173 @@ export const AILevelsLecture: React.FC<{ language: Language; onComplete: () => P
           </div>
         </div>
 
+        {/* AI Five-Layer Cake Section */}
+        <div className="mb-24">
+          <div className="bg-gradient-to-br from-indigo-900/20 to-purple-900/20 border border-indigo-500/30 rounded-[40px] p-8 md:p-12 overflow-hidden relative">
+            {/* Background Decoration */}
+            <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-64 h-64 bg-indigo-500/10 blur-[80px] rounded-full" />
+            
+            <div className="relative z-10 flex flex-col lg:flex-row items-center gap-12">
+              <div className="lg:w-1/2">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-xs font-bold uppercase tracking-widest mb-6">
+                  <Cake className="w-4 h-4" />
+                  <span>{isMy ? "AI အလွှာ ၅ ဆင့်" : "AI Five-Layer Cake"}</span>
+                </div>
+                <h2 className={`text-3xl md:text-4xl font-black text-white mb-6 ${isMy ? 'leading-myanmar' : ''}`}>
+                  {t.cakeTitle}
+                </h2>
+                <p className="text-indigo-200/80 text-lg leading-relaxed mb-8">
+                  {t.cakeDescription}
+                </p>
+                <a 
+                  href="https://ai-5-layers.pages.dev/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-3 px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl font-bold transition-all shadow-lg shadow-indigo-600/20 group focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-black"
+                >
+                  {t.cakeLinkBtn}
+                  <ExternalLink className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                </a>
+              </div>
+              
+              <div className="lg:w-1/2 w-full">
+                {/* Visual representation of layers */}
+                <div className="space-y-3 w-full">
+                  {[
+                    { id: 5, name: "Applications", nameMy: "အက်ပ်များ", summary: "The final product we use", summaryMy: "ကျွန်ုပ်တို့ လက်တွေ့အသုံးပြုနေသည့် အက်ပ်များ", color: "bg-pink-500/20 border-pink-500/40 shadow-[0_0_15px_rgba(236,72,153,0.1)]", icon: <Layout className="w-4 h-4 text-pink-400" /> },
+                    { id: 4, name: "AI Models", nameMy: "AI မော်ဒယ်များ", summary: "The core intelligence", summaryMy: "အဓိက ဉာဏ်ရည်နှင့် စဉ်းစားတွေးခေါ်မှု", color: "bg-purple-500/20 border-purple-500/40", icon: <BrainCircuit className="w-4 h-4 text-purple-400" /> },
+                    { id: 3, name: "Cloud", nameMy: "Cloud စနစ်", summary: "Where models live and learn", summaryMy: "မော်ဒယ်များကို သိမ်းဆည်းပြီး လေ့ကျင့်ပေးသည့် စနစ်", color: "bg-indigo-500/20 border-indigo-500/40", icon: <Cloud className="w-4 h-4 text-indigo-400" /> },
+                    { id: 2, name: "Chips", nameMy: "ချစ်ပ်ပြားများ", summary: "GPUs for processing data", summaryMy: "အချက်အလက်များကို တွက်ချက်ပေးသည့် GPU များ", color: "bg-blue-500/20 border-blue-500/40", icon: <Cpu className="w-4 h-4 text-blue-400" /> },
+                    { id: 1, name: "Energy", nameMy: "စွမ်းအင်", summary: "Powering the data centers", summaryMy: "ဒေတာစင်တာများအတွက် လိုအပ်သော စွမ်းအင်", color: "bg-cyan-500/20 border-cyan-500/40", icon: <Zap className="w-4 h-4 text-cyan-400" /> }
+                  ].map((layer) => (
+                    <div 
+                      key={layer.id}
+                      className={`group relative overflow-hidden rounded-2xl border p-4 transition-all duration-300 hover:scale-[1.02] ${layer.color}`}
+                    >
+                      <div className="relative z-10 flex items-center gap-4">
+                        <div className="w-10 h-10 rounded-xl bg-black/60 flex items-center justify-center border border-white/10 shrink-0 shadow-inner">
+                          {layer.icon}
+                        </div>
+                        <div className="flex-grow">
+                          <div className="flex items-center justify-between mb-1">
+                            <div className="flex items-center gap-2">
+                              <span className="text-[10px] font-bold text-white/40 bg-white/5 px-1.5 rounded border border-white/5 uppercase tracking-tighter">Layer {layer.id}</span>
+                              <span className="text-sm font-bold text-white">{isMy ? layer.nameMy : layer.name}</span>
+                            </div>
+                          </div>
+                          <p className="text-[11px] text-gray-300 leading-tight">
+                            {isMy ? layer.summaryMy : layer.summary}
+                          </p>
+                        </div>
+                      </div>
+                      {/* Progress bar background animation */}
+                      <motion.div 
+                        className="absolute bottom-0 left-0 h-1 bg-white/10"
+                        initial={{ width: 0 }}
+                        whileInView={{ width: '100%' }}
+                        transition={{ duration: 1.5, delay: (6 - layer.id) * 0.1 }}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Highest Form of Intelligence Section */}
+        <div className="mb-24">
+          <div className="bg-gradient-to-br from-emerald-900/20 to-teal-900/20 border border-emerald-500/30 rounded-[40px] p-8 md:p-12 overflow-hidden relative">
+            {/* Background Decoration */}
+            <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-64 h-64 bg-emerald-500/10 blur-[80px] rounded-full" />
+            
+            <div className="relative z-10 flex flex-col lg:flex-row-reverse items-center gap-12">
+              <div className="lg:w-1/2">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold uppercase tracking-widest mb-6">
+                  <Brain className="w-4 h-4" />
+                  <span>{isMy ? "အာရုံကြောသိပ္ပံနှင့် AI" : "Neuroscience & AI"}</span>
+                </div>
+                <h2 className={`text-3xl md:text-4xl font-black text-white mb-6 ${isMy ? 'leading-myanmar' : ''}`}>
+                  {t.intelligenceTitle}
+                </h2>
+                <p className="text-emerald-200/80 text-lg leading-relaxed mb-8">
+                  {t.intelligenceDescription}
+                </p>
+                <div className="space-y-4 mb-8">
+                  <div className="flex items-start gap-3">
+                    <div className="mt-1 p-1 bg-emerald-500/20 rounded-md">
+                      <Activity className="w-4 h-4 text-emerald-400" />
+                    </div>
+                    <p className="text-sm text-gray-300">{t.intelligencePoint1}</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="mt-1 p-1 bg-emerald-500/20 rounded-md">
+                      <Zap className="w-4 h-4 text-emerald-400" />
+                    </div>
+                    <p className="text-sm text-gray-300">{t.intelligencePoint2}</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="mt-1 p-1 bg-emerald-500/20 rounded-md">
+                      <Lightbulb className="w-4 h-4 text-emerald-400" />
+                    </div>
+                    <p className="text-sm text-gray-300">{t.intelligencePoint3}</p>
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-4">
+                  <a 
+                    href="https://highest-form-of-intelligence.pages.dev/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-3 px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-2xl font-bold transition-all shadow-lg shadow-emerald-600/20 group focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 dark:focus:ring-offset-black"
+                  >
+                    {t.intelligenceLearnMore}
+                    <ExternalLink className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                  </a>
+                  <button 
+                    onClick={() => setIsIntelligenceModalOpen(true)}
+                    className="inline-flex items-center gap-3 px-6 py-3 bg-white/10 hover:bg-white/20 text-white rounded-2xl font-bold border border-white/10 transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 dark:focus:ring-offset-black"
+                  >
+                    <BookOpen className="w-5 h-5" />
+                    {t.intelligenceDetailBtn}
+                  </button>
+                </div>
+              </div>
+              
+              <div className="lg:w-1/2 w-full">
+                <div className="relative aspect-video rounded-3xl overflow-hidden border border-white/10 bg-black/40 flex items-center justify-center group">
+                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-teal-500/10" />
+                  <motion.div 
+                    animate={{ 
+                      scale: [1, 1.05, 1],
+                      opacity: [0.5, 0.8, 0.5]
+                    }}
+                    transition={{ duration: 4, repeat: Infinity }}
+                    className="relative z-10"
+                  >
+                    <BrainCircuit className="w-32 h-32 text-emerald-500/40" />
+                  </motion.div>
+                  
+                  {/* Floating DNA/Activity icons for visual flair */}
+                  <motion.div 
+                    animate={{ y: [0, -20, 0] }}
+                    transition={{ duration: 3, repeat: Infinity, delay: 0.5 }}
+                    className="absolute top-1/4 left-1/4 p-3 bg-emerald-500/20 rounded-2xl border border-emerald-500/40"
+                  >
+                    <Dna className="w-6 h-6 text-emerald-400" />
+                  </motion.div>
+                  <motion.div 
+                    animate={{ y: [0, 20, 0] }}
+                    transition={{ duration: 3.5, repeat: Infinity, delay: 1 }}
+                    className="absolute bottom-1/4 right-1/4 p-3 bg-teal-500/20 rounded-2xl border border-teal-500/40"
+                  >
+                    <Activity className="w-6 h-6 text-teal-400" />
+                  </motion.div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Conclusion Section */}
         <section className="bg-blue-600/10 border border-blue-500/20 rounded-[40px] p-8 md:p-12">
           <h2 className="text-2xl font-bold mb-10 text-center flex items-center justify-center gap-3 text-white">
@@ -370,7 +586,7 @@ export const AILevelsLecture: React.FC<{ language: Language; onComplete: () => P
             </p>
             <button 
               onClick={() => setShowQuiz(true)}
-              className="mt-8 px-10 py-4 bg-white text-blue-600 hover:bg-blue-50 rounded-2xl font-black text-lg transition-all shadow-xl active:scale-95"
+              className="mt-8 px-10 py-4 bg-white text-blue-600 hover:bg-blue-50 rounded-2xl font-black text-lg transition-all shadow-xl active:scale-95 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-4 focus:ring-offset-blue-600"
             >
               {t.quizBtn}
             </button>
@@ -379,6 +595,72 @@ export const AILevelsLecture: React.FC<{ language: Language; onComplete: () => P
 
         <CompleteButton onComplete={onComplete} language={language} isUnlocked={isUnlocked} />
       </div>
+
+      {/* Detailed Explanation Modal */}
+      {isIntelligenceModalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-300">
+          <motion.div 
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            className="bg-zinc-900 border border-emerald-500/30 rounded-[32px] w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col shadow-2xl"
+          >
+            <div className="p-6 border-b border-white/10 flex items-center justify-between bg-emerald-900/10">
+              <div className="flex items-center gap-3">
+                <Brain className="w-6 h-6 text-emerald-400" />
+                <h2 className="text-xl font-bold text-white">{t.intelligenceModalTitle}</h2>
+              </div>
+              <button 
+                onClick={() => setIsIntelligenceModalOpen(false)}
+                className="p-2 hover:bg-white/10 rounded-full text-gray-400 hover:text-white transition-colors"
+                aria-label="Close modal"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+            
+            <div className="flex-grow overflow-y-auto p-8 space-y-10 custom-scrollbar">
+              <p className="text-lg text-emerald-100/90 leading-relaxed font-medium italic">
+                "{t.intelligenceModalIntro}"
+              </p>
+
+              <div className="space-y-8">
+                <section className="bg-white/5 p-6 rounded-2xl border border-white/10">
+                  <h3 className="text-xl font-bold text-emerald-400 mb-4">{t.intelligenceSection1Title}</h3>
+                  <p className="text-gray-300 leading-relaxed">{t.intelligenceSection1Body}</p>
+                </section>
+
+                <section className="bg-white/5 p-6 rounded-2xl border border-white/10">
+                  <h3 className="text-xl font-bold text-emerald-400 mb-4">{t.intelligenceSection2Title}</h3>
+                  <p className="text-gray-300 leading-relaxed">{t.intelligenceSection2Body}</p>
+                </section>
+
+                <section className="bg-white/5 p-6 rounded-2xl border border-white/10">
+                  <h3 className="text-xl font-bold text-emerald-400 mb-4">{t.intelligenceSection3Title}</h3>
+                  <p className="text-gray-300 leading-relaxed">{t.intelligenceSection3Body}</p>
+                </section>
+
+                <section className="bg-white/5 p-6 rounded-2xl border border-white/10">
+                  <h3 className="text-xl font-bold text-emerald-400 mb-4">{t.intelligenceSection4Title}</h3>
+                  <p className="text-gray-300 leading-relaxed">{t.intelligenceSection4Body}</p>
+                </section>
+              </div>
+
+              <div className="bg-emerald-600/20 border border-emerald-500/30 p-6 rounded-2xl text-center">
+                <p className="text-emerald-100 font-bold">{t.intelligenceModalSummary}</p>
+              </div>
+            </div>
+
+            <div className="p-6 border-t border-white/10 flex justify-end bg-zinc-900">
+              <button 
+                onClick={() => setIsIntelligenceModalOpen(false)}
+                className="px-8 py-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-bold transition-all"
+              >
+                Close
+              </button>
+            </div>
+          </motion.div>
+        </div>
+      )}
     </section>
   );
 };

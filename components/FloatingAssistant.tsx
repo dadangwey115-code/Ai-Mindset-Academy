@@ -21,7 +21,8 @@ export const FloatingAssistant: React.FC<{ language: Language }> = ({ language }
             href={promptGem}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-4 bg-white dark:bg-zinc-900 border border-gray-200 dark:border-white/10 p-3 md:p-4 rounded-[24px] shadow-2xl hover:bg-gray-50 dark:hover:bg-zinc-800 hover:border-purple-500/50 transition-all group"
+            aria-label={`Open ${t.promptName} in Gemini`}
+            className="flex items-center gap-4 bg-white dark:bg-zinc-900 border border-gray-200 dark:border-white/10 p-3 md:p-4 rounded-[24px] shadow-2xl hover:bg-gray-50 dark:hover:bg-zinc-800 hover:border-purple-500/50 transition-all group focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900"
           >
             <div className="text-left md:text-right">
               <p className="text-gray-900 dark:text-white font-bold text-xs md:text-sm">{t.promptName}</p>
@@ -36,7 +37,8 @@ export const FloatingAssistant: React.FC<{ language: Language }> = ({ language }
             href={academyGem}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-4 bg-white dark:bg-zinc-900 border border-gray-200 dark:border-white/10 p-3 md:p-4 rounded-[24px] shadow-2xl hover:bg-gray-50 dark:hover:bg-zinc-800 hover:border-blue-500/50 transition-all group"
+            aria-label={`Open ${t.academyName} in Gemini`}
+            className="flex items-center gap-4 bg-white dark:bg-zinc-900 border border-gray-200 dark:border-white/10 p-3 md:p-4 rounded-[24px] shadow-2xl hover:bg-gray-50 dark:hover:bg-zinc-800 hover:border-blue-500/50 transition-all group focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900"
           >
             <div className="text-left md:text-right">
               <p className="text-gray-900 dark:text-white font-bold text-xs md:text-sm">{t.academyName}</p>
@@ -53,7 +55,7 @@ export const FloatingAssistant: React.FC<{ language: Language }> = ({ language }
       <button 
         onClick={() => setIsOpen(!isOpen)}
         aria-label={isOpen ? "Close AI Assistant Menu" : "Open AI Assistant Menu"}
-        className={`w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center transition-all duration-500 shadow-2xl ${
+        className={`w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center transition-all duration-500 shadow-2xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900 ${
           isOpen ? 'bg-gray-200 dark:bg-zinc-800 rotate-90 scale-90' : 'bg-blue-600 hover:scale-110 hover:bg-blue-700'
         } relative group`}
       >

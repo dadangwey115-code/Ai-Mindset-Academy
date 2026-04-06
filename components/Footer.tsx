@@ -16,14 +16,14 @@ export const Footer: React.FC = () => {
           Join the new class of leaders who don't fear automation, but harness it as the ultimate lever for human excellence.
         </p>
         <div className="mt-10 flex flex-wrap justify-center gap-8 text-gray-600 dark:text-gray-300 text-sm font-medium">
-          <a href="#" className="hover:text-blue-500 transition-colors">Privacy Policy</a>
-          <a href="#" className="hover:text-blue-500 transition-colors">Terms of Service</a>
-          <a href="#" className="hover:text-blue-500 transition-colors">Support Center</a>
+          <a href="#" className="hover:text-blue-500 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-md px-1">Privacy Policy</a>
+          <a href="#" className="hover:text-blue-500 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-md px-1">Terms of Service</a>
+          <a href="#" className="hover:text-blue-500 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-md px-1">Support Center</a>
           <a 
             href={driveLink} 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="flex items-center gap-1.5 text-blue-500 hover:text-blue-400 transition-colors"
+            className="flex items-center gap-1.5 text-blue-500 hover:text-blue-400 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-md px-1"
           >
             PDF Library <ExternalLink size={14} />
           </a>

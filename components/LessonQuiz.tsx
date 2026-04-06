@@ -120,7 +120,7 @@ export const LessonQuiz: React.FC<LessonQuizProps> = ({ quizSet, language, onClo
                   <button 
                     onClick={copyToClipboard}
                     aria-label="Copy question to clipboard"
-                    className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-gray-500 hover:text-blue-400 transition-colors bg-white/5 px-2 py-1 rounded border border-white/10"
+                    className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-gray-500 hover:text-blue-400 transition-colors bg-white/5 px-2 py-1 rounded border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   >
                     {copied ? <Check size={12} className="text-emerald-500" /> : <Copy size={12} />}
                     {copied ? 'Copied' : 'Copy Question'}
@@ -134,7 +134,7 @@ export const LessonQuiz: React.FC<LessonQuizProps> = ({ quizSet, language, onClo
                 <button 
                   onClick={() => setShowHint(!showHint)}
                   aria-label="Show hint"
-                  className="p-2 text-yellow-500/50 hover:text-yellow-500 bg-yellow-500/10 rounded-lg transition-colors"
+                  className="p-2 text-yellow-500/50 hover:text-yellow-500 bg-yellow-500/10 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 >
                   <Lightbulb size={20} />
                 </button>
@@ -172,7 +172,7 @@ export const LessonQuiz: React.FC<LessonQuizProps> = ({ quizSet, language, onClo
                     key={i}
                     onClick={() => handleSelect(i)}
                     aria-label={`Option ${String.fromCharCode(65 + i)}: ${isMy ? opt.textMy : opt.text}`}
-                    className={`w-full text-left p-5 rounded-2xl border transition-all flex items-center gap-4 ${btnStyle}`}
+                    className={`w-full text-left p-5 rounded-2xl border transition-all flex items-center gap-4 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900 ${btnStyle}`}
                   >
                     <div className={`w-10 h-10 rounded-full border flex items-center justify-center shrink-0 font-bold transition-colors ${
                       isAnswered && isCorrect ? 'bg-emerald-500 border-emerald-500 text-white' : 
@@ -204,7 +204,7 @@ export const LessonQuiz: React.FC<LessonQuizProps> = ({ quizSet, language, onClo
                 <button
                   onClick={nextStep}
                   aria-label={step + 1 === quizSet.questions.length ? "Show results" : "Next question"}
-                  className="w-full py-5 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-bold flex items-center justify-center gap-2 shadow-xl shadow-blue-600/20 transition-all active:scale-95"
+                  className="w-full py-5 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-bold flex items-center justify-center gap-2 shadow-xl shadow-blue-600/20 transition-all active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900"
                 >
                   {step + 1 === quizSet.questions.length ? (isMy ? 'ရလဒ်ကြည့်ရန်' : 'Show Results') : (isMy ? 'နောက်တစ်ခု' : 'Next Question')}
                   <ArrowRight size={20} />
@@ -234,7 +234,7 @@ export const LessonQuiz: React.FC<LessonQuizProps> = ({ quizSet, language, onClo
               <button
                 onClick={reset}
                 aria-label="Try quiz again"
-                className="flex-1 py-4 bg-white/5 hover:bg-white/10 text-white rounded-2xl font-bold flex items-center justify-center gap-2 transition-all"
+                className="flex-1 py-4 bg-white/5 hover:bg-white/10 text-white rounded-2xl font-bold flex items-center justify-center gap-2 transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500"
               >
                 <RotateCcw size={20} />
                 {isMy ? 'ထပ်မံဖြေဆိုရန်' : 'Try Again'}
@@ -243,7 +243,7 @@ export const LessonQuiz: React.FC<LessonQuizProps> = ({ quizSet, language, onClo
                 <button
                   onClick={onClose}
                   aria-label="Finish and close quiz"
-                  className="flex-1 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-bold transition-all shadow-xl shadow-blue-600/20"
+                  className="flex-1 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-bold transition-all shadow-xl shadow-blue-600/20 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900"
                 >
                   {isMy ? 'ပိတ်ရန်' : 'Finish Master Class'}
                 </button>

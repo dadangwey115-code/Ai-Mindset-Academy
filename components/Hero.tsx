@@ -40,21 +40,21 @@ export const Hero: React.FC<HeroProps> = ({ onStart, onOpenConcept, onOpenPrompt
           <button 
             onClick={onStart}
             aria-label="Start Learning Now"
-            className="w-full sm:w-auto px-12 py-5 ai-gradient-bg text-white rounded-2xl font-black text-xl flex items-center justify-center gap-3 transition-all hover:scale-105 active:scale-95 glow-shadow"
+            className="w-full sm:w-auto px-12 py-5 ai-gradient-bg text-white rounded-2xl font-black text-xl flex items-center justify-center gap-3 transition-all hover:scale-105 active:scale-95 glow-shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900"
           >
             {t.btnStart} <ArrowRight className="w-6 h-6" />
           </button>
           <button 
             onClick={onOpenStrategyBlueprint}
             aria-label="Get Full Strategy Blueprint"
-            className="w-full sm:w-auto px-12 py-5 glass-card text-gray-900 dark:text-white rounded-2xl font-black text-xl flex items-center justify-center gap-3 transition-all hover:scale-105 active:scale-95"
+            className="w-full sm:w-auto px-12 py-5 glass-card text-gray-900 dark:text-white rounded-2xl font-black text-xl flex items-center justify-center gap-3 transition-all hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900"
           >
             <Map className="w-6 h-6 text-indigo-500" /> {st.blueprintBtn}
           </button>
           <button 
             onClick={onOpenConcept}
             aria-label="Watch Concept Video"
-            className="w-full sm:w-auto px-12 py-5 glass-card text-gray-900 dark:text-white rounded-2xl font-black text-xl flex items-center justify-center gap-3 transition-all hover:scale-105 active:scale-95"
+            className="w-full sm:w-auto px-12 py-5 glass-card text-gray-900 dark:text-white rounded-2xl font-black text-xl flex items-center justify-center gap-3 transition-all hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900"
           >
             <Sparkles className="w-6 h-6 ai-gradient-text" /> {t.btnWatch}
           </button>
@@ -71,7 +71,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart, onOpenConcept, onOpenPrompt
             <button
               onClick={onOpenPromptLibrary}
               aria-label="Open Prompt Library"
-              className="group relative w-full p-8 rounded-[32px] glass-card hover:border-indigo-500/50 transition-all duration-500 text-left overflow-hidden active:scale-[0.98] h-full glow-shadow"
+              className="group relative w-full p-8 rounded-[32px] glass-card hover:border-indigo-500/50 transition-all duration-500 text-left overflow-hidden active:scale-[0.98] h-full glow-shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900"
               id="hero-prompt-library-btn"
             >
               <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
@@ -103,7 +103,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart, onOpenConcept, onOpenPrompt
             <button
               onClick={onOpenStrategyBlueprint}
               aria-label="Open Strategy Blueprint"
-              className="group relative w-full p-8 rounded-[32px] glass-card hover:border-purple-500/50 transition-all duration-500 text-left overflow-hidden active:scale-[0.98] h-full glow-shadow"
+              className="group relative w-full p-8 rounded-[32px] glass-card hover:border-purple-500/50 transition-all duration-500 text-left overflow-hidden active:scale-[0.98] h-full glow-shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900"
               id="hero-strategy-blueprint-btn"
             >
               <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">

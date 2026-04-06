@@ -91,7 +91,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       setActiveSubMenu(null);
                     }}
                     aria-label={`Go to ${item.label}`}
-                    className={`px-4 py-2 rounded-xl text-sm font-bold transition-all duration-300 flex items-center gap-1.5 ${
+                    className={`px-4 py-2 rounded-xl text-sm font-bold transition-all duration-300 flex items-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900 ${
                       activePage === item.id 
                       ? 'text-white ai-gradient-bg glow-shadow' 
                       : 'text-gray-600 dark:text-slate-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/5'
@@ -108,14 +108,14 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <button 
                   onClick={() => setLanguage('en')}
                   aria-label="Switch to English"
-                  className={`px-3 py-1 text-xs font-bold rounded-md transition-all ${language === 'en' ? 'bg-blue-600 text-white' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'}`}
+                  className={`px-3 py-1 text-xs font-bold rounded-md transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500 ${language === 'en' ? 'bg-blue-600 text-white' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'}`}
                 >
                   EN
                 </button>
                 <button 
                   onClick={() => setLanguage('my')}
                   aria-label="Switch to Myanmar"
-                  className={`px-3 py-1 text-xs font-bold rounded-md transition-all ${language === 'my' ? 'bg-blue-600 text-white' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'}`}
+                  className={`px-3 py-1 text-xs font-bold rounded-md transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500 ${language === 'my' ? 'bg-blue-600 text-white' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'}`}
                 >
                   MM
                 </button>
@@ -126,7 +126,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <button 
                   onClick={() => window.dispatchEvent(new CustomEvent('trigger-quiz'))}
                   aria-label="Open Quiz"
-                  className="flex items-center gap-2 px-5 py-2.5 ai-gradient-bg text-white rounded-xl text-xs font-black transition-all glow-shadow hover:scale-105 active:scale-95"
+                  className="flex items-center gap-2 px-5 py-2.5 ai-gradient-bg text-white rounded-xl text-xs font-black transition-all glow-shadow hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900"
                 >
                   <Sparkles size={14} className="animate-pulse" />
                   {t.quiz}
@@ -138,7 +138,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   <button 
                     onClick={() => setActiveSubMenu(activeSubMenu === 'user' ? null : 'user')}
                     aria-label={`User menu for ${user.name || user.email.split('@')[0]}`}
-                    className="flex flex-col items-end cursor-pointer hover:opacity-80 transition-opacity"
+                    className="flex flex-col items-end cursor-pointer hover:opacity-80 transition-opacity focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-lg p-1"
                   >
                     <div className="flex items-center gap-2">
                       <div className="w-20 h-1.5 bg-white/10 rounded-full overflow-hidden">
@@ -163,7 +163,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                           setActiveSubMenu(null);
                         }}
                         aria-label="View Profile"
-                        className="w-full flex items-center gap-3 px-5 py-3 text-sm font-bold text-gray-700 dark:text-slate-300 hover:text-indigo-500 dark:hover:text-indigo-400 hover:bg-gray-100 dark:hover:bg-white/5 transition-colors"
+                        className="w-full flex items-center gap-3 px-5 py-3 text-sm font-bold text-gray-700 dark:text-slate-300 hover:text-indigo-500 dark:hover:text-indigo-400 hover:bg-gray-100 dark:hover:bg-white/5 transition-colors focus:outline-none focus:bg-gray-100 dark:focus:bg-white/5"
                       >
                         <User size={18} />
                         {t.profile}
@@ -175,7 +175,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                           setActiveSubMenu(null);
                         }}
                         aria-label="Logout"
-                        className="w-full flex items-center gap-3 px-5 py-3 text-sm font-bold text-red-500 hover:text-red-600 hover:bg-red-500/5 transition-colors"
+                        className="w-full flex items-center gap-3 px-5 py-3 text-sm font-bold text-red-500 hover:text-red-600 hover:bg-red-500/5 transition-colors focus:outline-none focus:bg-red-500/5"
                       >
                         <LogOut size={18} />
                         {t.logout}
@@ -186,7 +186,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               ) : (
                 <button
                   onClick={onLoginClick}
-                  className="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 text-white rounded-lg text-xs font-bold border border-white/10 transition-all"
+                  className="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 text-white rounded-lg text-xs font-bold border border-white/10 transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 >
                   <LogIn size={14} />
                   {t.login} / {t.signup}
@@ -199,7 +199,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <ThemeToggle />
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="p-2 text-gray-600 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-white/5 rounded-xl transition-colors"
+                className="p-2 text-gray-600 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-white/5 rounded-xl transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 aria-label={isOpen ? "Close Menu" : "Open Menu"}
               >
                 {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -223,13 +223,15 @@ export const Navbar: React.FC<NavbarProps> = ({
                   <div className="flex items-center bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-0.5">
                     <button 
                       onClick={() => setLanguage('en')}
-                      className={`px-3 py-1 text-[10px] font-bold rounded-md transition-all ${language === 'en' ? 'bg-blue-600 text-white' : 'text-gray-500'}`}
+                      aria-label="Switch to English"
+                      className={`px-3 py-1 text-[10px] font-bold rounded-md transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500 ${language === 'en' ? 'bg-blue-600 text-white' : 'text-gray-500'}`}
                     >
                       EN
                     </button>
                     <button 
                       onClick={() => setLanguage('my')}
-                      className={`px-3 py-1 text-[10px] font-bold rounded-md transition-all ${language === 'my' ? 'bg-blue-600 text-white' : 'text-gray-500'}`}
+                      aria-label="Switch to Myanmar"
+                      className={`px-3 py-1 text-[10px] font-bold rounded-md transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500 ${language === 'my' ? 'bg-blue-600 text-white' : 'text-gray-500'}`}
                     >
                       MM
                     </button>
@@ -243,7 +245,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                       setActivePage(item.id as PageId);
                       setIsOpen(false);
                     }}
-                    className={`w-full flex items-center justify-between px-4 py-4 rounded-2xl text-base font-bold transition-all ${
+                    aria-label={`Go to ${item.label}`}
+                    className={`w-full flex items-center justify-between px-4 py-4 rounded-2xl text-base font-bold transition-all focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white ${
                       activePage === item.id 
                       ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/20' 
                       : 'text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-white/5'
@@ -262,7 +265,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                           setActivePage('profile');
                           setIsOpen(false);
                         }}
-                        className="w-full flex items-center gap-3 px-4 py-4 rounded-2xl text-base font-bold text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-white/5"
+                        aria-label="View Profile"
+                        className="w-full flex items-center gap-3 px-4 py-4 rounded-2xl text-base font-bold text-gray-700 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-white/5 focus:outline-none focus:bg-gray-100 dark:focus:bg-white/5"
                       >
                         <User size={20} />
                         {t.profile}
@@ -272,7 +276,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                           onLogout();
                           setIsOpen(false);
                         }}
-                        className="w-full flex items-center gap-3 px-4 py-4 rounded-2xl text-base font-bold text-red-500 hover:bg-red-500/5"
+                        aria-label="Logout"
+                        className="w-full flex items-center gap-3 px-4 py-4 rounded-2xl text-base font-bold text-red-500 hover:bg-red-500/5 focus:outline-none focus:bg-red-500/5"
                       >
                         <LogOut size={20} />
                         {t.logout}
@@ -284,7 +289,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                         onLoginClick();
                         setIsOpen(false);
                       }}
-                      className="w-full flex items-center justify-center gap-2 px-4 py-4 ai-gradient-bg text-white rounded-2xl text-base font-bold shadow-lg"
+                      aria-label="Login or Signup"
+                      className="w-full flex items-center justify-center gap-2 px-4 py-4 ai-gradient-bg text-white rounded-2xl text-base font-bold shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900"
                     >
                       <LogIn size={20} />
                       {t.login} / {t.signup}
@@ -311,7 +317,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }
               }}
               aria-label={`Go to ${item.label}`}
-              className={`flex flex-col items-center justify-center gap-1.5 w-full h-full min-h-[48px] transition-all relative ${
+              className={`flex flex-col items-center justify-center gap-1.5 w-full h-full min-h-[48px] transition-all relative focus:outline-none focus:bg-indigo-500/5 ${
                 activePage === item.id 
                 ? 'text-indigo-500' 
                 : 'text-gray-400 dark:text-slate-500 hover:text-indigo-400'
