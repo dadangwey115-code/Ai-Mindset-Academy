@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { BookOpen, Search, Filter, ShieldCheck, BarChart, CheckCircle2, Info, Youtube, FileText, Layout, Layers, Award, ExternalLink, Sparkles } from 'lucide-react';
+import { BookOpen, Search, Filter, ShieldCheck, BarChart, CheckCircle2, Info, Youtube, FileText, Layout, Layers, Award, Sparkles } from 'lucide-react';
 import { Language } from '../types';
 import { UI_STRINGS } from '../translations';
 import { LessonQuiz } from './LessonQuiz';
@@ -45,8 +45,6 @@ export const NotebookLecture: React.FC<{ language: Language; onComplete: () => P
       });
     }
   };
-
-  const driveLink = "https://drive.google.com/drive/folders/1a0vAqN6TzpkTX4V1MDKAvi3YGN-uXmTE?usp=sharing";
 
   const ProTip = ({ content }: { content: string }) => (
     <div className="bg-blue-600/10 border border-blue-500/20 p-6 rounded-2xl my-8 flex gap-4">
@@ -247,28 +245,6 @@ export const NotebookLecture: React.FC<{ language: Language; onComplete: () => P
                       </li>
                     ))}
                   </ul>
-                </div>
-              </section>
-
-              {/* PDF DOWNLOAD SECTION AT END OF LECTURE */}
-              <section className="mb-24">
-                <div className="bg-blue-600/10 border border-blue-500/30 rounded-[40px] p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 shadow-2xl">
-                   <div className="w-20 h-20 bg-blue-600/20 rounded-[28px] flex items-center justify-center shrink-0 border border-blue-500/20">
-                      <FileText size={40} className="text-blue-500" />
-                   </div>
-                   <div className="text-center md:text-left flex-1">
-                      <h3 className="text-2xl font-bold text-white mb-2">{res.cta}</h3>
-                      <p className="text-gray-400 text-sm">{isMy ? "NotebookLM သင်ခန်းစာ၏ အသေးစိတ် မှတ်စုများကို ရယူပါ။" : "Get the complete PDF summary for this NotebookLM masterclass."}</p>
-                   </div>
-                   <a 
-                    href={driveLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full md:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold transition-all flex items-center justify-center gap-2 group whitespace-nowrap"
-                   >
-                     {isMy ? 'မှတ်စုများ ရယူရန်' : 'Download PDFs'}
-                     <ExternalLink size={18} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                   </a>
                 </div>
               </section>
 

@@ -251,7 +251,12 @@ const App: React.FC = () => {
 
           {activePage === 'prompting' && (
             <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-              <PromptLecture language={language} onComplete={() => completeLesson('prompting')} />
+              <PromptLecture 
+                language={language} 
+                onComplete={() => completeLesson('prompting')}
+                onOpenPromptLibrary={() => setIsPromptLibraryModalOpen(true)}
+                onOpenStrategyBlueprint={() => setIsBlueprintOpen(true)}
+              />
             </div>
           )}
 

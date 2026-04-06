@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, ExternalLink, Pause, Brain, Zap, ArrowRight } from 'lucide-react';
+import { X, ExternalLink, Pause, Brain, Zap, ArrowRight, Sparkles } from 'lucide-react';
 import { UI_STRINGS } from '../translations';
 import { Language } from '../types';
 
@@ -93,13 +93,24 @@ export const PromptLibraryModal: React.FC<PromptLibraryModalProps> = ({ isOpen, 
             </div>
 
             {/* Footer */}
-            <div className="p-6 bg-zinc-950/50 border-t border-white/5">
+            <div className="p-6 bg-zinc-950/50 border-t border-white/5 flex flex-col sm:flex-row gap-3">
+              <a
+                href="https://gemini.google.com/gem/1ngbQ6NJ-SgoNO9mworrj4VvBgRpmp-sV?usp=sharing"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Open Gemini Gem Assistant"
+                className="flex-1 py-4 bg-zinc-800 hover:bg-zinc-700 text-white font-bold rounded-2xl transition-all flex items-center justify-center gap-2 group border border-white/10 active:scale-[0.98]"
+                id="gemini-gem-btn"
+              >
+                <Sparkles className="w-5 h-5 text-purple-400 group-hover:scale-110 transition-transform" />
+                {t.geminiGem}
+              </a>
               <a
                 href="https://promptadvance.club/gemini-prompts"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Go to external Prompt Library"
-                className="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-2xl transition-all flex items-center justify-center gap-2 group shadow-lg shadow-blue-500/20 active:scale-[0.98]"
+                className="flex-1 py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-2xl transition-all flex items-center justify-center gap-2 group shadow-lg shadow-blue-500/20 active:scale-[0.98]"
                 id="go-to-library-btn"
               >
                 {t.go}

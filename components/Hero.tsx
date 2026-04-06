@@ -45,86 +45,12 @@ export const Hero: React.FC<HeroProps> = ({ onStart, onOpenConcept, onOpenPrompt
             {t.btnStart} <ArrowRight className="w-6 h-6" />
           </button>
           <button 
-            onClick={onOpenStrategyBlueprint}
-            aria-label="Get Full Strategy Blueprint"
-            className="w-full sm:w-auto px-12 py-5 glass-card text-gray-900 dark:text-white rounded-2xl font-black text-xl flex items-center justify-center gap-3 transition-all hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900"
-          >
-            <Map className="w-6 h-6 text-indigo-500" /> {st.blueprintBtn}
-          </button>
-          <button 
             onClick={onOpenConcept}
             aria-label="Watch Concept Video"
             className="w-full sm:w-auto px-12 py-5 glass-card text-gray-900 dark:text-white rounded-2xl font-black text-xl flex items-center justify-center gap-3 transition-all hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900"
           >
             <Sparkles className="w-6 h-6 ai-gradient-text" /> {t.btnWatch}
           </button>
-        </div>
-
-        {/* Action Cards Grid */}
-        <div className="mt-16 grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-          {/* Prompt Library Link */}
-          <motion.div 
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.5 }}
-          >
-            <button
-              onClick={onOpenPromptLibrary}
-              aria-label="Open Prompt Library"
-              className="group relative w-full p-8 rounded-[32px] glass-card hover:border-indigo-500/50 transition-all duration-500 text-left overflow-hidden active:scale-[0.98] h-full glow-shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900"
-              id="hero-prompt-library-btn"
-            >
-              <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
-                <Sparkles className="w-24 h-24 text-indigo-500" />
-              </div>
-              <div className="relative z-10 flex items-center gap-6">
-                <div className="p-5 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-500 group-hover:scale-110 transition-transform duration-500">
-                  <Zap className="w-10 h-10" />
-                </div>
-                <div>
-                  <h2 className="text-2xl font-black text-gray-900 dark:text-white mb-2 flex items-center gap-2">
-                    {pt.title}
-                    <ArrowRight className="w-6 h-6 text-indigo-500 group-hover:translate-x-2 transition-transform" />
-                  </h2>
-                  <p className="text-gray-600 dark:text-slate-400 text-sm leading-relaxed">
-                    {pt.subtitle}
-                  </p>
-                </div>
-              </div>
-            </button>
-          </motion.div>
-
-          {/* Strategy Blueprint Link */}
-          <motion.div 
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.6 }}
-          >
-            <button
-              onClick={onOpenStrategyBlueprint}
-              aria-label="Open Strategy Blueprint"
-              className="group relative w-full p-8 rounded-[32px] glass-card hover:border-purple-500/50 transition-all duration-500 text-left overflow-hidden active:scale-[0.98] h-full glow-shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900"
-              id="hero-strategy-blueprint-btn"
-            >
-              <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
-                <Briefcase className="w-24 h-24 text-purple-500" />
-              </div>
-              <div className="relative z-10 flex items-center gap-6">
-                <div className="p-5 rounded-2xl bg-purple-500/10 border border-purple-500/20 text-purple-500 group-hover:scale-110 transition-transform duration-500">
-                  <Shield className="w-10 h-10" />
-                </div>
-                <div>
-                  <h2 className="text-2xl font-black text-gray-900 dark:text-white mb-2 flex items-center gap-2">
-                    {st.strategyHighlight}
-                    <ArrowRight className="w-6 h-6 text-purple-500 group-hover:translate-x-2 transition-transform" />
-                  </h2>
-                  <p className="text-gray-600 dark:text-slate-400 text-sm leading-relaxed">
-                    {st.blueprintBtn}
-                  </p>
-                </div>
-              </div>
-            </button>
-          </motion.div>
         </div>
       </div>
     </section>

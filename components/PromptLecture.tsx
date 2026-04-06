@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
-import { Terminal, Layers, Lightbulb, Code, ShieldAlert, CheckCircle2, Copy, Award, X, ChevronRight, Info, Layers3, GitBranch, Brain, UserCheck, Search, List, RefreshCcw, ShieldCheck, ExternalLink, FileText, Zap, Sparkles } from 'lucide-react';
+import { Terminal, Layers, Lightbulb, Code, ShieldAlert, CheckCircle2, Copy, Award, X, ChevronRight, Info, Layers3, GitBranch, Brain, UserCheck, Search, List, RefreshCcw, ShieldCheck, ExternalLink, Zap, Sparkles, Briefcase, Shield, ArrowRight } from 'lucide-react';
+import { motion } from 'motion/react';
 import { Language } from '../types';
 import { UI_STRINGS } from '../translations';
 import { LessonQuiz } from './LessonQuiz';
@@ -9,11 +10,18 @@ import { CompleteButton } from './CompleteButton';
 
 import confetti from 'canvas-confetti';
 
-export const PromptLecture: React.FC<{ language: Language; onComplete: () => Promise<void> }> = ({ language, onComplete }) => {
+export const PromptLecture: React.FC<{ 
+  language: Language; 
+  onComplete: () => Promise<void>;
+  onOpenPromptLibrary: () => void;
+  onOpenStrategyBlueprint: () => void;
+}> = ({ language, onComplete, onOpenPromptLibrary, onOpenStrategyBlueprint }) => {
   const t = UI_STRINGS[language].prompting;
   const navT = UI_STRINGS[language].nav;
   const res = UI_STRINGS[language].resources;
   const ast = UI_STRINGS[language].assistants;
+  const pt = UI_STRINGS[language].promptLibrary;
+  const st = UI_STRINGS[language].sections;
   const isMy = language === 'my';
   const [showQuiz, setShowQuiz] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
@@ -54,7 +62,6 @@ export const PromptLecture: React.FC<{ language: Language; onComplete: () => Pro
   const [showAgentsModal, setShowAgentsModal] = useState(false);
   const [showIterativeModal, setShowIterativeModal] = useState(false);
 
-  const driveLink = "https://drive.google.com/drive/folders/1a0vAqN6TzpkTX4V1MDKAvi3YGN-uXmTE?usp=sharing";
   const promptGem = "https://gemini.google.com/gem/1360JWmfTEycWjPbMO-lSfRAMVdui3Sec?usp=sharing";
 
   const AgentBlueprint = ({ title, code }: { title: string, code: string }) => {
@@ -345,25 +352,71 @@ export const PromptLecture: React.FC<{ language: Language; onComplete: () => Pro
                 </div>
               </section>
 
-              {/* PDF DOWNLOAD SECTION */}
+              {/* ACTION CARDS SECTION */}
               <section className="mb-24">
-                <div className="bg-blue-600/10 border border-blue-500/30 rounded-[40px] p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 shadow-2xl">
-                   <div className="w-20 h-20 bg-blue-600/20 rounded-[28px] flex items-center justify-center shrink-0 border border-blue-500/20">
-                      <FileText size={40} className="text-blue-500" />
-                   </div>
-                   <div className="text-center md:text-left flex-1">
-                      <h3 className="text-2xl font-bold text-white mb-2">{res.cta}</h3>
-                      <p className="text-gray-400 text-sm">{isMy ? "Prompt Engineering သင်ခန်းစာ၏ အသေးစိတ် မှတ်စုများကို ရယူပါ။" : "Get the complete PDF summary for this Prompt Engineering masterclass."}</p>
-                   </div>
-                   <a 
-                    href={driveLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full md:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold transition-all flex items-center justify-center gap-2 group whitespace-nowrap"
-                   >
-                     {isMy ? 'မှတ်စုများ ရယူရန်' : 'Download PDFs'}
-                     <ExternalLink size={18} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                   </a>
+                <div className="grid md:grid-cols-2 gap-6">
+                  {/* Prompt Library Link */}
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                  >
+                    <button
+                      onClick={onOpenPromptLibrary}
+                      aria-label="Open Prompt Library"
+                      className="group relative w-full p-8 rounded-[32px] bg-white/5 border border-white/10 hover:border-blue-500/50 transition-all duration-500 text-left overflow-hidden active:scale-[0.98] h-full shadow-2xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                      <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
+                        <Sparkles className="w-24 h-24 text-blue-500" />
+                      </div>
+                      <div className="relative z-10 flex items-center gap-6">
+                        <div className="p-5 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-500 group-hover:scale-110 transition-transform duration-500">
+                          <Zap className="w-10 h-10" />
+                        </div>
+                        <div>
+                          <h2 className="text-2xl font-bold text-white mb-2 flex items-center gap-2">
+                            {pt.title}
+                            <ArrowRight className="w-6 h-6 text-blue-500 group-hover:translate-x-2 transition-transform" />
+                          </h2>
+                          <p className="text-gray-400 text-sm leading-relaxed">
+                            {pt.subtitle}
+                          </p>
+                        </div>
+                      </div>
+                    </button>
+                  </motion.div>
+
+                  {/* Strategy Blueprint Link */}
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.1 }}
+                  >
+                    <button
+                      onClick={onOpenStrategyBlueprint}
+                      aria-label="Open Strategy Blueprint"
+                      className="group relative w-full p-8 rounded-[32px] bg-white/5 border border-white/10 hover:border-purple-500/50 transition-all duration-500 text-left overflow-hidden active:scale-[0.98] h-full shadow-2xl focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    >
+                      <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
+                        <Briefcase className="w-24 h-24 text-purple-500" />
+                      </div>
+                      <div className="relative z-10 flex items-center gap-6">
+                        <div className="p-5 rounded-2xl bg-purple-500/10 border border-purple-500/20 text-purple-500 group-hover:scale-110 transition-transform duration-500">
+                          <Shield className="w-10 h-10" />
+                        </div>
+                        <div>
+                          <h2 className="text-2xl font-bold text-white mb-2 flex items-center gap-2">
+                            {st.strategyHighlight}
+                            <ArrowRight className="w-6 h-6 text-purple-500 group-hover:translate-x-2 transition-transform" />
+                          </h2>
+                          <p className="text-gray-400 text-sm leading-relaxed">
+                            {st.blueprintBtn}
+                          </p>
+                        </div>
+                      </div>
+                    </button>
+                  </motion.div>
                 </div>
               </section>
 

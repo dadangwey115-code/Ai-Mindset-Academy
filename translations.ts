@@ -429,7 +429,8 @@ export const UI_STRINGS: Record<Language, any> = {
         title: "3. Act (Before Enter)",
         body: "Paste, refine, and then hit enter. AI is your co-pilot, but you are the Director. Quality results require your final touch."
       },
-      go: "Continue to Library"
+      go: "Continue to Library",
+      geminiGem: "Gemini Gem (Prompt Assistant)"
     }
   },
   my: {
@@ -855,7 +856,8 @@ export const UI_STRINGS: Record<Language, any> = {
         title: "၃။ Act (Enter မနှိပ်မီ လုပ်ဆောင်ပါ)",
         body: "Paste လုပ်ပါ၊ လိုအပ်တာတွေ ပြင်ဆင်ပါ၊ ပြီးမှ Enter နှိပ်ပါ။ AI က သင့်ရဲ့ လက်ထောက်သာဖြစ်ပြီး သင်ကသာ ညွှန်ကြားသူ (Director) ဖြစ်ပါတယ်။ အရည်အသွေးမြင့် ရလဒ်တွေရဖို့ သင့်ရဲ့ နောက်ဆုံးစစ်ဆေးမှု လိုအပ်ပါတယ်။"
       },
-      go: "Library သို့ ဆက်သွားရန်"
+      go: "Library သို့ ဆက်သွားရန်",
+      geminiGem: "Gemini Gem (Prompt အကူအညီ)"
     },
     toast: {
       congrats: "ဂုဏ်ယူပါတယ်!",
