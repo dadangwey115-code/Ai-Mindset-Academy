@@ -52,12 +52,23 @@ export const AdminDashboard: React.FC = () => {
     e.preventDefault();
     setLoading(true);
     setError(null);
+    
     try {
+      // Clear any existing student/user tokens to avoid conflicts
+      pb.authStore.clear();
+      
       await adminLogin(loginData.email, loginData.password);
       // After successful admin login, pb.authStore.model will be an Admin object
-      setIsAdmin(true);
+      setIsAdmin(pb.authStore.isValid && !pb.authStore.model?.collectionId);
     } catch (err: any) {
-      setError('Invalid admin credentials');
+      console.error('Admin login error:', err);
+      if (err.status === 404) {
+        setError(`Admin authentication service not found (404) at ${pb.baseUrl}. Please verify your PocketBase URL and ensure the Admin API is enabled.`);
+      } else if (err.status === 400 || err.status === 401) {
+        setError('Invalid Admin Email or Password. Please use your PocketBase Admin Email.');
+      } else {
+        setError(err.message || 'An unexpected error occurred during admin login.');
+      }
     } finally {
       setLoading(false);
     }

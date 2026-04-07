@@ -1,6 +1,7 @@
 import PocketBase from 'pocketbase';
 
 const pb = new PocketBase('https://api.mindset-it.online');
+pb.autoCancellation(false);
 
 export const requestAcademyAccess = async (data: { name: string; email: string; reason: string }) => {
   return await pb.collection('access_requests').create({
