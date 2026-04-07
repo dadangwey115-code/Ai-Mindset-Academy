@@ -30,16 +30,17 @@ const CAROUSEL_ITEMS = [
 ];
 
 export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }) => {
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-    passwordConfirm: '',
     name: '',
+    reason: '',
   });
 
   const t = UI_STRINGS[language];
@@ -96,25 +97,13 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
           formData.password
         );
       } else {
-        if (formData.password !== formData.passwordConfirm) {
-          setError(language === 'my' ? "စကားဝှက်များ မတူညီပါ" : "Passwords do not match");
-          setLoading(false);
-          return;
-        }
-
-        const data = {
-          email: formData.email,
-          password: formData.password,
-          passwordConfirm: formData.passwordConfirm,
+        const { requestAcademyAccess } = await import('../services/pb');
+        await requestAcademyAccess({
           name: formData.name,
-        };
-        await pb.collection('ai_users').create(data);
-        
-        // Auto login after signup
-        await pb.collection('ai_users').authWithPassword(
-          formData.email,
-          formData.password
-        );
+          email: formData.email,
+          reason: formData.reason,
+        });
+        setSubmitted(true);
       }
     } catch (err: any) {
       console.error('Auth error:', err);
@@ -124,7 +113,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -380,24 +369,24 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
           <div className="bg-gray-50 dark:bg-zinc-900/50 border border-gray-200 dark:border-white/10 rounded-[40px] p-8 md:p-10 backdrop-blur-xl shadow-2xl relative overflow-hidden ring-1 ring-gray-100 dark:ring-white/5 transition-colors duration-300">
             <div className="text-center mb-8">
               <h2 className="text-3xl font-bold text-gray-900 dark:text-white tracking-tight mb-6">
-                {isLogin ? t.auth.loginTitle : t.auth.signupTitle}
+                {isLogin ? t.auth.loginTitle : (language === 'my' ? 'ဝင်ခွင့်တောင်းဆိုရန်' : 'Request Access')}
               </h2>
               
               {/* Segmented Toggle Tabs */}
               <div className="flex p-1 bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl mb-2" role="tablist">
                 <button
                   type="button"
-                  onClick={() => setIsLogin(false)}
+                  onClick={() => { setIsLogin(false); setSubmitted(false); }}
                   role="tab"
                   aria-selected={!isLogin}
-                  aria-label="Switch to Signup"
+                  aria-label="Switch to Request Access"
                   className={`flex-1 py-2.5 text-sm font-bold rounded-xl transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500 ${!isLogin ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/20' : 'text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'}`}
                 >
-                  {t.auth.toggleSignup}
+                  {language === 'my' ? 'ဝင်ခွင့်တောင်းဆိုရန်' : 'Request Access'}
                 </button>
                 <button
                   type="button"
-                  onClick={() => setIsLogin(true)}
+                  onClick={() => { setIsLogin(true); setSubmitted(false); }}
                   role="tab"
                   aria-selected={isLogin}
                   aria-label="Switch to Login"
@@ -408,122 +397,159 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
               </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-5">
-              {isLogin && (
+            <AnimatePresence mode="wait">
+              {submitted ? (
                 <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="flex items-center gap-3 text-blue-400 text-xs bg-blue-400/10 border border-blue-400/20 p-4 rounded-2xl mb-4"
+                  key="success"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="text-center py-8 space-y-6"
                 >
-                  <Info size={16} className="shrink-0" />
-                  <span className="font-medium leading-relaxed">{t.auth.loginInfo}</span>
-                </motion.div>
-              )}
-              {!isLogin && (
-                <div className="space-y-2">
-                  <label className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] ml-1">
-                    {t.auth.name}
-                  </label>
-                  <div className="relative group">
-                    <User className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-blue-500 transition-colors" size={18} />
-                    <input
-                      type="text"
-                      name="name"
-                      required
-                      value={formData.name}
-                      onChange={handleChange}
-                      className="w-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 text-gray-900 dark:text-white focus:outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900 transition-all placeholder:text-gray-600"
-                      placeholder="John Doe"
-                    />
+                  <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto text-green-500">
+                    <BrainCircuit size={40} />
                   </div>
-                </div>
-              )}
-
-              <div className="space-y-2">
-                <label className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] ml-1">
-                  {t.auth.email}
-                </label>
-                <div className="relative group">
-                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-blue-500 transition-colors" size={18} />
-                  <input
-                    type="email"
-                    name="email"
-                    required
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="w-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 text-gray-900 dark:text-white focus:outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900 transition-all placeholder:text-gray-600"
-                    placeholder="email@example.com"
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] ml-1">
-                  {t.auth.password}
-                </label>
-                <div className="relative group">
-                  <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-blue-500 transition-colors" size={18} />
-                  <input
-                    type="password"
-                    name="password"
-                    required
-                    value={formData.password}
-                    onChange={handleChange}
-                    className="w-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 text-gray-900 dark:text-white focus:outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900 transition-all placeholder:text-gray-600"
-                    placeholder="••••••••"
-                  />
-                </div>
-              </div>
-
-              {!isLogin && (
-                <div className="space-y-2">
-                  <label className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] ml-1">
-                    {t.auth.confirmPassword}
-                  </label>
-                  <div className="relative group">
-                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-blue-500 transition-colors" size={18} />
-                    <input
-                      type="password"
-                      name="passwordConfirm"
-                      required
-                      value={formData.passwordConfirm}
-                      onChange={handleChange}
-                      className="w-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 text-gray-900 dark:text-white focus:outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900 transition-all placeholder:text-gray-600"
-                      placeholder="••••••••"
-                    />
+                  <div className="space-y-3">
+                    <h3 className="text-xl font-bold text-white">
+                      {language === 'my' ? 'တောင်းဆိုမှု အောင်မြင်ပါသည်' : 'Request Submitted'}
+                    </h3>
+                    <p className="text-gray-400 text-sm leading-relaxed">
+                      {language === 'my' 
+                        ? 'သင်၏ဝင်ခွင့်တောင်းဆိုမှုကို လက်ခံရရှိပါပြီ။ ကျွန်ုပ်တို့အဖွဲ့မှ စစ်ဆေးပြီးနောက် အီးမေးလ်မှတစ်ဆင့် မကြာမီ ဆက်သွယ်ပေးပါမည်။' 
+                        : 'Your request has been submitted. Our team will review and contact you via email soon.'}
+                    </p>
                   </div>
-                </div>
-              )}
-
-              <AnimatePresence>
-                {error && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    exit={{ opacity: 0, height: 0 }}
-                    className="flex items-center gap-2 text-red-400 text-sm bg-red-400/10 border border-red-400/20 p-4 rounded-2xl"
+                  <button
+                    onClick={() => setIsLogin(true)}
+                    className="text-blue-400 text-sm font-bold hover:underline"
                   >
-                    <AlertCircle size={16} className="shrink-0" />
-                    <span>{error}</span>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                    {language === 'my' ? 'အကောင့်ဝင်ရန် ပြန်သွားပါ' : 'Back to Login'}
+                  </button>
+                </motion.div>
+              ) : (
+                <motion.form 
+                  key="form"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  onSubmit={handleSubmit} 
+                  className="space-y-5"
+                >
+                  {isLogin && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="flex items-center gap-3 text-blue-400 text-xs bg-blue-400/10 border border-blue-400/20 p-4 rounded-2xl mb-4"
+                    >
+                      <Info size={16} className="shrink-0" />
+                      <span className="font-medium leading-relaxed">{t.auth.loginInfo}</span>
+                    </motion.div>
+                  )}
+                  {!isLogin && (
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] ml-1">
+                        {t.auth.name}
+                      </label>
+                      <div className="relative group">
+                        <User className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-blue-500 transition-colors" size={18} />
+                        <input
+                          type="text"
+                          name="name"
+                          required
+                          value={formData.name}
+                          onChange={handleChange}
+                          className="w-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 text-gray-900 dark:text-white focus:outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900 transition-all placeholder:text-gray-600"
+                          placeholder="John Doe"
+                        />
+                      </div>
+                    </div>
+                  )}
 
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-600/50 text-white font-bold py-4 rounded-2xl transition-all flex items-center justify-center gap-3 shadow-xl shadow-blue-600/20 mt-8 group focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900"
-              >
-                {loading ? (
-                  <Loader2 className="animate-spin" size={20} />
-                ) : (
-                  <>
-                    <span>{isLogin ? t.auth.loginBtn : t.auth.signupBtn}</span>
-                    <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
-                  </>
-                )}
-              </button>
-            </form>
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] ml-1">
+                      {t.auth.email}
+                    </label>
+                    <div className="relative group">
+                      <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-blue-500 transition-colors" size={18} />
+                      <input
+                        type="email"
+                        name="email"
+                        required
+                        value={formData.email}
+                        onChange={handleChange}
+                        className="w-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 text-gray-900 dark:text-white focus:outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900 transition-all placeholder:text-gray-600"
+                        placeholder="email@example.com"
+                      />
+                    </div>
+                  </div>
+
+                  {isLogin ? (
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] ml-1">
+                        {t.auth.password}
+                      </label>
+                      <div className="relative group">
+                        <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-blue-500 transition-colors" size={18} />
+                        <input
+                          type="password"
+                          name="password"
+                          required
+                          value={formData.password}
+                          onChange={handleChange}
+                          className="w-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 text-gray-900 dark:text-white focus:outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900 transition-all placeholder:text-gray-600"
+                          placeholder="••••••••"
+                        />
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] ml-1">
+                        {language === 'my' ? 'ဘာကြောင့် တက်ရောက်ချင်တာလဲ' : 'Why do you want to join?'}
+                      </label>
+                      <div className="relative group">
+                        <textarea
+                          name="reason"
+                          required
+                          value={formData.reason}
+                          onChange={handleChange}
+                          rows={3}
+                          className="w-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl py-4 px-4 text-gray-900 dark:text-white focus:outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900 transition-all placeholder:text-gray-600 resize-none"
+                          placeholder={language === 'my' ? 'သင်၏ ရည်ရွယ်ချက်ကို ဖော်ပြပေးပါ...' : 'Tell us your goals...'}
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  <AnimatePresence>
+                    {error && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        className="flex items-center gap-2 text-red-400 text-sm bg-red-400/10 border border-red-400/20 p-4 rounded-2xl"
+                      >
+                        <AlertCircle size={16} className="shrink-0" />
+                        <span>{error}</span>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-600/50 text-white font-bold py-4 rounded-2xl transition-all flex items-center justify-center gap-3 shadow-xl shadow-blue-600/20 mt-8 group focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900"
+                  >
+                    {loading ? (
+                      <Loader2 className="animate-spin" size={20} />
+                    ) : (
+                      <>
+                        <span>{isLogin ? t.auth.loginBtn : (language === 'my' ? 'တောင်းဆိုမှု ပေးပို့ရန်' : 'Submit Request')}</span>
+                        <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                      </>
+                    )}
+                  </button>
+                </motion.form>
+              )}
+            </AnimatePresence>
 
             {/* PWA Install Button */}
             <div className="mt-8 pt-8 border-t border-gray-200 dark:border-white/10 flex flex-col items-center gap-4">
