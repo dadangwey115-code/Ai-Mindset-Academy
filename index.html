@@ -43,6 +43,19 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/pwa-192x192.png">
     <link rel="shortcut icon" href="/pwa-192x192.png">
     
+    <!-- PWA Install Prompt Handler -->
+    <script>
+      window.deferredPrompt = null;
+      window.addEventListener('beforeinstallprompt', (e) => {
+        // Prevent the mini-infobar from appearing on mobile
+        e.preventDefault();
+        // Stash the event so it can be triggered later.
+        window.deferredPrompt = e;
+        // Optionally, send analytics event that PWA install promo was shown.
+        console.log('beforeinstallprompt event was stashed');
+      });
+    </script>
+    
     <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json">
     {

@@ -2,15 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Download, Share, PlusSquare, X, Smartphone, Monitor, Info } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-
-interface BeforeInstallPromptEvent extends Event {
-  readonly platforms: string[];
-  readonly userChoice: Promise<{
-    outcome: 'accepted' | 'dismissed';
-    platform: string;
-  }>;
-  prompt(): Promise<void>;
-}
+import { BeforeInstallPromptEvent } from '../types';
 
 export const InstallPWAButton: React.FC<{ language: 'en' | 'my' }> = ({ language }) => {
   const [installPrompt, setInstallPrompt] = useState<BeforeInstallPromptEvent | null>(null);
@@ -20,6 +12,11 @@ export const InstallPWAButton: React.FC<{ language: 'en' | 'my' }> = ({ language
   const [platform, setPlatform] = useState<'android' | 'ios' | 'desktop' | 'unknown'>('unknown');
 
   useEffect(() => {
+    // Check if we already have a deferred prompt from index.html
+    if (window.deferredPrompt) {
+      setInstallPrompt(window.deferredPrompt);
+    }
+
     // Detect Standalone Mode
     const standalone = window.matchMedia('(display-mode: standalone)').matches 
       || (window.navigator as any).standalone 
@@ -40,10 +37,12 @@ export const InstallPWAButton: React.FC<{ language: 'en' | 'my' }> = ({ language
       setPlatform('desktop');
     }
 
-    // Handle Install Prompt
+    // Handle Install Prompt (in case it fires after mount)
     const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault();
-      setInstallPrompt(e as BeforeInstallPromptEvent);
+      const promptEvent = e as BeforeInstallPromptEvent;
+      setInstallPrompt(promptEvent);
+      window.deferredPrompt = promptEvent;
     };
 
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
@@ -59,11 +58,14 @@ export const InstallPWAButton: React.FC<{ language: 'en' | 'my' }> = ({ language
       return;
     }
 
-    if (installPrompt) {
-      await installPrompt.prompt();
-      const { outcome } = await installPrompt.userChoice;
+    const promptToUse = installPrompt || window.deferredPrompt;
+
+    if (promptToUse) {
+      await promptToUse.prompt();
+      const { outcome } = await promptToUse.userChoice;
       if (outcome === 'accepted') {
         setInstallPrompt(null);
+        window.deferredPrompt = null;
       }
     } else {
       // For desktop or android where prompt isn't available yet

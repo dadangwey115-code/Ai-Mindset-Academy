@@ -27,6 +27,7 @@ export default defineConfig(({ mode }) => {
             orientation: 'portrait',
             scope: '/',
             start_url: '/',
+            id: '/',
             icons: [
               {
                 src: 'pwa-192x192.png',
@@ -85,6 +86,9 @@ export default defineConfig(({ mode }) => {
                 }
               }
             ]
+          },
+          devOptions: {
+            enabled: true
           }
         })
       ],
