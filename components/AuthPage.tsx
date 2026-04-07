@@ -85,6 +85,18 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
+  const handleBackToLogin = () => {
+    setIsLogin(true);
+    setSubmitted(false);
+    setError(null);
+    setFormData({
+      email: '',
+      password: '',
+      name: '',
+      reason: '',
+    });
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -98,12 +110,21 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
         );
       } else {
         const { requestAcademyAccess } = await import('../services/pb');
-        await requestAcademyAccess({
-          name: formData.name,
-          email: formData.email,
-          reason: formData.reason,
-        });
-        setSubmitted(true);
+        try {
+          await requestAcademyAccess({
+            name: formData.name,
+            email: formData.email,
+            reason: formData.reason,
+          });
+          setSubmitted(true);
+        } catch (err: any) {
+          // Check for PocketBase validation error (usually 400) for unique email
+          if (err.status === 400 && err.data?.data?.email?.code === 'validation_not_unique') {
+            setError(t.auth.requestPending);
+          } else {
+            throw err;
+          }
+        }
       }
     } catch (err: any) {
       console.error('Auth error:', err);
@@ -369,24 +390,24 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
           <div className="bg-gray-50 dark:bg-zinc-900/50 border border-gray-200 dark:border-white/10 rounded-[40px] p-8 md:p-10 backdrop-blur-xl shadow-2xl relative overflow-hidden ring-1 ring-gray-100 dark:ring-white/5 transition-colors duration-300">
             <div className="text-center mb-8">
               <h2 className="text-3xl font-bold text-gray-900 dark:text-white tracking-tight mb-6">
-                {isLogin ? t.auth.loginTitle : (language === 'my' ? 'ဝင်ခွင့်တောင်းဆိုရန်' : 'Request Access')}
+                {isLogin ? t.auth.loginTitle : t.auth.signupTitle}
               </h2>
               
               {/* Segmented Toggle Tabs */}
               <div className="flex p-1 bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl mb-2" role="tablist">
                 <button
                   type="button"
-                  onClick={() => { setIsLogin(false); setSubmitted(false); }}
+                  onClick={() => { setIsLogin(false); setSubmitted(false); setError(null); }}
                   role="tab"
                   aria-selected={!isLogin}
                   aria-label="Switch to Request Access"
                   className={`flex-1 py-2.5 text-sm font-bold rounded-xl transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500 ${!isLogin ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/20' : 'text-gray-500 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'}`}
                 >
-                  {language === 'my' ? 'ဝင်ခွင့်တောင်းဆိုရန်' : 'Request Access'}
+                  {t.auth.toggleSignup}
                 </button>
                 <button
                   type="button"
-                  onClick={() => { setIsLogin(true); setSubmitted(false); }}
+                  onClick={() => { setIsLogin(true); setSubmitted(false); setError(null); }}
                   role="tab"
                   aria-selected={isLogin}
                   aria-label="Switch to Login"
@@ -419,7 +440,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
                     </p>
                   </div>
                   <button
-                    onClick={() => setIsLogin(true)}
+                    onClick={handleBackToLogin}
                     className="text-blue-400 text-sm font-bold hover:underline"
                   >
                     {language === 'my' ? 'အကောင့်ဝင်ရန် ပြန်သွားပါ' : 'Back to Login'}
@@ -542,11 +563,26 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
                       <Loader2 className="animate-spin" size={20} />
                     ) : (
                       <>
-                        <span>{isLogin ? t.auth.loginBtn : (language === 'my' ? 'တောင်းဆိုမှု ပေးပို့ရန်' : 'Submit Request')}</span>
+                        <span>{isLogin ? t.auth.loginBtn : t.auth.signupBtn}</span>
                         <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
                       </>
                     )}
                   </button>
+
+                  {isLogin && (
+                    <div className="text-center mt-6">
+                      <p className="text-gray-500 text-sm">
+                        {t.auth.noAccount}{' '}
+                        <button
+                          type="button"
+                          onClick={() => setIsLogin(false)}
+                          className="text-blue-500 font-bold hover:underline"
+                        >
+                          {t.auth.requestInvitation}
+                        </button>
+                      </p>
+                    </div>
+                  )}
                 </motion.form>
               )}
             </AnimatePresence>

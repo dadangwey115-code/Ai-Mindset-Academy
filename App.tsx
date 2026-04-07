@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect, lazy, Suspense } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { Sparkles } from 'lucide-react';
 import { Navbar } from './components/Navbar';
@@ -25,6 +26,7 @@ const AuthPage = lazy(() => import('./components/AuthPage').then(m => ({ default
 const Profile = lazy(() => import('./components/Profile').then(m => ({ default: m.Profile })));
 const AchievementToast = lazy(() => import('./components/AchievementToast').then(m => ({ default: m.AchievementToast })));
 const PwaInstallBanner = lazy(() => import('./components/PwaInstallBanner').then(m => ({ default: m.PwaInstallBanner })));
+const AdminDashboard = lazy(() => import('./components/AdminDashboard').then(m => ({ default: m.AdminDashboard })));
 
 import { ThemeProvider } from './components/ThemeProvider';
 
@@ -192,128 +194,145 @@ const App: React.FC = () => {
   const completedLessons = user?.completed_lessons || [];
 
   return (
-    <ThemeProvider>
-      <div className={`min-h-screen bg-gray-50 dark:bg-slate-950 text-gray-900 dark:text-slate-100 selection:bg-purple-500/30 selection:text-white scroll-smooth transition-colors duration-300 ${language === 'my' ? 'myanmar-text antialiased' : 'font-sans'}`}>
-        {/* Global AI Background Elements */}
-        <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-          <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-500/5 dark:bg-indigo-600/5 blur-[120px] rounded-full animate-pulse" />
-          <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-500/5 dark:bg-purple-600/5 blur-[120px] rounded-full animate-pulse delay-1000" />
-        </div>
-
-        <div className="relative z-10">
-          <Navbar 
-        activePage={activePage} 
-        setActivePage={setActivePage} 
-        language={language} 
-        setLanguage={setLanguage}
-        user={user}
-        onLogout={handleLogout}
-        onLoginClick={() => {}} // Not needed in protected mode but kept for prop compatibility
-        completedLessons={completedLessons}
-      />
-      
-      <main className="transition-all duration-500 ease-in-out pb-24 md:pb-0 px-4 sm:px-6 lg:px-8">
-        {activePage === 'home' && (
+    <Router>
+      <Routes>
+        <Route path="/admin" element={
           <Suspense fallback={<LoadingSpinner />}>
-            <div className="animate-in fade-in duration-700">
-              <Hero 
-                onStart={() => setActivePage('curriculum')} 
-                onOpenConcept={() => setIsConceptModalOpen(true)}
-                onOpenPromptLibrary={() => setIsPromptLibraryModalOpen(true)}
-                onOpenStrategyBlueprint={() => setIsBlueprintOpen(true)}
-                language={language} 
-              />
-              <StrategicFramework 
-                language={language} 
-                onStart={() => setActivePage('curriculum')} 
-                onOpenStrategyBlueprint={() => setIsBlueprintOpen(true)}
-              />
-              <BusinessStrategy 
-                language={language} 
-                onOpenBlueprint={() => setIsBlueprintOpen(true)}
-              />
-            </div>
+            <AdminDashboard />
           </Suspense>
-        )}
-        
-        <Suspense fallback={<LoadingSpinner />}>
-          {activePage === 'curriculum' && (
-            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-              <Curriculum language={language} completedLessons={completedLessons} />
-            </div>
-          )}
-          
-          {activePage === 'ailevels' && (
-            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-              <AILevelsLecture language={language} onComplete={() => completeLesson('ailevels')} />
-            </div>
-          )}
+        } />
+        <Route path="*" element={
+          <ThemeProvider>
+            {!isAuthenticated ? (
+              <Suspense fallback={<LoadingSpinner />}>
+                <AuthPage language={language} onLanguageChange={setLanguage} />
+              </Suspense>
+            ) : (
+              <div className={`min-h-screen bg-gray-50 dark:bg-slate-950 text-gray-900 dark:text-slate-100 selection:bg-purple-500/30 selection:text-white scroll-smooth transition-colors duration-300 ${language === 'my' ? 'myanmar-text antialiased' : 'font-sans'}`}>
+                {/* Global AI Background Elements */}
+                <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+                  <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-500/5 dark:bg-indigo-600/5 blur-[120px] rounded-full animate-pulse" />
+                  <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-500/5 dark:bg-purple-600/5 blur-[120px] rounded-full animate-pulse delay-1000" />
+                </div>
 
-          {activePage === 'prompting' && (
-            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-              <PromptLecture 
-                language={language} 
-                onComplete={() => completeLesson('prompting')}
-                onOpenPromptLibrary={() => setIsPromptLibraryModalOpen(true)}
-                onOpenStrategyBlueprint={() => setIsBlueprintOpen(true)}
-              />
-            </div>
-          )}
+                <div className="relative z-10">
+                  <Navbar 
+                    activePage={activePage} 
+                    setActivePage={setActivePage} 
+                    language={language} 
+                    setLanguage={setLanguage}
+                    user={user}
+                    onLogout={handleLogout}
+                    onLoginClick={() => {}} // Not needed in protected mode but kept for prop compatibility
+                    completedLessons={completedLessons}
+                  />
+                  
+                  <main className="transition-all duration-500 ease-in-out pb-24 md:pb-0 px-4 sm:px-6 lg:px-8">
+                    {activePage === 'home' && (
+                      <Suspense fallback={<LoadingSpinner />}>
+                        <div className="animate-in fade-in duration-700">
+                          <Hero 
+                            onStart={() => setActivePage('curriculum')} 
+                            onOpenConcept={() => setIsConceptModalOpen(true)}
+                            onOpenPromptLibrary={() => setIsPromptLibraryModalOpen(true)}
+                            onOpenStrategyBlueprint={() => setIsBlueprintOpen(true)}
+                            language={language} 
+                          />
+                          <StrategicFramework 
+                            language={language} 
+                            onStart={() => setActivePage('curriculum')} 
+                            onOpenStrategyBlueprint={() => setIsBlueprintOpen(true)}
+                          />
+                          <BusinessStrategy 
+                            language={language} 
+                            onOpenBlueprint={() => setIsBlueprintOpen(true)}
+                          />
+                        </div>
+                      </Suspense>
+                    )}
+                    
+                    <Suspense fallback={<LoadingSpinner />}>
+                      {activePage === 'curriculum' && (
+                        <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                          <Curriculum language={language} completedLessons={completedLessons} />
+                        </div>
+                      )}
+                      
+                      {activePage === 'ailevels' && (
+                        <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                          <AILevelsLecture language={language} onComplete={() => completeLesson('ailevels')} />
+                        </div>
+                      )}
 
-          {activePage === 'notebooklm' && (
-            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-              <NotebookLecture language={language} onComplete={() => completeLesson('notebooklm')} />
-            </div>
-          )}
+                      {activePage === 'prompting' && (
+                        <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                          <PromptLecture 
+                            language={language} 
+                            onComplete={() => completeLesson('prompting')}
+                            onOpenPromptLibrary={() => setIsPromptLibraryModalOpen(true)}
+                            onOpenStrategyBlueprint={() => setIsBlueprintOpen(true)}
+                          />
+                        </div>
+                      )}
 
-          {activePage === 'aistudio' && (
-            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-              <AIStudioLecture language={language} onComplete={() => completeLesson('aistudio')} />
-            </div>
-          )}
+                      {activePage === 'notebooklm' && (
+                        <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                          <NotebookLecture language={language} onComplete={() => completeLesson('notebooklm')} />
+                        </div>
+                      )}
 
-          {activePage === 'deployment' && (
-            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-              <DeploymentLecture language={language} onComplete={() => completeLesson('deployment')} />
-            </div>
-          )}
+                      {activePage === 'aistudio' && (
+                        <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                          <AIStudioLecture language={language} onComplete={() => completeLesson('aistudio')} />
+                        </div>
+                      )}
 
-          {activePage === 'profile' && user && (
-            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-              <Profile user={user} language={language} onLogout={handleLogout} />
-            </div>
-          )}
-        </Suspense>
-      </main>
+                      {activePage === 'deployment' && (
+                        <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                          <DeploymentLecture language={language} onComplete={() => completeLesson('deployment')} />
+                        </div>
+                      )}
 
-      <Footer />
-      <Suspense fallback={null}>
-        <FloatingAssistant language={language} />
-        <AchievementToast 
-          isVisible={isToastVisible} 
-          onClose={() => setIsToastVisible(false)} 
-          language={language}
-        />
-        <PwaInstallBanner />
-        <ConceptModal 
-          isOpen={isConceptModalOpen} 
-          onClose={() => setIsConceptModalOpen(false)} 
-          language={language} 
-        />
-        <PromptLibraryModal 
-          isOpen={isPromptLibraryModalOpen} 
-          onClose={() => setIsPromptLibraryModalOpen(false)} 
-          language={language} 
-        />
-        <StrategyBlueprintModal 
-          isOpen={isBlueprintOpen} 
-          onClose={() => setIsBlueprintOpen(false)} 
-          language={language} 
-        />
-      </Suspense>
-        </div>
-      </div>
-    </ThemeProvider>
+                      {activePage === 'profile' && user && (
+                        <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                          <Profile user={user} language={language} onLogout={handleLogout} />
+                        </div>
+                      )}
+                    </Suspense>
+                  </main>
+
+                  <Footer />
+                  <Suspense fallback={null}>
+                    <FloatingAssistant language={language} />
+                    <AchievementToast 
+                      isVisible={isToastVisible} 
+                      onClose={() => setIsToastVisible(false)} 
+                      language={language}
+                    />
+                    <PwaInstallBanner />
+                    <ConceptModal 
+                      isOpen={isConceptModalOpen} 
+                      onClose={() => setIsConceptModalOpen(false)} 
+                      language={language} 
+                    />
+                    <PromptLibraryModal 
+                      isOpen={isPromptLibraryModalOpen} 
+                      onClose={() => setIsPromptLibraryModalOpen(false)} 
+                      language={language} 
+                    />
+                    <StrategyBlueprintModal 
+                      isOpen={isBlueprintOpen} 
+                      onClose={() => setIsBlueprintOpen(false)} 
+                      language={language} 
+                    />
+                  </Suspense>
+                </div>
+              </div>
+            )}
+          </ThemeProvider>
+        } />
+      </Routes>
+    </Router>
   );
 };
 
