@@ -181,33 +181,23 @@ const App: React.FC = () => {
     }
   };
 
-  if (!isAuthenticated) {
-    return (
-      <ThemeProvider>
-        <Suspense fallback={<LoadingSpinner />}>
-          <AuthPage language={language} onLanguageChange={setLanguage} />
-        </Suspense>
-      </ThemeProvider>
-    );
-  }
-
   const completedLessons = user?.completed_lessons || [];
 
   return (
     <Router>
-      <Routes>
-        <Route path="/admin" element={
+      <ThemeProvider>
+        {!isAuthenticated ? (
           <Suspense fallback={<LoadingSpinner />}>
-            <AdminDashboard />
+            <AuthPage language={language} onLanguageChange={setLanguage} />
           </Suspense>
-        } />
-        <Route path="*" element={
-          <ThemeProvider>
-            {!isAuthenticated ? (
+        ) : (
+          <Routes>
+            <Route path="/admin" element={
               <Suspense fallback={<LoadingSpinner />}>
-                <AuthPage language={language} onLanguageChange={setLanguage} />
+                <AdminDashboard />
               </Suspense>
-            ) : (
+            } />
+            <Route path="*" element={
               <div className={`min-h-screen bg-gray-50 dark:bg-slate-950 text-gray-900 dark:text-slate-100 selection:bg-purple-500/30 selection:text-white scroll-smooth transition-colors duration-300 ${language === 'my' ? 'myanmar-text antialiased' : 'font-sans'}`}>
                 {/* Global AI Background Elements */}
                 <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
@@ -328,10 +318,10 @@ const App: React.FC = () => {
                   </Suspense>
                 </div>
               </div>
-            )}
-          </ThemeProvider>
-        } />
-      </Routes>
+            } />
+          </Routes>
+        )}
+      </ThemeProvider>
     </Router>
   );
 };

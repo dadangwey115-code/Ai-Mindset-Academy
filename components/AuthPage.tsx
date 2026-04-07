@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { Mail, Lock, User, AlertCircle, Info, Loader2, BrainCircuit, GraduationCap, Home, Briefcase, ChevronLeft, ChevronRight, Pause } from 'lucide-react';
 import pb from '../services/pb';
@@ -30,6 +31,7 @@ const CAROUSEL_ITEMS = [
 ];
 
 export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }) => {
+  const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -206,7 +208,10 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
             transition={{ duration: 0.8 }}
             className="mb-8"
           >
-            <div className="flex items-center gap-4 mb-6">
+            <div 
+              className="flex items-center gap-4 mb-6 cursor-default select-none"
+              onDoubleClick={() => navigate('/admin')}
+            >
               <div className="bg-blue-600 p-3 rounded-2xl shadow-lg shadow-blue-600/20">
                 <BrainCircuit className="text-white w-8 h-8" />
               </div>
@@ -375,7 +380,10 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
           className="w-full max-w-md"
         >
           {/* Mobile Header */}
-          <div className="md:hidden flex flex-col items-center mb-12">
+          <div 
+            className="md:hidden flex flex-col items-center mb-12 cursor-default select-none"
+            onDoubleClick={() => navigate('/admin')}
+          >
             <div className="bg-blue-600 p-3 rounded-2xl mb-4 shadow-lg shadow-blue-600/20">
               <BrainCircuit className="text-white w-8 h-8" />
             </div>
