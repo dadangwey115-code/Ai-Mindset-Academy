@@ -13,11 +13,22 @@ import {
   BrainCircuit,
   AlertCircle,
   Search,
-  RefreshCw
+  RefreshCw,
+  X
 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import pb, { adminLogin, fetchPendingRequests, approveStudent } from '../services/pb';
+import { Language } from '../types';
+import { UI_STRINGS } from '../translations';
 
-export const AdminDashboard: React.FC = () => {
+interface AdminDashboardProps {
+  language: Language;
+}
+
+export const AdminDashboard: React.FC<AdminDashboardProps> = ({ language }) => {
+  const navigate = useNavigate();
+  const t = UI_STRINGS[language].admin;
+
   // In PocketBase, admins are stored in a different way in the authStore
   // We can check if the current model is an admin by checking if it's valid
   // and if it's not a regular user record (which would have a collectionId)
@@ -41,7 +52,7 @@ export const AdminDashboard: React.FC = () => {
       const data = await fetchPendingRequests();
       setRequests(data);
     } catch (err: any) {
-      setError('Failed to fetch requests');
+      setError(t.fetchError);
       console.error(err);
     } finally {
       setLoading(false);
@@ -63,11 +74,11 @@ export const AdminDashboard: React.FC = () => {
     } catch (err: any) {
       console.error('Admin login error:', err);
       if (err.status === 404) {
-        setError(`Admin authentication service not found (404) at ${pb.baseUrl}. Please verify your PocketBase URL and ensure the Admin API is enabled.`);
+        setError(t.authError404);
       } else if (err.status === 400 || err.status === 401) {
-        setError('Invalid Admin Email or Password. Please use your PocketBase Admin Email.');
+        setError(t.authErrorInvalid);
       } else {
-        setError(err.message || 'An unexpected error occurred during admin login.');
+        setError(err.message || t.authErrorUnexpected);
       }
     } finally {
       setLoading(false);
@@ -80,12 +91,12 @@ export const AdminDashboard: React.FC = () => {
     setLoading(true);
     try {
       await approveStudent(request.id, request.name, request.email);
-      setSuccessMessage(`Account created for ${request.name}!`);
+      setSuccessMessage(t.approveSuccess.replace('{name}', request.name));
       setTimeout(() => setSuccessMessage(null), 5000);
       setConfirmingId(null);
       loadRequests();
     } catch (err: any) {
-      setError('Failed to approve student');
+      setError(t.approveError);
     } finally {
       setLoading(false);
     }
@@ -103,27 +114,35 @@ export const AdminDashboard: React.FC = () => {
 
   if (!isAdmin) {
     return (
-      <div className="min-h-screen bg-white dark:bg-black flex items-center justify-center p-6">
+      <div className={`min-h-screen bg-white dark:bg-black flex items-center justify-center p-6 ${language === 'my' ? 'myanmar-text' : ''}`}>
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="w-full max-w-md bg-gray-50 dark:bg-zinc-900/50 border border-gray-200 dark:border-white/10 rounded-[40px] p-10 backdrop-blur-xl shadow-2xl"
+          className="w-full max-w-md bg-gray-50 dark:bg-zinc-900/50 border border-gray-200 dark:border-white/10 rounded-[40px] p-10 backdrop-blur-xl shadow-2xl relative"
         >
+          <button 
+            onClick={() => navigate('/')}
+            className="absolute top-6 right-6 p-2 text-gray-400 hover:text-gray-600 dark:hover:text-white transition-colors rounded-full hover:bg-gray-200 dark:hover:bg-white/10"
+            aria-label={UI_STRINGS[language].nav.backToHome}
+          >
+            <X size={20} />
+          </button>
+
           <div className="text-center mb-8">
             <div className="bg-indigo-600 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-indigo-600/20">
               <ShieldCheck className="text-white w-8 h-8" />
             </div>
             <h1 className="text-2xl font-black text-gray-900 dark:text-white tracking-tighter uppercase">
-              Admin Portal
+              {t.portalTitle}
             </h1>
             <p className="text-gray-500 text-xs font-bold tracking-[0.2em] uppercase mt-2">
-              Secure Access Only
+              {t.secureAccess}
             </p>
           </div>
 
           <form onSubmit={handleLogin} className="space-y-5">
             <div className="space-y-2">
-              <label className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] ml-1">Admin Email</label>
+              <label className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] ml-1">{t.adminEmail}</label>
               <div className="relative group">
                 <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-indigo-500 transition-colors" size={18} />
                 <input
@@ -138,7 +157,7 @@ export const AdminDashboard: React.FC = () => {
             </div>
 
             <div className="space-y-2">
-              <label className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] ml-1">Password</label>
+              <label className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] ml-1">{t.password}</label>
               <div className="relative group">
                 <ShieldCheck className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-indigo-500 transition-colors" size={18} />
                 <input
@@ -168,7 +187,7 @@ export const AdminDashboard: React.FC = () => {
               disabled={loading}
               className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-600/50 text-white font-bold py-4 rounded-2xl transition-all flex items-center justify-center gap-3 shadow-xl shadow-indigo-600/20 mt-8"
             >
-              {loading ? <Loader2 className="animate-spin" size={20} /> : 'Login to Dashboard'}
+              {loading ? <Loader2 className="animate-spin" size={20} /> : t.loginBtn}
             </button>
           </form>
         </motion.div>
@@ -177,17 +196,24 @@ export const AdminDashboard: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-[#050505] transition-colors duration-300">
+    <div className={`min-h-screen bg-gray-50 dark:bg-[#050505] transition-colors duration-300 ${language === 'my' ? 'myanmar-text' : ''}`}>
       {/* Header */}
       <header className="bg-white dark:bg-black border-b border-gray-200 dark:border-white/10 sticky top-0 z-30 backdrop-blur-xl bg-opacity-80">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-4">
+            <button 
+              onClick={() => navigate('/')}
+              className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-white transition-colors rounded-xl hover:bg-gray-100 dark:hover:bg-white/5 mr-2"
+              aria-label={UI_STRINGS[language].nav.backToHome}
+            >
+              <X size={20} />
+            </button>
             <div className="bg-indigo-600 p-2 rounded-xl">
               <ShieldCheck className="text-white w-6 h-6" />
             </div>
             <div>
-              <h1 className="text-lg font-black text-gray-900 dark:text-white tracking-tight uppercase">Admin Dashboard</h1>
-              <p className="text-[10px] font-bold text-indigo-500 uppercase tracking-widest">Access Management</p>
+              <h1 className="text-lg font-black text-gray-900 dark:text-white tracking-tight uppercase">{t.dashboardTitle}</h1>
+              <p className="text-[10px] font-bold text-indigo-500 uppercase tracking-widest">{t.accessManagement}</p>
             </div>
           </div>
           
@@ -196,7 +222,7 @@ export const AdminDashboard: React.FC = () => {
             className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gray-100 dark:bg-white/5 text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 transition-colors text-sm font-bold"
           >
             <LogOut size={18} />
-            <span>Logout</span>
+            <span>{t.logout}</span>
           </button>
         </div>
       </header>
@@ -208,7 +234,7 @@ export const AdminDashboard: React.FC = () => {
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-indigo-500 transition-colors" size={20} />
             <input 
               type="text"
-              placeholder="Search by name or email..."
+              placeholder={t.searchPlaceholder}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 text-gray-900 dark:text-white focus:outline-none focus:border-indigo-500/50 focus:ring-2 focus:ring-indigo-500 transition-all shadow-sm"
@@ -216,7 +242,7 @@ export const AdminDashboard: React.FC = () => {
           </div>
           <div className="bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl p-4 flex items-center justify-between shadow-sm">
             <div>
-              <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Pending Requests</p>
+              <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">{t.pendingRequests}</p>
               <p className="text-3xl font-black text-gray-900 dark:text-white">{requests.length}</p>
             </div>
             <button 
@@ -260,10 +286,10 @@ export const AdminDashboard: React.FC = () => {
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="border-b border-gray-200 dark:border-white/10">
-                  <th className="px-8 py-6 text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em]">Student</th>
-                  <th className="px-8 py-6 text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em]">Reason for Joining</th>
-                  <th className="px-8 py-6 text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em]">Requested At</th>
-                  <th className="px-8 py-6 text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] text-right">Actions</th>
+                  <th className="px-8 py-6 text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em]">{t.student}</th>
+                  <th className="px-8 py-6 text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em]">{t.reason}</th>
+                  <th className="px-8 py-6 text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em]">{t.requestedAt}</th>
+                  <th className="px-8 py-6 text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] text-right">{t.actions}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100 dark:divide-white/5">
@@ -312,7 +338,7 @@ export const AdminDashboard: React.FC = () => {
                                 onClick={() => setConfirmingId(null)}
                                 className="px-3 py-2 text-gray-500 hover:text-gray-700 text-xs font-bold"
                               >
-                                Cancel
+                                {t.cancel}
                               </button>
                               <button
                                 onClick={() => handleApprove(request)}
@@ -320,7 +346,7 @@ export const AdminDashboard: React.FC = () => {
                                 className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-xs font-bold rounded-xl transition-all flex items-center gap-2"
                               >
                                 {loading ? <Loader2 className="animate-spin" size={14} /> : <CheckCircle size={14} />}
-                                <span>Confirm Approve</span>
+                                <span>{t.confirmApprove}</span>
                               </button>
                             </motion.div>
                           ) : (
@@ -334,7 +360,7 @@ export const AdminDashboard: React.FC = () => {
                               className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-600/50 text-white text-xs font-bold rounded-xl transition-all shadow-lg shadow-indigo-600/10 flex items-center gap-2 ml-auto"
                             >
                               <CheckCircle size={14} />
-                              <span>Approve & Give Access</span>
+                              <span>{t.approveBtn}</span>
                             </motion.button>
                           )}
                         </AnimatePresence>
@@ -346,7 +372,7 @@ export const AdminDashboard: React.FC = () => {
                     <td colSpan={4} className="px-8 py-20 text-center">
                       <div className="flex flex-col items-center gap-4 opacity-30">
                         <Users size={48} />
-                        <p className="font-bold uppercase tracking-widest text-sm">No pending requests found</p>
+                        <p className="font-bold uppercase tracking-widest text-sm">{t.noRequests}</p>
                       </div>
                     </td>
                   </tr>

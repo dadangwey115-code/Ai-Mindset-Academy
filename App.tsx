@@ -189,7 +189,7 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/admin" element={
             <Suspense fallback={<LoadingSpinner />}>
-              <AdminDashboard />
+              <AdminDashboard language={language} />
             </Suspense>
           } />
           <Route path="*" element={

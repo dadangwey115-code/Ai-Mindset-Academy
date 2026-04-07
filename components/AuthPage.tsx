@@ -439,19 +439,17 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
                   </div>
                   <div className="space-y-3">
                     <h3 className="text-xl font-bold text-white">
-                      {language === 'my' ? 'တောင်းဆိုမှု အောင်မြင်ပါသည်' : 'Request Submitted'}
+                      {t.auth.requestSubmitted}
                     </h3>
                     <p className="text-gray-400 text-sm leading-relaxed">
-                      {language === 'my' 
-                        ? 'သင်၏ဝင်ခွင့်တောင်းဆိုမှုကို လက်ခံရရှိပါပြီ။ ကျွန်ုပ်တို့အဖွဲ့မှ စစ်ဆေးပြီးနောက် အီးမေးလ်မှတစ်ဆင့် မကြာမီ ဆက်သွယ်ပေးပါမည်။' 
-                        : 'Your request has been submitted. Our team will review and contact you via email soon.'}
+                      {t.auth.requestReceived}
                     </p>
                   </div>
                   <button
                     onClick={handleBackToLogin}
                     className="text-blue-400 text-sm font-bold hover:underline"
                   >
-                    {language === 'my' ? 'အကောင့်ဝင်ရန် ပြန်သွားပါ' : 'Back to Login'}
+                    {t.auth.backToLogin}
                   </button>
                 </motion.div>
               ) : (
@@ -532,7 +530,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
                   ) : (
                     <div className="space-y-2">
                       <label className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] ml-1">
-                        {language === 'my' ? 'ဘာကြောင့် တက်ရောက်ချင်တာလဲ' : 'Why do you want to join?'}
+                        {t.auth.whyJoin}
                       </label>
                       <div className="relative group">
                         <textarea
@@ -542,7 +540,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
                           onChange={handleChange}
                           rows={3}
                           className="w-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl py-4 px-4 text-gray-900 dark:text-white focus:outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900 transition-all placeholder:text-gray-600 resize-none"
-                          placeholder={language === 'my' ? 'သင်၏ ရည်ရွယ်ချက်ကို ဖော်ပြပေးပါ...' : 'Tell us your goals...'}
+                          placeholder={t.auth.goalsPlaceholder}
                         />
                       </div>
                     </div>
@@ -598,7 +596,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
             {/* PWA Install Button */}
             <div className="mt-8 pt-8 border-t border-gray-200 dark:border-white/10 flex flex-col items-center gap-4">
               <p className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em]">
-                {language === 'my' ? 'အက်ပ်အဖြစ် အသုံးပြုရန်' : 'Experience as an App'}
+                {t.pwa.experienceApp}
               </p>
               <InstallPWAButton language={language} />
             </div>

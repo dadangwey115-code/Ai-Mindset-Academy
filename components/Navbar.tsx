@@ -70,7 +70,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button 
               className="flex items-center gap-3 cursor-pointer group focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-xl p-1" 
               onClick={() => setActivePage('home')} 
-              aria-label="Go to Home Page"
+              aria-label={t.backToHome}
             >
               <div className="ai-gradient-bg p-2 rounded-xl glow-shadow group-hover:scale-110 transition-transform duration-300">
                 <BrainCircuit className="text-white w-6 h-6" />
@@ -104,17 +104,17 @@ export const Navbar: React.FC<NavbarProps> = ({
 
               <div className="flex items-center gap-4">
                 <ThemeToggle />
-                <div className="flex items-center bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-0.5" role="group" aria-label="Language selector">
+                <div className="flex items-center bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-0.5" role="group" aria-label={t.langSelector}>
                 <button 
                   onClick={() => setLanguage('en')}
-                  aria-label="Switch to English"
+                  aria-label={t.switchToEn}
                   className={`px-3 py-1 text-xs font-bold rounded-md transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500 ${language === 'en' ? 'bg-blue-600 text-white' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'}`}
                 >
                   EN
                 </button>
                 <button 
                   onClick={() => setLanguage('my')}
-                  aria-label="Switch to Myanmar"
+                  aria-label={t.switchToMy}
                   className={`px-3 py-1 text-xs font-bold rounded-md transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500 ${language === 'my' ? 'bg-blue-600 text-white' : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'}`}
                 >
                   MM
@@ -125,7 +125,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               {activePage !== 'home' && (
                 <button 
                   onClick={() => window.dispatchEvent(new CustomEvent('trigger-quiz'))}
-                  aria-label="Open Quiz"
+                  aria-label={t.openQuiz}
                   className="flex items-center gap-2 px-5 py-2.5 ai-gradient-bg text-white rounded-xl text-xs font-black transition-all glow-shadow hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900"
                 >
                   <Sparkles size={14} className="animate-pulse" />
@@ -137,7 +137,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <div className="flex items-center gap-4 pl-4 border-l border-white/10 relative group" ref={dropdownRef}>
                   <button 
                     onClick={() => setActiveSubMenu(activeSubMenu === 'user' ? null : 'user')}
-                    aria-label={`User menu for ${user.name || user.email.split('@')[0]}`}
+                    aria-label={`${t.userMenu} ${user.name || user.email.split('@')[0]}`}
                     className="flex flex-col items-end cursor-pointer hover:opacity-80 transition-opacity focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-lg p-1"
                   >
                     <div className="flex items-center gap-2">
@@ -200,7 +200,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="p-2 text-gray-600 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-white/5 rounded-xl transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                aria-label={isOpen ? "Close Menu" : "Open Menu"}
+                aria-label={isOpen ? t.closeMenu : t.openMenu}
               >
                 {isOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
@@ -219,18 +219,18 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               <div className="flex flex-col gap-2">
                 <div className="flex items-center justify-between mb-4 px-2">
-                  <span className="text-xs font-black uppercase tracking-widest text-gray-400 dark:text-slate-500">Navigation</span>
+                  <span className="text-xs font-black uppercase tracking-widest text-gray-400 dark:text-slate-500">{t.navigation}</span>
                   <div className="flex items-center bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-lg p-0.5">
                     <button 
                       onClick={() => setLanguage('en')}
-                      aria-label="Switch to English"
+                      aria-label={t.switchToEn}
                       className={`px-3 py-1 text-[10px] font-bold rounded-md transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500 ${language === 'en' ? 'bg-blue-600 text-white' : 'text-gray-500'}`}
                     >
                       EN
                     </button>
                     <button 
                       onClick={() => setLanguage('my')}
-                      aria-label="Switch to Myanmar"
+                      aria-label={t.switchToMy}
                       className={`px-3 py-1 text-[10px] font-bold rounded-md transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500 ${language === 'my' ? 'bg-blue-600 text-white' : 'text-gray-500'}`}
                     >
                       MM
