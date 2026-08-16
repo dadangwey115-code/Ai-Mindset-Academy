@@ -96,6 +96,22 @@ export default defineConfig(({ mode }) => {
         'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
         'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY)
       },
+      build: {
+        cssCodeSplit: true,
+        minify: 'esbuild',
+        rollupOptions: {
+          output: {
+            manualChunks: {
+              'vendor-react': ['react', 'react-dom', 'react-router-dom'],
+              'vendor-motion': ['motion'],
+              'vendor-icons': ['lucide-react'],
+              'vendor-pdf': ['jspdf'],
+              'vendor-confetti': ['canvas-confetti'],
+            },
+          },
+        },
+        chunkSizeWarningLimit: 600,
+      },
       resolve: {
         alias: {
           '@': path.resolve(__dirname, '.'),

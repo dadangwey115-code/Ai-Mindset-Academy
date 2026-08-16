@@ -10,9 +10,6 @@
 @layer base {
   html, body {
     @apply h-full overflow-x-hidden;
-    /* Disable text selection for a native app feel */
-    user-select: none;
-    -webkit-user-select: none;
     /* Disable tap highlight color on mobile */
     -webkit-tap-highlight-color: transparent;
     /* Smooth scrolling */
@@ -27,6 +24,11 @@
   input, textarea, [contenteditable="true"] {
     user-select: text;
     -webkit-user-select: text;
+  }
+
+  /* Accessible focus indicators for keyboard navigation */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-indigo-500 dark:outline-indigo-400;
   }
 
   /* Hide default web scrollbars for a cleaner native look */
@@ -65,3 +67,4 @@
   font-family: var(--font-myanmar);
   line-height: 1.8 !important;
 }
+

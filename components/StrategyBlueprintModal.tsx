@@ -63,7 +63,12 @@ export const StrategyBlueprintModal: React.FC<StrategyBlueprintModalProps> = ({ 
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 sm:p-6">
+        <div 
+          className="fixed inset-0 z-[110] flex items-center justify-center p-4 sm:p-6"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="blueprint-modal-title"
+        >
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -82,7 +87,7 @@ export const StrategyBlueprintModal: React.FC<StrategyBlueprintModalProps> = ({ 
             {/* Header */}
             <div className="p-8 border-b border-white/5 flex items-center justify-between bg-zinc-900/30 backdrop-blur-xl">
               <div>
-                <h2 className={`text-2xl md:text-3xl font-black text-white tracking-tight ${isMy ? 'myanmar-text' : ''}`}>
+                <h2 id="blueprint-modal-title" className={`text-2xl md:text-3xl font-black text-white tracking-tight ${isMy ? 'myanmar-text' : ''}`}>
                   {isMy ? "AI Mindset Academy ၏ မဟာဗျူဟာ လမ်းပြမြေပုံ" : "Full Strategy Blueprint"}
                 </h2>
                 <p className="text-blue-400 font-bold text-xs md:text-sm mt-1 uppercase tracking-[0.2em]">
@@ -144,9 +149,9 @@ export const StrategyBlueprintModal: React.FC<StrategyBlueprintModalProps> = ({ 
               <div className="mt-10 p-8 rounded-[32px] bg-blue-600/10 border border-blue-500/20 text-center relative overflow-hidden group">
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                 <div className="relative z-10">
-                  <h4 className={`text-xl font-black text-white mb-3 ${isMy ? 'myanmar-text' : ''}`}>
+                  <h3 className={`text-xl font-black text-white mb-3 ${isMy ? 'myanmar-text' : ''}`}>
                     {isMy ? "သင်၏ AI ခရီးစဉ်ကို ယနေ့စတင်လိုက်ပါ" : "Ready to Transform Your Workflow?"}
-                  </h4>
+                  </h3>
                   <p className={`text-gray-400 text-sm max-w-xl mx-auto mb-6 ${isMy ? 'myanmar-text' : ''}`}>
                     {isMy 
                       ? "ကျွန်ုပ်တို့၏ စနစ်တကျ ရေးဆွဲထားသော သင်ရိုးညွှန်းတမ်းသည် သင့်အား AI ကို ကျွမ်းကျင်စွာ အသုံးပြုနိုင်သော ခေါင်းဆောင်တစ်ဦး ဖြစ်လာစေရန် ကူညီပေးပါမည်။"

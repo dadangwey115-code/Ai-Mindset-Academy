@@ -38,7 +38,12 @@ export const PromptLibraryModal: React.FC<PromptLibraryModalProps> = ({ isOpen, 
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+        <div 
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="prompt-library-title"
+        >
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -56,7 +61,7 @@ export const PromptLibraryModal: React.FC<PromptLibraryModalProps> = ({ isOpen, 
             {/* Header */}
             <div className="p-6 border-b border-white/5 flex items-center justify-between bg-zinc-900/50 backdrop-blur-md">
               <div>
-                <h2 className="text-2xl font-bold text-white tracking-tight">{t.modalTitle}</h2>
+                <h2 id="prompt-library-title" className="text-2xl font-bold text-white tracking-tight">{t.modalTitle}</h2>
                 <p className="text-blue-400 font-medium text-sm mt-1">{t.modalSub}</p>
               </div>
               <button

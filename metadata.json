@@ -1,5 +1,8 @@
 {
   "name": "V3: AI Mindset Academy",
   "description": "Master the AI-First Era with the Director Mindset. Learn to use AI as a lever for excellence, from 10/80/10 execution to pattern recognition and taste.",
-  "requestFramePermissions": []
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }

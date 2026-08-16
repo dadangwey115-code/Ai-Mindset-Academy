@@ -179,27 +179,27 @@ export const AIStudioLecture: React.FC<{ language: Language; onComplete: () => P
                 
                 <div className="grid md:grid-cols-2 gap-6">
                    <div className="bg-zinc-900 p-8 rounded-3xl border border-white/5">
-                      <h4 className="text-white font-bold mb-4 flex items-center gap-2">
+                      <h3 className="text-white font-bold mb-4 flex items-center gap-2">
                         <ImageIcon className="text-emerald-500" size={18} /> {t.media.imageTitle}
-                      </h4>
+                      </h3>
                       <ul className="space-y-4 text-xs text-gray-400">
                         <li className="bg-white/5 p-3 rounded-xl border border-white/5">{t.media.image1}</li>
                         <li className="bg-white/5 p-3 rounded-xl border border-white/5">{t.media.image2}</li>
                       </ul>
                    </div>
                    <div className="bg-zinc-900 p-8 rounded-3xl border border-white/5">
-                      <h4 className="text-white font-bold mb-4 flex items-center gap-2">
+                      <h3 className="text-white font-bold mb-4 flex items-center gap-2">
                         <Play className="text-red-500" size={18} /> {t.media.videoTitle}
-                      </h4>
+                      </h3>
                       <p className="text-xs text-gray-400 leading-relaxed mb-6">{t.media.videoDesc}</p>
                       <div className="p-3 bg-red-600/10 border border-red-500/20 rounded-xl text-red-200 text-[10px] font-bold text-center">
                          POWERED BY VEO 3.1
                       </div>
                    </div>
                    <div className="bg-zinc-900 p-8 rounded-3xl border border-white/5 md:col-span-2">
-                      <h4 className="text-white font-bold mb-4 flex items-center gap-2">
+                      <h3 className="text-white font-bold mb-4 flex items-center gap-2">
                         <Mic className="text-blue-500" size={18} /> {t.media.audioTitle}
-                      </h4>
+                      </h3>
                       <p className="text-xs text-gray-400 leading-relaxed">{t.media.audioDesc}</p>
                    </div>
                 </div>
@@ -224,7 +224,7 @@ export const AIStudioLecture: React.FC<{ language: Language; onComplete: () => P
                    ].map((item, i) => (
                      <div key={i} className="bg-white/5 border border-white/10 p-6 rounded-2xl flex flex-col gap-4 group hover:bg-orange-600/5 transition-all">
                         <item.icon className="text-orange-500" size={24} />
-                        <h5 className="text-white font-bold text-sm">{item.label}</h5>
+                        <h3 className="text-white font-bold text-sm">{item.label}</h3>
                         <p className="text-xs text-gray-400 leading-relaxed">{item.d}</p>
                      </div>
                    ))}
@@ -264,7 +264,7 @@ export const AIStudioLecture: React.FC<{ language: Language; onComplete: () => P
                            <item.icon size={24} />
                         </div>
                         <div>
-                           <h4 className="text-white font-bold mb-2">{item.t}</h4>
+                           <h3 className="text-white font-bold mb-2">{item.t}</h3>
                            <p className="text-xs text-gray-500 leading-relaxed">{item.d}</p>
                         </div>
                      </div>
@@ -336,7 +336,8 @@ export const AIStudioLecture: React.FC<{ language: Language; onComplete: () => P
             <div className="mb-8">
               <button 
                 onClick={() => setShowQuiz(false)}
-                className="text-gray-500 hover:text-white flex items-center gap-2 text-sm font-bold uppercase tracking-widest"
+                aria-label={isMy ? 'သင်ခန်းစာသို့ ပြန်သွားရန်' : 'Back to Master Class'}
+                className="text-gray-400 hover:text-white flex items-center gap-2 text-sm font-bold uppercase tracking-widest transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg p-1"
               >
                 <Rocket className="w-5 h-5 rotate-180" />
                 {isMy ? 'သင်ခန်းစာသို့ ပြန်သွားရန်' : 'Back to Master Class'}

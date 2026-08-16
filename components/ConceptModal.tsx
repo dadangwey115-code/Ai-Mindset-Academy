@@ -110,7 +110,7 @@ export const ConceptModal: React.FC<ConceptModalProps> = ({ isOpen, onClose, lan
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-2 md:p-6">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-2 md:p-6" role="dialog" aria-modal="true" aria-labelledby="concept-modal-title">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -131,17 +131,17 @@ export const ConceptModal: React.FC<ConceptModalProps> = ({ isOpen, onClose, lan
               
               <div className="relative z-10 pr-12 md:pr-0">
                 <div className="flex items-center gap-3 md:gap-4 mb-2 md:mb-3">
-                  <div className="p-2 md:p-3 bg-white/5 rounded-xl md:rounded-2xl border border-white/10">
+                  <div className="p-2 md:p-3 bg-white/5 rounded-xl md:rounded-2xl border border-white/10" aria-hidden="true">
                     <Sparkles size={20} className="text-blue-400 md:w-7 md:h-7" />
                   </div>
-                  <h2 className={`text-xl md:text-5xl font-black text-white tracking-tighter ${language === 'my' ? '' : 'uppercase italic'}`}>{t.title}</h2>
+                  <h2 id="concept-modal-title" className={`text-xl md:text-5xl font-black text-white tracking-tighter ${language === 'my' ? '' : 'uppercase italic'}`}>{t.title}</h2>
                 </div>
                 <p className="text-gray-400 text-xs md:text-xl font-medium max-w-2xl">{t.subtitle}</p>
               </div>
               
               <button
                 onClick={onClose}
-                aria-label="Close modal"
+                aria-label={language === 'my' ? 'ပိတ်ရန်' : 'Close modal'}
                 className="absolute top-6 right-6 md:relative md:top-0 md:right-0 z-10 p-2 md:p-4 hover:bg-white/5 rounded-full transition-all text-gray-500 hover:text-white border border-transparent hover:border-white/10 group focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900"
               >
                 <X size={24} className="md:w-8 md:h-8 group-hover:rotate-90 transition-transform duration-300" />
@@ -150,10 +150,14 @@ export const ConceptModal: React.FC<ConceptModalProps> = ({ isOpen, onClose, lan
 
             {/* Tabs Container */}
             <div className="px-4 md:px-12 pt-4 md:pt-6">
-              <div className="flex gap-1 md:gap-2 overflow-x-auto no-scrollbar">
+              <div className="flex gap-1 md:gap-2 overflow-x-auto no-scrollbar" role="tablist" aria-label="Concept audience categories">
                 {tabs.map((tab) => (
                   <button
                     key={tab.id}
+                    role="tab"
+                    id={`tab-${tab.id}`}
+                    aria-selected={activeTab === tab.id}
+                    aria-controls={`tabpanel-${tab.id}`}
                     onClick={() => setActiveTab(tab.id)}
                     aria-label={`Switch to ${tab.label} tab`}
                     className={`flex-1 min-w-[90px] md:min-w-[140px] py-3 md:py-4 px-2 md:px-6 flex items-center justify-center gap-1.5 md:gap-3 transition-all rounded-xl md:rounded-[18px] relative group focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900 ${
@@ -178,7 +182,12 @@ export const ConceptModal: React.FC<ConceptModalProps> = ({ isOpen, onClose, lan
             </div>
 
             {/* Content Area */}
-            <div className="flex-1 overflow-y-auto p-4 md:p-12 custom-scrollbar bg-gradient-to-b from-black/40 to-transparent">
+            <div 
+              className="flex-1 overflow-y-auto p-4 md:p-12 custom-scrollbar bg-gradient-to-b from-black/40 to-transparent"
+              role="tabpanel"
+              id={`tabpanel-${activeTab}`}
+              aria-labelledby={`tab-${activeTab}`}
+            >
               <div className="max-w-4xl mx-auto space-y-4 md:space-y-6">
                 <AnimatePresence mode="wait">
                   <motion.div
@@ -211,7 +220,7 @@ export const ConceptModal: React.FC<ConceptModalProps> = ({ isOpen, onClose, lan
               </div>
               <button
                 onClick={onClose}
-                aria-label="Close modal"
+                aria-label={language === 'my' ? 'နားလည်ပါပြီ' : 'Got it, thanks!'}
                 className={`w-full md:w-auto px-8 md:px-12 py-4 md:py-5 ${activeBgClass} hover:opacity-90 text-white font-black uppercase tracking-widest text-xs md:text-sm rounded-xl md:rounded-2xl transition-all shadow-2xl shadow-blue-600/20 hover:scale-105 active:scale-95 flex items-center justify-center gap-3 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900`}
               >
                 {language === 'my' ? 'နားလည်ပါပြီ' : 'Got it, thanks!'}

@@ -348,22 +348,22 @@ export const AILevelsLecture: React.FC<{ language: Language; onComplete: () => P
 
                 <div className="space-y-8 flex-grow">
                   <div>
-                    <h4 className="text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-3">{t.howItWorks}</h4>
+                    <h3 className="text-gray-400 text-xs font-bold uppercase tracking-widest mb-3">{t.howItWorks}</h3>
                     <p className="text-gray-200 text-lg leading-relaxed">{isMy ? activeStage.descriptionMy : activeStage.description}</p>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="bg-white/5 rounded-2xl p-6 border border-white/10">
-                      <h4 className="flex items-center gap-2 text-emerald-400 font-bold mb-3">
+                      <h3 className="flex items-center gap-2 text-emerald-400 font-bold mb-3">
                         <CheckCircle2 className="w-4 h-4" /> {t.exampleLabel}
-                      </h4>
+                      </h3>
                       <p className="text-sm text-gray-300 leading-relaxed">{isMy ? activeStage.examplesMy : activeStage.examples}</p>
                     </div>
                     
                     <div className="bg-white/5 rounded-2xl p-6 border border-white/10">
-                      <h4 className="flex items-center gap-2 text-yellow-400 font-bold mb-3">
+                      <h3 className="flex items-center gap-2 text-yellow-400 font-bold mb-3">
                         <AlertTriangle className="w-4 h-4" /> {t.limitationLabel}
-                      </h4>
+                      </h3>
                       <p className="text-sm text-gray-300 leading-relaxed">{isMy ? activeStage.limitationMy : activeStage.limitation}</p>
                     </div>
                   </div>
@@ -598,7 +598,7 @@ export const AILevelsLecture: React.FC<{ language: Language; onComplete: () => P
 
       {/* Detailed Explanation Modal */}
       {isIntelligenceModalOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-300">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-300" role="dialog" aria-modal="true" aria-labelledby="neuro-modal-title">
           <motion.div 
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -607,12 +607,12 @@ export const AILevelsLecture: React.FC<{ language: Language; onComplete: () => P
             <div className="p-6 border-b border-white/10 flex items-center justify-between bg-emerald-900/10">
               <div className="flex items-center gap-3">
                 <Brain className="w-6 h-6 text-emerald-400" />
-                <h2 className="text-xl font-bold text-white">{t.intelligenceModalTitle}</h2>
+                <h2 id="neuro-modal-title" className="text-xl font-bold text-white">{t.intelligenceModalTitle}</h2>
               </div>
               <button 
                 onClick={() => setIsIntelligenceModalOpen(false)}
-                className="p-2 hover:bg-white/10 rounded-full text-gray-400 hover:text-white transition-colors"
-                aria-label="Close modal"
+                className="p-2 hover:bg-white/10 rounded-full text-gray-400 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                aria-label={isMy ? "ပိတ်ရန်" : "Close modal"}
               >
                 <X className="w-6 h-6" />
               </button>

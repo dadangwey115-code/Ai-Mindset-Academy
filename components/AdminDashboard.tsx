@@ -21,7 +21,7 @@ import {
   Sparkles
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import pb, { adminLogin, fetchPendingRequests, approveStudent } from '../services/pb';
+import { adminLogin, fetchPendingRequests, approveStudent, checkIsAdmin, adminLogout } from '../services/storage';
 import { Language } from '../types';
 import { UI_STRINGS } from '../translations';
 
@@ -36,10 +36,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ language }) => {
   const navigate = useNavigate();
   const t = UI_STRINGS[language].admin;
 
-  // In PocketBase, admins are stored in a different way in the authStore
-  // We can check if the current model is an admin by checking if it's valid
-  // and if it's not a regular user record (which would have a collectionId)
-  const [isAdmin, setIsAdmin] = useState(pb.authStore.isValid && !pb.authStore.model?.collectionId);
+  const [isAdmin, setIsAdmin] = useState(checkIsAdmin());
   const [loading, setLoading] = useState(false);
   const [requests, setRequests] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -77,11 +74,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ language }) => {
     
     try {
       // Clear any existing student/user tokens to avoid conflicts
-      pb.authStore.clear();
+      adminLogout();
       
       await adminLogin(loginData.email, loginData.password);
-      // After successful admin login, pb.authStore.model will be an Admin object
-      setIsAdmin(pb.authStore.isValid && !pb.authStore.model?.collectionId);
+      setIsAdmin(checkIsAdmin());
     } catch (err: any) {
       console.error('Admin login error:', err);
       if (err.status === 404) {
@@ -114,7 +110,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ language }) => {
   };
 
   const handleLogout = () => {
-    pb.authStore.clear();
+    adminLogout();
     setIsAdmin(false);
   };
 

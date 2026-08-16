@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { Mail, Lock, User, AlertCircle, Info, Loader2, BrainCircuit, GraduationCap, Home, Briefcase, ChevronLeft, ChevronRight, Pause } from 'lucide-react';
-import pb from '../services/pb';
+import { loginStudent, requestAcademyAccess } from '../services/storage';
 import { UI_STRINGS } from '../translations';
 import { Language } from '../types';
 import { InstallPWAButton } from './InstallPWAButton';
@@ -106,27 +106,17 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
 
     try {
       if (isLogin) {
-        await pb.collection('ai_users').authWithPassword(
+        await loginStudent(
           formData.email,
           formData.password
         );
       } else {
-        const { requestAcademyAccess } = await import('../services/pb');
-        try {
-          await requestAcademyAccess({
-            name: formData.name,
-            email: formData.email,
-            reason: formData.reason,
-          });
-          setSubmitted(true);
-        } catch (err: any) {
-          // Check for PocketBase validation error (usually 400) for unique email
-          if (err.status === 400 && err.data?.data?.email?.code === 'validation_not_unique') {
-            setError(t.auth.requestPending);
-          } else {
-            throw err;
-          }
-        }
+        await requestAcademyAccess({
+          name: formData.name,
+          email: formData.email,
+          reason: formData.reason,
+        });
+        setSubmitted(true);
       }
     } catch (err: any) {
       console.error('Auth error:', err);
@@ -342,16 +332,17 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
           </div>
 
           {/* Sub-indicators (Dots for slides within category) */}
-          <div className="flex gap-2 mt-4">
+          <div className="flex gap-2 mt-4" role="tablist" aria-label="Slide indicators">
             {CAROUSEL_ITEMS.map((_, idx) => {
               const slideCategory = getCategoryIndex(idx);
               if (slideCategory !== currentCategory) return null;
               
               return (
                 <button
-                  idx={idx}
                   key={idx}
                   onClick={() => setCurrentSlide(idx)}
+                  role="tab"
+                  aria-selected={idx === currentSlide}
                   aria-label={`Go to slide ${idx + 1}`}
                   className="relative h-1 bg-white/20 rounded-full overflow-hidden transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   style={{ width: idx === currentSlide ? '32px' : '8px' }}
@@ -402,7 +393,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
               </h2>
               
               {/* Segmented Toggle Tabs */}
-              <div className="flex p-1 bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl mb-2" role="tablist">
+              <div className="flex p-1 bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl mb-2" role="tablist" aria-label="Authentication modes">
                 <button
                   type="button"
                   onClick={() => { setIsLogin(false); setSubmitted(false); setError(null); }}
@@ -438,16 +429,16 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
                     <BrainCircuit size={40} />
                   </div>
                   <div className="space-y-3">
-                    <h3 className="text-xl font-bold text-white">
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">
                       {t.auth.requestSubmitted}
                     </h3>
-                    <p className="text-gray-400 text-sm leading-relaxed">
+                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
                       {t.auth.requestReceived}
                     </p>
                   </div>
                   <button
                     onClick={handleBackToLogin}
-                    className="text-blue-400 text-sm font-bold hover:underline"
+                    className="text-blue-500 text-sm font-bold hover:underline focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-md px-2 py-1"
                   >
                     {t.auth.backToLogin}
                   </button>
@@ -465,7 +456,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
                     <motion.div
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="flex items-center gap-3 text-blue-400 text-xs bg-blue-400/10 border border-blue-400/20 p-4 rounded-2xl mb-4"
+                      className="flex items-center gap-3 text-blue-500 dark:text-blue-400 text-xs bg-blue-500/10 border border-blue-500/20 p-4 rounded-2xl mb-4"
                     >
                       <Info size={16} className="shrink-0" />
                       <span className="font-medium leading-relaxed">{t.auth.loginInfo}</span>
@@ -473,18 +464,19 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
                   )}
                   {!isLogin && (
                     <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] ml-1">
+                      <label htmlFor="auth-name" className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] ml-1">
                         {t.auth.name}
                       </label>
                       <div className="relative group">
                         <User className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-blue-500 transition-colors" size={18} />
                         <input
+                          id="auth-name"
                           type="text"
                           name="name"
                           required
                           value={formData.name}
                           onChange={handleChange}
-                          className="w-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 text-gray-900 dark:text-white focus:outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900 transition-all placeholder:text-gray-600"
+                          className="w-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 text-gray-900 dark:text-white focus:outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900 transition-all placeholder:text-gray-400 dark:placeholder:text-gray-600"
                           placeholder="John Doe"
                         />
                       </div>
@@ -492,18 +484,19 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
                   )}
 
                   <div className="space-y-2">
-                    <label className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] ml-1">
+                    <label htmlFor="auth-email" className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] ml-1">
                       {t.auth.email}
                     </label>
                     <div className="relative group">
                       <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-blue-500 transition-colors" size={18} />
                       <input
+                        id="auth-email"
                         type="email"
                         name="email"
                         required
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 text-gray-900 dark:text-white focus:outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900 transition-all placeholder:text-gray-600"
+                        className="w-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 text-gray-900 dark:text-white focus:outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900 transition-all placeholder:text-gray-400 dark:placeholder:text-gray-600"
                         placeholder="email@example.com"
                       />
                     </div>
@@ -511,35 +504,37 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
 
                   {isLogin ? (
                     <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] ml-1">
+                      <label htmlFor="auth-password" className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] ml-1">
                         {t.auth.password}
                       </label>
                       <div className="relative group">
                         <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-blue-500 transition-colors" size={18} />
                         <input
+                          id="auth-password"
                           type="password"
                           name="password"
                           required
                           value={formData.password}
                           onChange={handleChange}
-                          className="w-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 text-gray-900 dark:text-white focus:outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900 transition-all placeholder:text-gray-600"
+                          className="w-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 text-gray-900 dark:text-white focus:outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900 transition-all placeholder:text-gray-400 dark:placeholder:text-gray-600"
                           placeholder="••••••••"
                         />
                       </div>
                     </div>
                   ) : (
                     <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] ml-1">
+                      <label htmlFor="auth-reason" className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] ml-1">
                         {t.auth.whyJoin}
                       </label>
                       <div className="relative group">
                         <textarea
+                          id="auth-reason"
                           name="reason"
                           required
                           value={formData.reason}
                           onChange={handleChange}
                           rows={3}
-                          className="w-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl py-4 px-4 text-gray-900 dark:text-white focus:outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900 transition-all placeholder:text-gray-600 resize-none"
+                          className="w-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl py-4 px-4 text-gray-900 dark:text-white focus:outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900 transition-all placeholder:text-gray-400 dark:placeholder:text-gray-600 resize-none"
                           placeholder={t.auth.goalsPlaceholder}
                         />
                       </div>
@@ -549,10 +544,12 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
                   <AnimatePresence>
                     {error && (
                       <motion.div
+                        role="alert"
+                        aria-live="polite"
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
-                        className="flex items-center gap-2 text-red-400 text-sm bg-red-400/10 border border-red-400/20 p-4 rounded-2xl"
+                        className="flex items-center gap-2 text-red-500 dark:text-red-400 text-sm bg-red-500/10 border border-red-500/20 p-4 rounded-2xl"
                       >
                         <AlertCircle size={16} className="shrink-0" />
                         <span>{error}</span>
@@ -582,7 +579,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
                         <button
                           type="button"
                           onClick={() => setIsLogin(false)}
-                          className="text-blue-500 font-bold hover:underline"
+                          className="text-blue-500 font-bold hover:underline focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-md px-1"
                         >
                           {t.auth.requestInvitation}
                         </button>

@@ -6,7 +6,7 @@ import { Sparkles } from 'lucide-react';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { PageId, Language, User } from './types';
-import pb from './services/pb';
+import { getCurrentUser, onAuthChange, logoutStudent, completeLessonForUser } from './services/storage';
 
 // Lazy loaded components
 const Hero = lazy(() => import('./components/Hero').then(m => ({ default: m.Hero })));
@@ -123,8 +123,8 @@ const App: React.FC = () => {
     const saved = localStorage.getItem('academy-lang');
     return (saved as Language) || 'en';
   });
-  const [user, setUser] = useState<User | null>(pb.authStore.model as any);
-  const [isAuthenticated, setIsAuthenticated] = useState(pb.authStore.isValid);
+  const [user, setUser] = useState<User | null>(getCurrentUser);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => !!getCurrentUser());
   const [isConceptModalOpen, setIsConceptModalOpen] = useState(false);
   const [isPromptLibraryModalOpen, setIsPromptLibraryModalOpen] = useState(false);
   const [isBlueprintOpen, setIsBlueprintOpen] = useState(false);
@@ -141,35 +141,25 @@ const App: React.FC = () => {
   }, [activePage]);
 
   useEffect(() => {
-    // Sync auth state
-    const unsubscribe = pb.authStore.onChange((token, model) => {
-      setUser(model as any);
-      setIsAuthenticated(pb.authStore.isValid);
+    // Sync auth state via storage listener
+    const unsubscribe = onAuthChange((updatedUser) => {
+      setUser(updatedUser);
+      setIsAuthenticated(!!updatedUser);
     });
     return () => unsubscribe();
   }, []);
 
   const handleLogout = () => {
-    pb.authStore.clear();
-    setUser(null);
-    setIsAuthenticated(false);
+    logoutStudent();
   };
 
   const completeLesson = async (pageId: string) => {
     if (!user) return;
     
-    const completed = user.completed_lessons || [];
-    if (!completed.includes(pageId)) {
-      const updatedCompleted = [...completed, pageId];
-      try {
-        const updatedUser = await pb.collection('ai_users').update(user.id, {
-          completed_lessons: updatedCompleted
-        });
-        setUser(updatedUser as any);
-        setIsToastVisible(true);
-      } catch (error) {
-        console.error('Error updating progress:', error);
-      }
+    const updated = await completeLessonForUser(pageId);
+    if (updated) {
+      setUser(updated);
+      setIsToastVisible(true);
     }
 
     // Navigate to next lesson

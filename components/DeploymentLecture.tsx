@@ -82,7 +82,7 @@ export const DeploymentLecture: React.FC<{ language: Language; onComplete: () =>
                   <div className="bg-zinc-900 p-8 rounded-3xl border border-white/5 group hover:border-blue-500/30 transition-all">
                     <div className="flex items-center gap-3 mb-6">
                       <Terminal className="text-blue-500" size={20} />
-                      <h4 className="text-white font-bold">{t.phase1.point1Title}</h4>
+                      <h3 className="text-white font-bold">{t.phase1.point1Title}</h3>
                     </div>
                     <p className="text-gray-400 text-sm leading-relaxed mb-6">
                       {t.phase1.point1Body}
@@ -91,7 +91,7 @@ export const DeploymentLecture: React.FC<{ language: Language; onComplete: () =>
                   <div className="bg-zinc-900 p-8 rounded-3xl border border-white/5 group hover:border-blue-500/30 transition-all">
                     <div className="flex items-center gap-3 mb-6">
                       <Zap className="text-blue-500" size={20} />
-                      <h4 className="text-white font-bold">{t.phase1.point2Title}</h4>
+                      <h3 className="text-white font-bold">{t.phase1.point2Title}</h3>
                     </div>
                     <p className="text-gray-400 text-sm leading-relaxed">
                       {t.phase1.point2Body}
@@ -150,7 +150,7 @@ export const DeploymentLecture: React.FC<{ language: Language; onComplete: () =>
                         <Globe className="text-emerald-500" size={32} />
                       </div>
                       <div>
-                        <h4 className="text-white font-bold mb-2">{isMy ? "Deployment Bridge" : "The Deployment Bridge"}</h4>
+                        <h3 className="text-white font-bold mb-2">{isMy ? "Deployment Bridge" : "The Deployment Bridge"}</h3>
                         <p className="text-gray-400 text-sm">{t.phase3.bridge}</p>
                       </div>
                    </div>
@@ -159,7 +159,7 @@ export const DeploymentLecture: React.FC<{ language: Language; onComplete: () =>
                         <Zap className="text-emerald-400" size={32} />
                       </div>
                       <div>
-                        <h4 className="text-emerald-400 font-bold mb-2">{isMy ? "Continuous Deployment (The Magic)" : "Continuous Deployment (The Magic)"}</h4>
+                        <h3 className="text-emerald-400 font-bold mb-2">{isMy ? "Continuous Deployment (The Magic)" : "Continuous Deployment (The Magic)"}</h3>
                         <p className="text-gray-300 text-sm leading-relaxed">{t.phase3.magic}</p>
                       </div>
                    </div>
@@ -209,7 +209,7 @@ export const DeploymentLecture: React.FC<{ language: Language; onComplete: () =>
                         <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-white/20">
                           <CheckCircle2 size={24} className="text-white" />
                         </div>
-                        <h4 className="text-white font-bold mb-2">{item.t}</h4>
+                        <h3 className="text-white font-bold mb-2">{item.t}</h3>
                         <p className="text-blue-100/70 text-xs leading-relaxed">{item.d}</p>
                       </div>
                     ))}
@@ -225,7 +225,8 @@ export const DeploymentLecture: React.FC<{ language: Language; onComplete: () =>
             <div className="mb-8">
               <button 
                 onClick={() => setShowQuiz(false)}
-                className="text-gray-500 hover:text-white flex items-center gap-2 text-sm font-bold uppercase tracking-widest"
+                aria-label={isMy ? 'သင်ခန်းစာသို့ ပြန်သွားရန်' : 'Back to SOP Manual'}
+                className="text-gray-400 hover:text-white flex items-center gap-2 text-sm font-bold uppercase tracking-widest transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg p-1"
               >
                 <Terminal className="w-5 h-5 rotate-180" />
                 {isMy ? 'သင်ခန်းစာသို့ ပြန်သွားရန်' : 'Back to SOP Manual'}

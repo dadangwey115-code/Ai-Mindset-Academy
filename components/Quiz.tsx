@@ -94,7 +94,8 @@ export const Quiz: React.FC<{ language: Language }> = ({ language }) => {
                 <div className="flex items-center gap-4">
                   <button 
                     onClick={copyToClipboard}
-                    className="flex items-center gap-2 text-xs font-medium text-gray-500 hover:text-blue-400 transition-colors bg-white/5 px-2 py-1 rounded-md border border-white/10"
+                    aria-label="Copy question text for AI Assistant"
+                    className="flex items-center gap-2 text-xs font-medium text-gray-500 hover:text-blue-400 transition-colors bg-white/5 px-2 py-1 rounded-md border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     title="Copy for AI Assistant"
                   >
                     {copied ? <Check size={14} className="text-emerald-500" /> : <Copy size={14} />}
@@ -110,7 +111,7 @@ export const Quiz: React.FC<{ language: Language }> = ({ language }) => {
                 <button
                   key={i}
                   onClick={() => handleAnswer(opt.value)}
-                  className="w-full text-left p-5 bg-white/5 border border-white/10 rounded-2xl hover:bg-blue-600/10 hover:border-blue-500/50 text-gray-300 transition-all group flex items-center gap-4"
+                  className="w-full text-left p-5 bg-white/5 border border-white/10 rounded-2xl hover:bg-blue-600/10 hover:border-blue-500/50 text-gray-300 transition-all group flex items-center gap-4 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900"
                 >
                   <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-sm font-bold group-hover:bg-blue-600 group-hover:border-blue-600 transition-colors shrink-0">
                     {String.fromCharCode(65 + i)}
@@ -131,7 +132,8 @@ export const Quiz: React.FC<{ language: Language }> = ({ language }) => {
             </p>
             <button 
               onClick={resetQuiz}
-              className="px-10 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-lg shadow-lg shadow-blue-600/30 transition-all hover:scale-105 active:scale-95"
+              aria-label="Retry quiz"
+              className="px-10 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-lg shadow-lg shadow-blue-600/30 transition-all hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900"
             >
               {t.retry}
             </button>

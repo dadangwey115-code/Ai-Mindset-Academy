@@ -211,17 +211,17 @@ export const NotebookLecture: React.FC<{ language: Language; onComplete: () => P
 
                 <div className="grid sm:grid-cols-2 gap-6">
                   <div className="bg-white/5 border border-white/10 p-8 rounded-3xl">
-                    <h4 className="text-white font-bold mb-4 flex items-center gap-2">
+                    <h3 className="text-white font-bold mb-4 flex items-center gap-2">
                       <Youtube className="text-red-500" size={18} /> Audio Overviews
-                    </h4>
+                    </h3>
                     <p className="text-gray-300 text-xs leading-relaxed">
                       Use "Debate" mode to illuminate conflicting perspectives rather than simple summaries.
                     </p>
                   </div>
                   <div className="bg-white/5 border border-white/10 p-8 rounded-3xl">
-                    <h4 className="text-white font-bold mb-4 flex items-center gap-2">
+                    <h3 className="text-white font-bold mb-4 flex items-center gap-2">
                       <Layout className="text-blue-500" size={18} /> Professional Decks
-                    </h4>
+                    </h3>
                     <p className="text-gray-300 text-xs leading-relaxed">
                       Generate infographics and structured slide decks using Nano Banana Pro technology.
                     </p>
@@ -256,7 +256,8 @@ export const NotebookLecture: React.FC<{ language: Language; onComplete: () => P
             <div className="mb-8">
               <button 
                 onClick={() => setShowQuiz(false)}
-                className="text-gray-400 hover:text-white flex items-center gap-2 text-sm font-bold uppercase tracking-widest"
+                aria-label={isMy ? 'သင်ခန်းစာသို့ ပြန်သွားရန်' : 'Back to Master Class'}
+                className="text-gray-400 hover:text-white flex items-center gap-2 text-sm font-bold uppercase tracking-widest transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg p-1"
               >
                 <Search className="w-5 h-5 rotate-180" />
                 {isMy ? 'သင်ခန်းစာသို့ ပြန်သွားရန်' : 'Back to Master Class'}

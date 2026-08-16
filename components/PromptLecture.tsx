@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Terminal, Layers, Lightbulb, Code, ShieldAlert, CheckCircle2, Copy, Award, X, ChevronRight, Info, Layers3, GitBranch, Brain, UserCheck, Search, List, RefreshCcw, ShieldCheck, ExternalLink, Zap, Sparkles, Briefcase, Shield, ArrowRight } from 'lucide-react';
+import { Terminal, Layers, Lightbulb, Code, ShieldAlert, CheckCircle2, Copy, Check, Award, X, ChevronRight, Info, Layers3, GitBranch, Brain, UserCheck, Search, List, RefreshCcw, ShieldCheck, ExternalLink, Zap, Sparkles, Briefcase, Shield, ArrowRight } from 'lucide-react';
 import { motion } from 'motion/react';
 import { Language } from '../types';
 import { UI_STRINGS } from '../translations';
@@ -65,9 +65,12 @@ export const PromptLecture: React.FC<{
   const promptGem = "https://gemini.google.com/gem/1360JWmfTEycWjPbMO-lSfRAMVdui3Sec?usp=sharing";
 
   const AgentBlueprint = ({ title, code }: { title: string, code: string }) => {
+    const [copied, setCopied] = useState(false);
+
     const copyToClipboard = () => {
       navigator.clipboard.writeText(code);
-      alert(isMy ? "Blueprint ကို ကူးယူပြီးပါပြီ!" : "Blueprint copied to clipboard!");
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
     };
 
     return (
@@ -77,8 +80,22 @@ export const PromptLecture: React.FC<{
             <Terminal size={16} className="text-blue-500" />
             <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">{title}</span>
           </div>
-          <button onClick={copyToClipboard} className="text-gray-400 hover:text-white transition-colors">
-            <Copy size={16} />
+          <button 
+            onClick={copyToClipboard} 
+            aria-label={copied ? (isMy ? "ကူးယူပြီးပါပြီ" : "Copied to clipboard") : (isMy ? "ကူးယူရန်" : "Copy blueprint to clipboard")}
+            className="flex items-center gap-1.5 px-2.5 py-1 text-xs rounded-lg text-gray-400 hover:text-white hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            {copied ? (
+              <>
+                <Check size={14} className="text-green-400" />
+                <span className="text-green-400 font-medium">{isMy ? "ကူးယူပြီး" : "Copied"}</span>
+              </>
+            ) : (
+              <>
+                <Copy size={14} />
+                <span>{isMy ? "ကူးယူရန်" : "Copy"}</span>
+              </>
+            )}
           </button>
         </div>
         <pre className="p-6 text-sm text-blue-400 font-mono overflow-x-auto whitespace-pre-wrap leading-relaxed">
@@ -444,60 +461,60 @@ export const PromptLecture: React.FC<{
         )}
       </div>
       
-      {/* ... (Existing modals remain the same) ... */}
+      {/* ... (Modals with full a11y support) ... */}
       {showTcreiModal && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-hidden">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-hidden" role="dialog" aria-modal="true" aria-labelledby="tcrei-modal-title">
           <div className="absolute inset-0 bg-black/80 backdrop-blur-md animate-in fade-in duration-300" onClick={() => setShowTcreiModal(false)} />
           <div className="relative w-full max-w-3xl bg-zinc-900 border border-white/10 rounded-[32px] shadow-2xl overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-4 duration-300">
             <div className="flex items-center justify-between p-6 sm:p-8 border-b border-white/5 bg-white/[0.02]">
-              <div className="flex items-center gap-4 text-blue-500"><div className="w-12 h-12 bg-blue-600/20 rounded-2xl flex items-center justify-center"><Layers size={24} /></div><h2 className="text-2xl font-bold text-white">{t.tcreiDetails.title}</h2></div>
-              <button onClick={() => setShowTcreiModal(false)} className="p-2 text-gray-400 hover:text-white bg-white/5 rounded-full transition-colors"><X size={24} /></button>
+              <div className="flex items-center gap-4 text-blue-500"><div className="w-12 h-12 bg-blue-600/20 rounded-2xl flex items-center justify-center"><Layers size={24} /></div><h2 id="tcrei-modal-title" className="text-2xl font-bold text-white">{t.tcreiDetails.title}</h2></div>
+              <button onClick={() => setShowTcreiModal(false)} aria-label={isMy ? "ပိတ်ရန်" : "Close modal"} className="p-2 text-gray-400 hover:text-white bg-white/5 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"><X size={24} /></button>
             </div>
             <div className="p-6 sm:p-8 max-h-[70vh] overflow-y-auto custom-scrollbar">
               <div className={`space-y-8 text-gray-300 leading-relaxed ${isMy ? 'myanmar-text text-lg' : 'text-base'}`}>
-                <div className="space-y-4"><h3 className="text-white font-bold text-xl flex items-center gap-3"><div className="w-8 h-8 rounded-lg bg-blue-600/20 flex items-center justify-center text-blue-500 text-sm">1</div>{t.tcreiDetails.task.title}</h3><p>{t.tcreiDetails.task.body}</p></div>
-                <div className="space-y-4"><h3 className="text-white font-bold text-xl flex items-center gap-3"><div className="w-8 h-8 rounded-lg bg-blue-600/20 flex items-center justify-center text-blue-500 text-sm">2</div>{t.tcreiDetails.context.title}</h3><p>{t.tcreiDetails.context.body}</p></div>
-                <div className="space-y-4"><h3 className="text-white font-bold text-xl flex items-center gap-3"><div className="w-8 h-8 rounded-lg bg-blue-600/20 flex items-center justify-center text-blue-500 text-sm">3</div>{t.tcreiDetails.reference.title}</h3><p>{t.tcreiDetails.reference.body}</p></div>
-                <div className="space-y-4"><h3 className="text-white font-bold text-xl flex items-center gap-3"><div className="w-8 h-8 rounded-lg bg-blue-600/20 flex items-center justify-center text-blue-500 text-sm">4</div>{t.tcreiDetails.evaluate.title}</h3><p>{t.tcreiDetails.evaluate.body}</p></div>
-                <div className="space-y-4"><h3 className="text-white font-bold text-xl flex items-center gap-3"><div className="w-8 h-8 rounded-lg bg-blue-600/20 flex items-center justify-center text-blue-500 text-sm">5</div>{t.tcreiDetails.iterate.title}</h3><p>{t.tcreiDetails.iterate.body}</p></div>
+                <div className="space-y-4"><h3 className="text-white font-bold text-xl flex items-center gap-3"><div className="w-8 h-8 rounded-lg bg-blue-600/20 flex items-center justify-center text-blue-500 text-sm font-bold">1</div>{t.tcreiDetails.task.title}</h3><p>{t.tcreiDetails.task.body}</p></div>
+                <div className="space-y-4"><h3 className="text-white font-bold text-xl flex items-center gap-3"><div className="w-8 h-8 rounded-lg bg-blue-600/20 flex items-center justify-center text-blue-500 text-sm font-bold">2</div>{t.tcreiDetails.context.title}</h3><p>{t.tcreiDetails.context.body}</p></div>
+                <div className="space-y-4"><h3 className="text-white font-bold text-xl flex items-center gap-3"><div className="w-8 h-8 rounded-lg bg-blue-600/20 flex items-center justify-center text-blue-500 text-sm font-bold">3</div>{t.tcreiDetails.reference.title}</h3><p>{t.tcreiDetails.reference.body}</p></div>
+                <div className="space-y-4"><h3 className="text-white font-bold text-xl flex items-center gap-3"><div className="w-8 h-8 rounded-lg bg-blue-600/20 flex items-center justify-center text-blue-500 text-sm font-bold">4</div>{t.tcreiDetails.evaluate.title}</h3><p>{t.tcreiDetails.evaluate.body}</p></div>
+                <div className="space-y-4"><h3 className="text-white font-bold text-xl flex items-center gap-3"><div className="w-8 h-8 rounded-lg bg-blue-600/20 flex items-center justify-center text-blue-500 text-sm font-bold">5</div>{t.tcreiDetails.iterate.title}</h3><p>{t.tcreiDetails.iterate.body}</p></div>
               </div>
-              <div className="mt-10 pt-8 border-t border-white/5 text-center"><button onClick={() => setShowTcreiModal(false)} className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold transition-all shadow-lg shadow-blue-600/20">{isMy ? 'နားလည်ပါပြီ' : 'Got it!'}</button></div>
+              <div className="mt-10 pt-8 border-t border-white/5 text-center"><button onClick={() => setShowTcreiModal(false)} className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold transition-all shadow-lg shadow-blue-600/20 focus:outline-none focus:ring-2 focus:ring-blue-500">{isMy ? 'နားလည်ပါပြီ' : 'Got it!'}</button></div>
             </div>
           </div>
         </div>
       )}
       {showPromptFrameworkModal && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-hidden">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-hidden" role="dialog" aria-modal="true" aria-labelledby="prompt-framework-modal-title">
           <div className="absolute inset-0 bg-black/80 backdrop-blur-md animate-in fade-in duration-300" onClick={() => setShowPromptFrameworkModal(false)} />
           <div className="relative w-full max-w-3xl bg-zinc-900 border border-white/10 rounded-[32px] shadow-2xl overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-4 duration-300">
             <div className="flex items-center justify-between p-6 sm:p-8 border-b border-white/5 bg-white/[0.02]">
-              <div className="flex items-center gap-4 text-indigo-500"><div className="w-12 h-12 bg-indigo-600/20 rounded-2xl flex items-center justify-center"><ShieldCheck size={24} /></div><h2 className="text-2xl font-bold text-white">{t.promptFrameworkDetails.title}</h2></div>
-              <button onClick={() => setShowPromptFrameworkModal(false)} className="p-2 text-gray-400 hover:text-white bg-white/5 rounded-full transition-colors"><X size={24} /></button>
+              <div className="flex items-center gap-4 text-indigo-500"><div className="w-12 h-12 bg-indigo-600/20 rounded-2xl flex items-center justify-center"><ShieldCheck size={24} /></div><h2 id="prompt-framework-modal-title" className="text-2xl font-bold text-white">{t.promptFrameworkDetails.title}</h2></div>
+              <button onClick={() => setShowPromptFrameworkModal(false)} aria-label={isMy ? "ပိတ်ရန်" : "Close modal"} className="p-2 text-gray-400 hover:text-white bg-white/5 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500"><X size={24} /></button>
             </div>
             <div className="p-6 sm:p-8 max-h-[70vh] overflow-y-auto custom-scrollbar">
               <div className={`space-y-8 text-gray-300 leading-relaxed ${isMy ? 'myanmar-text text-lg' : 'text-base'}`}>
                 <p className="text-xl text-white/90 font-medium italic">"{t.promptFrameworkDetails.intro}"</p>
                 <div className="space-y-6">
-                  <div className="space-y-4"><h3 className="text-white font-bold text-xl flex items-center gap-3"><div className="w-8 h-8 rounded-lg bg-indigo-600/20 flex items-center justify-center text-indigo-500 text-sm">P</div>{t.promptFrameworkDetails.persona.title}</h3><p>{t.promptFrameworkDetails.persona.body}</p></div>
-                  <div className="space-y-4"><h3 className="text-white font-bold text-xl flex items-center gap-3"><div className="w-8 h-8 rounded-lg bg-indigo-600/20 flex items-center justify-center text-indigo-500 text-sm">R</div>{t.promptFrameworkDetails.context.title}</h3><p>{t.promptFrameworkDetails.context.body}</p></div>
-                  <div className="space-y-4"><h3 className="text-white font-bold text-xl flex items-center gap-3"><div className="w-8 h-8 rounded-lg bg-indigo-600/20 flex items-center justify-center text-indigo-500 text-sm">O</div>{t.promptFrameworkDetails.objective.title}</h3><p>{t.promptFrameworkDetails.objective.body}</p></div>
-                  <div className="space-y-4"><h3 className="text-white font-bold text-xl flex items-center gap-3"><div className="w-8 h-8 rounded-lg bg-indigo-600/20 flex items-center justify-center text-indigo-500 text-sm">M</div>{t.promptFrameworkDetails.manner.title}</h3><p>{t.promptFrameworkDetails.manner.body}</p></div>
-                  <div className="space-y-4"><h3 className="text-white font-bold text-xl flex items-center gap-3"><div className="w-8 h-8 rounded-lg bg-indigo-600/20 flex items-center justify-center text-indigo-500 text-sm">P</div>{t.promptFrameworkDetails.parameters.title}</h3><p>{t.promptFrameworkDetails.parameters.body}</p></div>
-                  <div className="space-y-4"><h3 className="text-white font-bold text-xl flex items-center gap-3"><div className="w-8 h-8 rounded-lg bg-indigo-600/20 flex items-center justify-center text-indigo-500 text-sm">T</div>{t.promptFrameworkDetails.test.title}</h3><p>{t.promptFrameworkDetails.test.body}</p></div>
+                  <div className="space-y-4"><h3 className="text-white font-bold text-xl flex items-center gap-3"><div className="w-8 h-8 rounded-lg bg-indigo-600/20 flex items-center justify-center text-indigo-500 text-sm font-bold">P</div>{t.promptFrameworkDetails.persona.title}</h3><p>{t.promptFrameworkDetails.persona.body}</p></div>
+                  <div className="space-y-4"><h3 className="text-white font-bold text-xl flex items-center gap-3"><div className="w-8 h-8 rounded-lg bg-indigo-600/20 flex items-center justify-center text-indigo-500 text-sm font-bold">R</div>{t.promptFrameworkDetails.context.title}</h3><p>{t.promptFrameworkDetails.context.body}</p></div>
+                  <div className="space-y-4"><h3 className="text-white font-bold text-xl flex items-center gap-3"><div className="w-8 h-8 rounded-lg bg-indigo-600/20 flex items-center justify-center text-indigo-500 text-sm font-bold">O</div>{t.promptFrameworkDetails.objective.title}</h3><p>{t.promptFrameworkDetails.objective.body}</p></div>
+                  <div className="space-y-4"><h3 className="text-white font-bold text-xl flex items-center gap-3"><div className="w-8 h-8 rounded-lg bg-indigo-600/20 flex items-center justify-center text-indigo-500 text-sm font-bold">M</div>{t.promptFrameworkDetails.manner.title}</h3><p>{t.promptFrameworkDetails.manner.body}</p></div>
+                  <div className="space-y-4"><h3 className="text-white font-bold text-xl flex items-center gap-3"><div className="w-8 h-8 rounded-lg bg-indigo-600/20 flex items-center justify-center text-indigo-500 text-sm font-bold">P</div>{t.promptFrameworkDetails.parameters.title}</h3><p>{t.promptFrameworkDetails.parameters.body}</p></div>
+                  <div className="space-y-4"><h3 className="text-white font-bold text-xl flex items-center gap-3"><div className="w-8 h-8 rounded-lg bg-indigo-600/20 flex items-center justify-center text-indigo-500 text-sm font-bold">T</div>{t.promptFrameworkDetails.test.title}</h3><p>{t.promptFrameworkDetails.test.body}</p></div>
                 </div>
               </div>
-              <div className="mt-10 pt-8 border-t border-white/5 text-center"><button onClick={() => setShowPromptFrameworkModal(false)} className="px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold transition-all shadow-lg shadow-indigo-600/20">{isMy ? 'နားလည်ပါပြီ' : 'Got it!'}</button></div>
+              <div className="mt-10 pt-8 border-t border-white/5 text-center"><button onClick={() => setShowPromptFrameworkModal(false)} className="px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold transition-all shadow-lg shadow-indigo-600/20 focus:outline-none focus:ring-2 focus:ring-indigo-500">{isMy ? 'နားလည်ပါပြီ' : 'Got it!'}</button></div>
             </div>
           </div>
         </div>
       )}
       {showComparisonModal && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-hidden">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-hidden" role="dialog" aria-modal="true" aria-labelledby="comparison-modal-title">
           <div className="absolute inset-0 bg-black/80 backdrop-blur-md animate-in fade-in duration-300" onClick={() => setShowComparisonModal(false)} />
           <div className="relative w-full max-w-3xl bg-zinc-900 border border-white/10 rounded-[32px] shadow-2xl overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-4 duration-300">
             <div className="flex items-center justify-between p-6 sm:p-8 border-b border-white/5 bg-white/[0.02]">
-              <div className="flex items-center gap-4 text-amber-500"><div className="w-12 h-12 bg-amber-600/20 rounded-2xl flex items-center justify-center"><RefreshCcw size={24} /></div><h2 className="text-2xl font-bold text-white">{t.comparisonDetails.title}</h2></div>
-              <button onClick={() => setShowComparisonModal(false)} className="p-2 text-gray-400 hover:text-white bg-white/5 rounded-full transition-colors"><X size={24} /></button>
+              <div className="flex items-center gap-4 text-amber-500"><div className="w-12 h-12 bg-amber-600/20 rounded-2xl flex items-center justify-center"><RefreshCcw size={24} /></div><h2 id="comparison-modal-title" className="text-2xl font-bold text-white">{t.comparisonDetails.title}</h2></div>
+              <button onClick={() => setShowComparisonModal(false)} aria-label={isMy ? "ပိတ်ရန်" : "Close modal"} className="p-2 text-gray-400 hover:text-white bg-white/5 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500"><X size={24} /></button>
             </div>
             <div className="p-6 sm:p-8 max-h-[70vh] overflow-y-auto custom-scrollbar">
               <div className={`space-y-8 text-gray-300 leading-relaxed ${isMy ? 'myanmar-text text-lg' : 'text-base'}`}>
@@ -517,79 +534,79 @@ export const PromptLecture: React.FC<{
                   </div>
                 </div>
               </div>
-              <div className="mt-10 pt-8 border-t border-white/5 text-center"><button onClick={() => setShowComparisonModal(false)} className="px-8 py-3 bg-amber-600 hover:bg-amber-700 text-white rounded-xl font-bold transition-all shadow-lg shadow-amber-600/20">{isMy ? 'နားလည်ပါပြီ' : 'Got it!'}</button></div>
+              <div className="mt-10 pt-8 border-t border-white/5 text-center"><button onClick={() => setShowComparisonModal(false)} className="px-8 py-3 bg-amber-600 hover:bg-amber-700 text-white rounded-xl font-bold transition-all shadow-lg shadow-amber-600/20 focus:outline-none focus:ring-2 focus:ring-amber-500">{isMy ? 'နားလည်ပါပြီ' : 'Got it!'}</button></div>
             </div>
           </div>
         </div>
       )}
       {showChainingModal && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-hidden">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-hidden" role="dialog" aria-modal="true" aria-labelledby="chaining-modal-title">
           <div className="absolute inset-0 bg-black/80 backdrop-blur-md animate-in fade-in duration-300" onClick={() => setShowChainingModal(false)} />
           <div className="relative w-full max-w-3xl bg-zinc-900 border border-white/10 rounded-[32px] shadow-2xl overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-4 duration-300">
             <div className="flex items-center justify-between p-6 sm:p-8 border-b border-white/5 bg-white/[0.02]">
-              <div className="flex items-center gap-4 text-purple-500"><div className="w-12 h-12 bg-purple-600/20 rounded-2xl flex items-center justify-center"><Layers3 size={24} /></div><h2 className="text-2xl font-bold text-white">{t.chainingDetails.title}</h2></div>
-              <button onClick={() => setShowChainingModal(false)} className="p-2 text-gray-400 hover:text-white bg-white/5 rounded-full transition-colors"><X size={24} /></button>
+              <div className="flex items-center gap-4 text-purple-500"><div className="w-12 h-12 bg-purple-600/20 rounded-2xl flex items-center justify-center"><Layers3 size={24} /></div><h2 id="chaining-modal-title" className="text-2xl font-bold text-white">{t.chainingDetails.title}</h2></div>
+              <button onClick={() => setShowChainingModal(false)} aria-label={isMy ? "ပိတ်ရန်" : "Close modal"} className="p-2 text-gray-400 hover:text-white bg-white/5 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-purple-500"><X size={24} /></button>
             </div>
             <div className="p-6 sm:p-8 max-h-[70vh] overflow-y-auto custom-scrollbar">
               <div className={`space-y-8 text-gray-300 leading-relaxed ${isMy ? 'myanmar-text text-lg' : 'text-base'}`}>
                 <p className="text-xl text-white/90 font-medium italic">"{t.chainingDetails.intro}"</p>
                 <div className="space-y-6"><h3 className="text-purple-400 font-bold text-xl uppercase tracking-widest border-b border-white/5 pb-2">{t.chainingDetails.example.title}</h3><div className="grid gap-4"><div className="p-5 bg-white/5 border border-white/10 rounded-2xl"><p className="font-bold text-white mb-1">1. Discovery</p><p className="text-sm">{t.chainingDetails.example.step1}</p></div><div className="p-5 bg-white/5 border border-white/10 rounded-2xl translate-x-2 sm:translate-x-4"><p className="font-bold text-white mb-1">2. Refinement</p><p className="text-sm">{t.chainingDetails.example.step2}</p></div><div className="p-5 bg-white/5 border border-white/10 rounded-2xl translate-x-4 sm:translate-x-8"><p className="font-bold text-white mb-1">3. Execution</p><p className="text-sm">{t.chainingDetails.example.step3}</p></div></div></div>
               </div>
-              <div className="mt-10 pt-8 border-t border-white/5 text-center"><button onClick={() => setShowChainingModal(false)} className="px-8 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-xl font-bold transition-all shadow-lg shadow-purple-600/20">{isMy ? 'နားလည်ပါပြီ' : 'Got it!'}</button></div>
+              <div className="mt-10 pt-8 border-t border-white/5 text-center"><button onClick={() => setShowChainingModal(false)} className="px-8 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-xl font-bold transition-all shadow-lg shadow-purple-600/20 focus:outline-none focus:ring-2 focus:ring-purple-500">{isMy ? 'နားလည်ပါပြီ' : 'Got it!'}</button></div>
             </div>
           </div>
         </div>
       )}
       {showLogicModal && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-hidden">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-hidden" role="dialog" aria-modal="true" aria-labelledby="logic-modal-title">
           <div className="absolute inset-0 bg-black/80 backdrop-blur-md animate-in fade-in duration-300" onClick={() => setShowLogicModal(false)} />
           <div className="relative w-full max-w-3xl bg-zinc-900 border border-white/10 rounded-[32px] shadow-2xl overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-4 duration-300">
             <div className="flex items-center justify-between p-6 sm:p-8 border-b border-white/5 bg-white/[0.02]">
-              <div className="flex items-center gap-4 text-cyan-500"><div className="w-12 h-12 bg-cyan-600/20 rounded-2xl flex items-center justify-center"><GitBranch size={24} /></div><h2 className="text-2xl font-bold text-white">{t.logicDetails.title}</h2></div>
-              <button onClick={() => setShowLogicModal(false)} className="p-2 text-gray-400 hover:text-white bg-white/5 rounded-full transition-colors"><X size={24} /></button>
+              <div className="flex items-center gap-4 text-cyan-500"><div className="w-12 h-12 bg-cyan-600/20 rounded-2xl flex items-center justify-center"><GitBranch size={24} /></div><h2 id="logic-modal-title" className="text-2xl font-bold text-white">{t.logicDetails.title}</h2></div>
+              <button onClick={() => setShowLogicModal(false)} aria-label={isMy ? "ပိတ်ရန်" : "Close modal"} className="p-2 text-gray-400 hover:text-white bg-white/5 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-500"><X size={24} /></button>
             </div>
             <div className="p-6 sm:p-8 max-h-[70vh] overflow-y-auto custom-scrollbar">
               <div className={`space-y-8 text-gray-300 leading-relaxed ${isMy ? 'myanmar-text text-lg' : 'text-base'}`}>
                 <p className="text-xl text-white/90 font-medium italic">"{t.logicDetails.intro}"</p>
                 <div className="space-y-12"><div className="space-y-6"><div className="flex items-center gap-3"><div className="w-10 h-10 rounded-xl bg-cyan-600/20 flex items-center justify-center text-cyan-500 border border-cyan-500/20"><Terminal size={20} /></div><h3 className="text-cyan-400 font-bold text-2xl">{t.logicDetails.cot.title}</h3></div><div className="grid gap-4 bg-white/5 p-6 rounded-2xl border border-white/10"><p className="font-bold text-white">{t.logicDetails.cot.goal}</p><p className="text-sm">{t.logicDetails.cot.how}</p></div></div><div className="space-y-6"><div className="flex items-center gap-3"><div className="w-10 h-10 rounded-xl bg-cyan-600/20 flex items-center justify-center text-cyan-500 border border-cyan-500/20"><Brain size={20} /></div><h3 className="text-cyan-400 font-bold text-2xl">{t.logicDetails.tot.title}</h3></div><div className="grid gap-4 bg-white/5 p-6 rounded-2xl border border-white/10"><p className="font-bold text-white">{t.logicDetails.tot.goal}</p><p className="text-sm">{t.logicDetails.tot.how}</p></div></div></div>
               </div>
-              <div className="mt-10 pt-8 border-t border-white/5 text-center"><button onClick={() => setShowLogicModal(false)} className="px-8 py-3 bg-cyan-600 hover:bg-cyan-700 text-white rounded-xl font-bold transition-all shadow-lg shadow-cyan-600/20">{isMy ? 'နားလည်ပါပြီ' : 'Got it!'}</button></div>
+              <div className="mt-10 pt-8 border-t border-white/5 text-center"><button onClick={() => setShowLogicModal(false)} className="px-8 py-3 bg-cyan-600 hover:bg-cyan-700 text-white rounded-xl font-bold transition-all shadow-lg shadow-cyan-600/20 focus:outline-none focus:ring-2 focus:ring-cyan-500">{isMy ? 'နားလည်ပါပြီ' : 'Got it!'}</button></div>
             </div>
           </div>
         </div>
       )}
       {showAgentsModal && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-hidden">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-hidden" role="dialog" aria-modal="true" aria-labelledby="agents-modal-title">
           <div className="absolute inset-0 bg-black/80 backdrop-blur-md animate-in fade-in duration-300" onClick={() => setShowAgentsModal(false)} />
           <div className="relative w-full max-w-3xl bg-zinc-900 border border-white/10 rounded-[32px] shadow-2xl overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-4 duration-300">
             <div className="flex items-center justify-between p-6 sm:p-8 border-b border-white/5 bg-white/[0.02]">
-              <div className="flex items-center gap-4 text-emerald-500"><div className="w-12 h-12 bg-emerald-600/20 rounded-2xl flex items-center justify-center"><Terminal size={24} /></div><h2 className="text-2xl font-bold text-white">{t.agentDetails.title}</h2></div>
-              <button onClick={() => setShowAgentsModal(false)} className="p-2 text-gray-400 hover:text-white bg-white/5 rounded-full transition-colors"><X size={24} /></button>
+              <div className="flex items-center gap-4 text-emerald-500"><div className="w-12 h-12 bg-emerald-600/20 rounded-2xl flex items-center justify-center"><Terminal size={24} /></div><h2 id="agents-modal-title" className="text-2xl font-bold text-white">{t.agentDetails.title}</h2></div>
+              <button onClick={() => setShowAgentsModal(false)} aria-label={isMy ? "ပိတ်ရန်" : "Close modal"} className="p-2 text-gray-400 hover:text-white bg-white/5 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500"><X size={24} /></button>
             </div>
             <div className="p-6 sm:p-8 max-h-[70vh] overflow-y-auto custom-scrollbar">
               <div className={`space-y-8 text-gray-300 leading-relaxed ${isMy ? 'myanmar-text text-lg' : 'text-base'}`}>
                 <p className="text-xl text-white/90 font-medium italic">"{t.agentDetails.intro}"</p>
                 <div className="space-y-10"><div className="space-y-4"><h3 className="text-emerald-400 font-bold text-xl flex items-center gap-3"><UserCheck size={24} /> {t.agentDetails.types.simulation.title}</h3><div className="bg-white/5 border border-white/10 p-6 rounded-2xl space-y-3"><p className="text-white font-medium">{t.agentDetails.types.simulation.desc}</p></div></div><div className="space-y-4"><h3 className="text-emerald-400 font-bold text-xl flex items-center gap-3"><Search size={24} /> {t.agentDetails.types.feedback.title}</h3><div className="bg-white/5 border border-white/10 p-6 rounded-2xl space-y-3"><p className="text-white font-medium">{t.agentDetails.types.feedback.desc}</p></div></div></div>
               </div>
-              <div className="mt-10 pt-8 border-t border-white/5 text-center"><button onClick={() => setShowAgentsModal(false)} className="px-8 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold transition-all shadow-lg shadow-emerald-600/20">{isMy ? 'နားလည်ပါပြီ' : 'Got it!'}</button></div>
+              <div className="mt-10 pt-8 border-t border-white/5 text-center"><button onClick={() => setShowAgentsModal(false)} className="px-8 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold transition-all shadow-lg shadow-emerald-600/20 focus:outline-none focus:ring-2 focus:ring-emerald-500">{isMy ? 'နားလည်ပါပြီ' : 'Got it!'}</button></div>
             </div>
           </div>
         </div>
       )}
       {showIterativeModal && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-hidden">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-hidden" role="dialog" aria-modal="true" aria-labelledby="iterative-modal-title">
           <div className="absolute inset-0 bg-black/80 backdrop-blur-md animate-in fade-in duration-300" onClick={() => setShowIterativeModal(false)} />
           <div className="relative w-full max-w-3xl bg-zinc-900 border border-white/10 rounded-[32px] shadow-2xl overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-4 duration-300">
             <div className="flex items-center justify-between p-6 sm:p-8 border-b border-white/5 bg-white/[0.02]">
-              <div className="flex items-center gap-4 text-orange-500"><div className="w-12 h-12 bg-orange-600/20 rounded-2xl flex items-center justify-center"><RefreshCcw size={24} /></div><h2 className="text-2xl font-bold text-white">{t.iterativeDetails.title}</h2></div>
-              <button onClick={() => setShowIterativeModal(false)} className="p-2 text-gray-400 hover:text-white bg-white/5 rounded-full transition-colors"><X size={24} /></button>
+              <div className="flex items-center gap-4 text-orange-500"><div className="w-12 h-12 bg-orange-600/20 rounded-2xl flex items-center justify-center"><RefreshCcw size={24} /></div><h2 id="iterative-modal-title" className="text-2xl font-bold text-white">{t.iterativeDetails.title}</h2></div>
+              <button onClick={() => setShowIterativeModal(false)} aria-label={isMy ? "ပိတ်ရန်" : "Close modal"} className="p-2 text-gray-400 hover:text-white bg-white/5 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-orange-500"><X size={24} /></button>
             </div>
             <div className="p-6 sm:p-8 max-h-[70vh] overflow-y-auto custom-scrollbar">
               <div className={`space-y-8 text-gray-300 leading-relaxed ${isMy ? 'myanmar-text text-lg' : 'text-base'}`}>
                 <p className="text-xl text-white/90 font-medium italic">"{t.iterativeDetails.intro}"</p>
                 <div className="space-y-6"><h3 className="text-orange-400 font-bold text-xl uppercase tracking-widest border-b border-white/5 pb-2">{t.iterativeDetails.tacticsTitle}</h3><div className="grid gap-4">{t.iterativeDetails.tactics.map((tactic: any, i: number) => (<div key={i} className="p-5 bg-white/5 border border-white/10 rounded-2xl flex gap-4 items-start"><div className="w-8 h-8 rounded-lg bg-orange-600/20 flex items-center justify-center text-orange-500 shrink-0 text-xs font-bold">{i + 1}</div><div><p className="font-bold text-white mb-1">{tactic.t}</p><p className="text-sm text-gray-400">{tactic.d}</p></div></div>))}</div></div>
               </div>
-              <div className="mt-10 pt-8 border-t border-white/5 text-center"><button onClick={() => setShowIterativeModal(false)} className="px-8 py-3 bg-orange-600 hover:bg-orange-700 text-white rounded-xl font-bold transition-all shadow-lg shadow-orange-600/20">{isMy ? 'နားလည်ပါပြီ' : 'Got it!'}</button></div>
+              <div className="mt-10 pt-8 border-t border-white/5 text-center"><button onClick={() => setShowIterativeModal(false)} className="px-8 py-3 bg-orange-600 hover:bg-orange-700 text-white rounded-xl font-bold transition-all shadow-lg shadow-orange-600/20 focus:outline-none focus:ring-2 focus:ring-orange-500">{isMy ? 'နားလည်ပါပြီ' : 'Got it!'}</button></div>
             </div>
           </div>
         </div>

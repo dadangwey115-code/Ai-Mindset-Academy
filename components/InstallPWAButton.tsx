@@ -68,13 +68,8 @@ export const InstallPWAButton: React.FC<{ language: 'en' | 'my' }> = ({ language
         window.deferredPrompt = null;
       }
     } else {
-      // For desktop or android where prompt isn't available yet
-      // or already installed
-      if (isStandalone) {
-        alert(language === 'my' ? "App ကို ထည့်သွင်းပြီးပါပြီ" : "App is already installed");
-      } else {
-        setShowIosModal(true); // Fallback to info modal
-      }
+      // For desktop or android where prompt isn't available yet or fallback
+      setShowIosModal(true);
     }
   };
 
@@ -86,11 +81,12 @@ export const InstallPWAButton: React.FC<{ language: 'en' | 'my' }> = ({ language
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
         onClick={handleInstallClick}
-        className="group relative flex items-center gap-3 px-6 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-2xl font-bold transition-all shadow-lg shadow-blue-600/20 border border-white/10 overflow-hidden"
+        aria-label={language === 'my' ? 'AI Academy အက်ပ်ကို ထည့်သွင်းပါ' : 'Install AI Academy PWA app'}
+        className="group relative flex items-center gap-3 px-6 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-2xl font-bold transition-all shadow-lg shadow-blue-600/20 border border-white/10 overflow-hidden focus:outline-none focus:ring-2 focus:ring-blue-400"
       >
         <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
         
-        <div className="p-2 bg-white/10 rounded-xl">
+        <div className="p-2 bg-white/10 rounded-xl" aria-hidden="true">
           {platform === 'desktop' ? <Monitor size={20} /> : <Smartphone size={20} />}
         </div>
         
@@ -103,13 +99,13 @@ export const InstallPWAButton: React.FC<{ language: 'en' | 'my' }> = ({ language
           </span>
         </div>
         
-        <Download size={18} className="ml-2 group-hover:translate-y-0.5 transition-transform" />
+        <Download size={18} className="ml-2 group-hover:translate-y-0.5 transition-transform" aria-hidden="true" />
       </motion.button>
 
       {/* iOS / Fallback Modal */}
       <AnimatePresence>
         {showIosModal && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="pwa-install-title">
             <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -120,17 +116,18 @@ export const InstallPWAButton: React.FC<{ language: 'en' | 'my' }> = ({ language
               
               <button 
                 onClick={() => setShowIosModal(false)}
-                className="absolute top-6 right-6 p-2 text-gray-400 hover:text-white hover:bg-white/5 rounded-full transition-colors"
+                aria-label={language === 'my' ? 'ပိတ်ရန်' : 'Close install guide modal'}
+                className="absolute top-6 right-6 p-2 text-gray-400 hover:text-white hover:bg-white/5 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 <X size={20} />
               </button>
 
               <div className="flex flex-col items-center text-center">
-                <div className="w-16 h-16 bg-blue-600/20 rounded-2xl flex items-center justify-center text-blue-500 mb-6">
+                <div className="w-16 h-16 bg-blue-600/20 rounded-2xl flex items-center justify-center text-blue-500 mb-6" aria-hidden="true">
                   <Smartphone size={32} />
                 </div>
                 
-                <h3 className="text-xl font-bold text-white mb-2">
+                <h3 id="pwa-install-title" className="text-xl font-bold text-white mb-2">
                   {language === 'my' ? 'အက်ပ်ကို ထည့်သွင်းနည်း' : 'How to Install'}
                 </h3>
                 
@@ -146,7 +143,7 @@ export const InstallPWAButton: React.FC<{ language: 'en' | 'my' }> = ({ language
                   {isIos ? (
                     <>
                       <div className="flex items-center gap-4 p-4 bg-white/5 rounded-2xl border border-white/5">
-                        <div className="w-8 h-8 rounded-lg bg-blue-600/20 flex items-center justify-center text-blue-400 shrink-0">
+                        <div className="w-8 h-8 rounded-lg bg-blue-600/20 flex items-center justify-center text-blue-400 shrink-0" aria-hidden="true">
                           <Share size={18} />
                         </div>
                         <p className="text-xs text-gray-300">
@@ -157,7 +154,7 @@ export const InstallPWAButton: React.FC<{ language: 'en' | 'my' }> = ({ language
                       </div>
 
                       <div className="flex items-center gap-4 p-4 bg-white/5 rounded-2xl border border-white/5">
-                        <div className="w-8 h-8 rounded-lg bg-indigo-600/20 flex items-center justify-center text-indigo-400 shrink-0">
+                        <div className="w-8 h-8 rounded-lg bg-indigo-600/20 flex items-center justify-center text-indigo-400 shrink-0" aria-hidden="true">
                           <PlusSquare size={18} />
                         </div>
                         <p className="text-xs text-gray-300">
@@ -169,7 +166,7 @@ export const InstallPWAButton: React.FC<{ language: 'en' | 'my' }> = ({ language
                     </>
                   ) : (
                     <div className="flex items-center gap-4 p-4 bg-white/5 rounded-2xl border border-white/5">
-                      <div className="w-8 h-8 rounded-lg bg-blue-600/20 flex items-center justify-center text-blue-400 shrink-0">
+                      <div className="w-8 h-8 rounded-lg bg-blue-600/20 flex items-center justify-center text-blue-400 shrink-0" aria-hidden="true">
                         <Info size={18} />
                       </div>
                       <p className="text-xs text-gray-300">
@@ -183,7 +180,7 @@ export const InstallPWAButton: React.FC<{ language: 'en' | 'my' }> = ({ language
 
                 <button
                   onClick={() => setShowIosModal(false)}
-                  className="w-full mt-8 py-4 bg-white/5 hover:bg-white/10 text-white font-bold rounded-2xl transition-all border border-white/10"
+                  className="w-full mt-8 py-4 bg-white/5 hover:bg-white/10 text-white font-bold rounded-2xl transition-all border border-white/10 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   {language === 'my' ? 'နားလည်ပါပြီ' : 'Got it'}
                 </button>

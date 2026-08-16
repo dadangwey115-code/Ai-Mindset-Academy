@@ -32,6 +32,8 @@ export const AchievementToast: React.FC<AchievementToastProps> = ({ isVisible, o
           animate={{ y: 20, opacity: 1, x: '-50%' }}
           exit={{ y: -100, opacity: 0, x: '-50%' }}
           className="fixed top-0 left-1/2 z-[100] w-[90%] max-w-md"
+          role="status"
+          aria-live="polite"
         >
           <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-4 shadow-2xl flex items-center gap-4 overflow-hidden relative">
             {/* Animated Background Glow */}
@@ -55,7 +57,8 @@ export const AchievementToast: React.FC<AchievementToastProps> = ({ isVisible, o
 
             <button 
               onClick={onClose}
-              className="relative p-2 hover:bg-white/5 rounded-lg transition-colors text-gray-400 hover:text-white"
+              aria-label="Close notification"
+              className="relative p-2 hover:bg-white/5 rounded-lg transition-colors text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
             >
               <span className="sr-only">Close</span>
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

@@ -127,7 +127,8 @@ export const BusinessStrategy: React.FC<{ language: Language, onOpenBlueprint: (
                <div className="mt-12 space-y-4">
                   <button 
                     onClick={onOpenBlueprint}
-                    className="w-full py-6 ai-gradient-bg text-white rounded-2xl font-black text-lg transition-all glow-shadow hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3 group relative overflow-hidden"
+                    aria-label={t.blueprintBtn}
+                    className="w-full py-6 ai-gradient-bg text-white rounded-2xl font-black text-lg transition-all glow-shadow hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3 group relative overflow-hidden focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900"
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
                     <BrainCircuit size={24} />
@@ -139,7 +140,8 @@ export const BusinessStrategy: React.FC<{ language: Language, onOpenBlueprint: (
                     href={pdfUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full py-5 glass-card text-gray-700 dark:text-slate-300 rounded-2xl font-black transition-all flex items-center justify-center gap-3 group hover:bg-gray-100 dark:hover:bg-white/10"
+                    aria-label={isMy ? "Download PDF Strategy Guide in Myanmar" : "Download PDF Strategy Guide"}
+                    className="w-full py-5 glass-card text-gray-700 dark:text-slate-300 rounded-2xl font-black transition-all flex items-center justify-center gap-3 group hover:bg-gray-100 dark:hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900"
                   >
                     <FileText size={20} className="text-red-500 group-hover:scale-110 transition-transform" />
                     <span>{isMy ? "PDF ဗျူဟာ လမ်းညွှန်ကို ရယူရန်" : "Download PDF Strategy Guide"}</span>

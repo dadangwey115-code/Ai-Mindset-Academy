@@ -242,7 +242,12 @@ export const Curriculum: React.FC<{ language: Language; completedLessons: string
 
       {/* Deep-Dive Modal */}
       {selectedModule && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-hidden">
+        <div 
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-hidden"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="curriculum-modal-title"
+        >
           <div 
             className="absolute inset-0 bg-black/80 backdrop-blur-md animate-in fade-in duration-300"
             onClick={() => setSelectedModule(null)}
@@ -253,7 +258,7 @@ export const Curriculum: React.FC<{ language: Language; completedLessons: string
                 <div className="w-12 h-12 bg-blue-600/20 rounded-2xl flex items-center justify-center">
                   <selectedModule.icon size={24} />
                 </div>
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                <h2 id="curriculum-modal-title" className="text-2xl font-bold text-gray-900 dark:text-white">
                   {isMy ? selectedModule.extendedContent?.titleMy : selectedModule.extendedContent?.title}
                 </h2>
               </div>
@@ -274,9 +279,9 @@ export const Curriculum: React.FC<{ language: Language; completedLessons: string
                   </p>
                 </div>
                 
-                <h4 className="text-gray-900 dark:text-white font-bold uppercase tracking-widest text-xs border-b border-gray-100 dark:border-white/5 pb-2">
+                <h3 className="text-gray-900 dark:text-white font-bold uppercase tracking-widest text-xs border-b border-gray-100 dark:border-white/5 pb-2">
                   {isMy ? 'အဓိက အချက်များ' : 'Key Pillars of Mastery'}
-                </h4>
+                </h3>
                 
                 <ul className="grid sm:grid-cols-2 gap-4">
                   {(isMy ? selectedModule.pointsMy : selectedModule.points).map((pt, idx) => (
