@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { motion } from 'motion/react';
-import { Bot, Zap, Users, Brain, BrainCircuit, Sparkles, CheckCircle2, AlertTriangle, Briefcase, TrendingUp, Terminal, Cake, ExternalLink, Layers, Layout, Cloud, Cpu, Dna, Activity, Lightbulb, X, BookOpen } from 'lucide-react';
+import { Bot, Zap, Users, Brain, BrainCircuit, Sparkles, CheckCircle2, AlertTriangle, Briefcase, TrendingUp, Terminal, Cake, ExternalLink, Layers, Layout, Cloud, Cpu, Dna, Activity, Lightbulb, X, BookOpen, Loader2 } from 'lucide-react';
 import { Language } from '../types';
-import { LessonQuiz } from './LessonQuiz';
 import { AILEVELS_MASTER_QUIZ } from '../constants';
 import { CompleteButton } from './CompleteButton';
+
+const LessonQuiz = lazy(() => import('./LessonQuiz').then(m => ({ default: m.LessonQuiz })));
 
 const aiStages = [
   {
@@ -115,16 +116,19 @@ export const AILevelsLecture: React.FC<{ language: Language; onComplete: () => P
     return () => window.removeEventListener('trigger-quiz', handleTriggerQuiz);
   }, []);
 
-  const handleQuizComplete = (score: number) => {
+  const handleQuizComplete = async (score: number) => {
     const maxScore = AILEVELS_MASTER_QUIZ.questions.length * 10;
     if (score === maxScore) {
       setIsUnlocked(true);
-      confetti({
-        particleCount: 150,
-        spread: 70,
-        origin: { y: 0.6 },
-        colors: ['#3b82f6', '#10b981', '#ffffff']
-      });
+      try {
+        const confetti = (await import('canvas-confetti')).default;
+        confetti({
+          particleCount: 150,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ['#3b82f6', '#10b981', '#ffffff']
+        });
+      } catch {}
     }
   };
 
@@ -251,12 +255,19 @@ export const AILevelsLecture: React.FC<{ language: Language; onComplete: () => P
               {t.backBtn}
             </button>
           </div>
-          <LessonQuiz 
-            quizSet={AILEVELS_MASTER_QUIZ} 
-            language={language} 
-            onClose={() => setShowQuiz(false)} 
-            onComplete={handleQuizComplete}
-          />
+          <Suspense fallback={
+            <div className="flex flex-col items-center justify-center min-h-[300px] text-blue-400 gap-4">
+              <Loader2 className="w-8 h-8 animate-spin" />
+              <p className="text-sm font-medium uppercase tracking-widest text-gray-400">Loading Assessment...</p>
+            </div>
+          }>
+            <LessonQuiz 
+              quizSet={AILEVELS_MASTER_QUIZ} 
+              language={language} 
+              onClose={() => setShowQuiz(false)} 
+              onComplete={handleQuizComplete}
+            />
+          </Suspense>
         </div>
       </div>
     );

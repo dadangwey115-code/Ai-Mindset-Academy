@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import { Mail, Lock, User, AlertCircle, Info, Loader2, BrainCircuit, GraduationCap, Home, Briefcase, ChevronLeft, ChevronRight, Pause } from 'lucide-react';
-import { loginStudent, requestAcademyAccess } from '../services/storage';
+import { Mail, Lock, User, AlertCircle, Info, Loader2, BrainCircuit, GraduationCap, Home, Briefcase, ChevronLeft, ChevronRight, Pause, ShieldCheck, Sparkles, KeyRound } from 'lucide-react';
+import { loginStudent, requestAcademyAccess, PRESET_CREDENTIALS } from '../services/storage';
 import { UI_STRINGS } from '../translations';
 import { Language } from '../types';
 import { InstallPWAButton } from './InstallPWAButton';
@@ -34,6 +34,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [quickLoginLoading, setQuickLoginLoading] = useState<'student' | 'admin' | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -54,7 +55,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
       setCurrentSlide((prev) => (prev + 1) % CAROUSEL_ITEMS.length);
     }, 30000);
     return () => clearInterval(timer);
-  }, [isPaused, currentSlide]); // Reset timer when slide changes or pause state changes
+  }, [isPaused, currentSlide]);
 
   const getCategoryIndex = (slideIdx: number) => {
     if (slideIdx < 5) return 0;
@@ -99,6 +100,28 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
     });
   };
 
+  const handleQuickDemoLogin = async (type: 'student' | 'admin') => {
+    const creds = PRESET_CREDENTIALS[type];
+    setFormData({
+      email: creds.email,
+      password: creds.password,
+      name: creds.name,
+      reason: '',
+    });
+    setIsLogin(true);
+    setError(null);
+    setQuickLoginLoading(type);
+
+    try {
+      await loginStudent(creds.email, creds.password);
+    } catch (err: any) {
+      console.error('Quick demo login error:', err);
+      setError(err.message || t.auth.invalidCreds);
+    } finally {
+      setQuickLoginLoading(null);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -128,6 +151,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (error) setError(null);
   };
 
   return (
@@ -245,7 +269,6 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
                 {cat.icon}
                 <span className="text-xs font-bold uppercase tracking-wider">{cat.label}</span>
                 
-                {/* Category-wide Progress Bar (Optional, but let's do slide-level inside the active tab) */}
                 {currentCategory === idx && (
                   <motion.div
                     initial={{ x: '-100%' }}
@@ -372,7 +395,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
         >
           {/* Mobile Header */}
           <div 
-            className="md:hidden flex flex-col items-center mb-12 cursor-default select-none"
+            className="md:hidden flex flex-col items-center mb-8 cursor-default select-none"
             onDoubleClick={() => navigate('/admin')}
           >
             <div className="bg-blue-600 p-3 rounded-2xl mb-4 shadow-lg shadow-blue-600/20">
@@ -387,7 +410,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
           </div>
 
           <div className="bg-gray-50 dark:bg-zinc-900/50 border border-gray-200 dark:border-white/10 rounded-[40px] p-8 md:p-10 backdrop-blur-xl shadow-2xl relative overflow-hidden ring-1 ring-gray-100 dark:ring-white/5 transition-colors duration-300">
-            <div className="text-center mb-8">
+            <div className="text-center mb-6">
               <h2 className="text-3xl font-bold text-gray-900 dark:text-white tracking-tight mb-6">
                 {isLogin ? t.auth.loginTitle : t.auth.signupTitle}
               </h2>
@@ -444,154 +467,213 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
                   </button>
                 </motion.div>
               ) : (
-                <motion.form 
-                  key="form"
+                <motion.div
+                  key="form-container"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  onSubmit={handleSubmit} 
-                  className="space-y-5"
+                  className="space-y-6"
                 >
+                  {/* Quick Demo Login Preset Buttons */}
                   {isLogin && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="flex items-center gap-3 text-blue-500 dark:text-blue-400 text-xs bg-blue-500/10 border border-blue-500/20 p-4 rounded-2xl mb-4"
-                    >
-                      <Info size={16} className="shrink-0" />
-                      <span className="font-medium leading-relaxed">{t.auth.loginInfo}</span>
-                    </motion.div>
-                  )}
-                  {!isLogin && (
-                    <div className="space-y-2">
-                      <label htmlFor="auth-name" className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] ml-1">
-                        {t.auth.name}
-                      </label>
-                      <div className="relative group">
-                        <User className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-blue-500 transition-colors" size={18} />
-                        <input
-                          id="auth-name"
-                          type="text"
-                          name="name"
-                          required
-                          value={formData.name}
-                          onChange={handleChange}
-                          className="w-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 text-gray-900 dark:text-white focus:outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900 transition-all placeholder:text-gray-400 dark:placeholder:text-gray-600"
-                          placeholder="John Doe"
-                        />
+                    <div className="p-4 bg-gradient-to-br from-indigo-50/80 to-purple-50/50 dark:from-indigo-950/30 dark:to-purple-950/20 border border-indigo-200/70 dark:border-indigo-500/20 rounded-2xl space-y-3">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-1.5 text-indigo-600 dark:text-indigo-400 text-xs font-bold uppercase tracking-wider">
+                          <Sparkles size={14} />
+                          <span>{t.auth.quickDemo}</span>
+                        </div>
+                        <span className="text-[10px] text-gray-500 font-medium tracking-wide">1-Click Access</span>
                       </div>
-                    </div>
-                  )}
 
-                  <div className="space-y-2">
-                    <label htmlFor="auth-email" className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] ml-1">
-                      {t.auth.email}
-                    </label>
-                    <div className="relative group">
-                      <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-blue-500 transition-colors" size={18} />
-                      <input
-                        id="auth-email"
-                        type="email"
-                        name="email"
-                        required
-                        value={formData.email}
-                        onChange={handleChange}
-                        className="w-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 text-gray-900 dark:text-white focus:outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900 transition-all placeholder:text-gray-400 dark:placeholder:text-gray-600"
-                        placeholder="email@example.com"
-                      />
-                    </div>
-                  </div>
-
-                  {isLogin ? (
-                    <div className="space-y-2">
-                      <label htmlFor="auth-password" className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] ml-1">
-                        {t.auth.password}
-                      </label>
-                      <div className="relative group">
-                        <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-blue-500 transition-colors" size={18} />
-                        <input
-                          id="auth-password"
-                          type="password"
-                          name="password"
-                          required
-                          value={formData.password}
-                          onChange={handleChange}
-                          className="w-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 text-gray-900 dark:text-white focus:outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900 transition-all placeholder:text-gray-400 dark:placeholder:text-gray-600"
-                          placeholder="••••••••"
-                        />
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="space-y-2">
-                      <label htmlFor="auth-reason" className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] ml-1">
-                        {t.auth.whyJoin}
-                      </label>
-                      <div className="relative group">
-                        <textarea
-                          id="auth-reason"
-                          name="reason"
-                          required
-                          value={formData.reason}
-                          onChange={handleChange}
-                          rows={3}
-                          className="w-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl py-4 px-4 text-gray-900 dark:text-white focus:outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900 transition-all placeholder:text-gray-400 dark:placeholder:text-gray-600 resize-none"
-                          placeholder={t.auth.goalsPlaceholder}
-                        />
-                      </div>
-                    </div>
-                  )}
-
-                  <AnimatePresence>
-                    {error && (
-                      <motion.div
-                        role="alert"
-                        aria-live="polite"
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        className="flex items-center gap-2 text-red-500 dark:text-red-400 text-sm bg-red-500/10 border border-red-500/20 p-4 rounded-2xl"
-                      >
-                        <AlertCircle size={16} className="shrink-0" />
-                        <span>{error}</span>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-
-                  <button
-                    type="submit"
-                    disabled={loading}
-                    className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-600/50 text-white font-bold py-4 rounded-2xl transition-all flex items-center justify-center gap-3 shadow-xl shadow-blue-600/20 mt-8 group focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900"
-                  >
-                    {loading ? (
-                      <Loader2 className="animate-spin" size={20} />
-                    ) : (
-                      <>
-                        <span>{isLogin ? t.auth.loginBtn : t.auth.signupBtn}</span>
-                        <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
-                      </>
-                    )}
-                  </button>
-
-                  {isLogin && (
-                    <div className="text-center mt-6">
-                      <p className="text-gray-500 text-sm">
-                        {t.auth.noAccount}{' '}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                        {/* Student Demo Button */}
                         <button
                           type="button"
-                          onClick={() => setIsLogin(false)}
-                          className="text-blue-500 font-bold hover:underline focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-md px-1"
+                          id="quick-demo-student-btn"
+                          onClick={() => handleQuickDemoLogin('student')}
+                          disabled={loading || quickLoginLoading !== null}
+                          aria-label={`Quick Demo Login as Student with preset credentials ${PRESET_CREDENTIALS.student.email}`}
+                          className="flex flex-col items-start p-3 bg-white dark:bg-zinc-800/80 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 border border-gray-200 dark:border-white/10 hover:border-indigo-400 dark:hover:border-indigo-500/40 rounded-xl text-left transition-all duration-200 shadow-sm group focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer disabled:opacity-50"
                         >
-                          {t.auth.requestInvitation}
+                          <div className="flex items-center justify-between w-full mb-1">
+                            <span className="text-xs font-bold text-gray-900 dark:text-white flex items-center gap-1.5 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                              <GraduationCap size={14} className="text-indigo-500" />
+                              {t.auth.studentDemo}
+                            </span>
+                            {quickLoginLoading === 'student' && <Loader2 size={12} className="animate-spin text-indigo-500" />}
+                          </div>
+                          <span className="text-[10px] text-gray-500 dark:text-gray-400 font-mono">
+                            {PRESET_CREDENTIALS.student.email.split('@')[0]} / {PRESET_CREDENTIALS.student.password}
+                          </span>
                         </button>
-                      </p>
+
+                        {/* Admin Demo Button */}
+                        <button
+                          type="button"
+                          id="quick-demo-admin-btn"
+                          onClick={() => handleQuickDemoLogin('admin')}
+                          disabled={loading || quickLoginLoading !== null}
+                          aria-label={`Quick Demo Login as Admin with preset credentials ${PRESET_CREDENTIALS.admin.email}`}
+                          className="flex flex-col items-start p-3 bg-white dark:bg-zinc-800/80 hover:bg-purple-50 dark:hover:bg-purple-900/30 border border-gray-200 dark:border-white/10 hover:border-purple-400 dark:hover:border-purple-500/40 rounded-xl text-left transition-all duration-200 shadow-sm group focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer disabled:opacity-50"
+                        >
+                          <div className="flex items-center justify-between w-full mb-1">
+                            <span className="text-xs font-bold text-gray-900 dark:text-white flex items-center gap-1.5 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                              <ShieldCheck size={14} className="text-purple-500" />
+                              {t.auth.adminDemo}
+                            </span>
+                            {quickLoginLoading === 'admin' && <Loader2 size={12} className="animate-spin text-purple-500" />}
+                          </div>
+                          <span className="text-[10px] text-gray-500 dark:text-gray-400 font-mono">
+                            {PRESET_CREDENTIALS.admin.email.split('@')[0]} / {PRESET_CREDENTIALS.admin.password}
+                          </span>
+                        </button>
+                      </div>
                     </div>
                   )}
-                </motion.form>
+
+                  <form 
+                    onSubmit={handleSubmit} 
+                    className="space-y-4"
+                    noValidate={false}
+                  >
+                    {!isLogin && (
+                      <div className="space-y-2">
+                        <label htmlFor="auth-name" className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] ml-1">
+                          {t.auth.name}
+                        </label>
+                        <div className="relative group">
+                          <User className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-blue-500 transition-colors" size={18} />
+                          <input
+                            id="auth-name"
+                            type="text"
+                            name="name"
+                            required
+                            value={formData.name}
+                            onChange={handleChange}
+                            className="w-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 text-gray-900 dark:text-white focus:outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900 transition-all placeholder:text-gray-400 dark:placeholder:text-gray-600"
+                            placeholder="John Doe"
+                          />
+                        </div>
+                      </div>
+                    )}
+
+                    <div className="space-y-2">
+                      <label htmlFor="auth-email" className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] ml-1">
+                        {t.auth.email}
+                      </label>
+                      <div className="relative group">
+                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-blue-500 transition-colors" size={18} />
+                        <input
+                          id="auth-email"
+                          type="email"
+                          name="email"
+                          required
+                          aria-invalid={!!error}
+                          aria-describedby={error ? "auth-error-alert" : undefined}
+                          value={formData.email}
+                          onChange={handleChange}
+                          className={`w-full bg-gray-100 dark:bg-white/5 border ${error ? 'border-red-500/50' : 'border-gray-200 dark:border-white/10'} rounded-2xl py-4 pl-12 pr-4 text-gray-900 dark:text-white focus:outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900 transition-all placeholder:text-gray-400 dark:placeholder:text-gray-600`}
+                          placeholder="student@aimindset.com"
+                        />
+                      </div>
+                    </div>
+
+                    {isLogin ? (
+                      <div className="space-y-2">
+                        <label htmlFor="auth-password" className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] ml-1">
+                          {t.auth.password}
+                        </label>
+                        <div className="relative group">
+                          <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-blue-500 transition-colors" size={18} />
+                          <input
+                            id="auth-password"
+                            type="password"
+                            name="password"
+                            required
+                            aria-invalid={!!error}
+                            aria-describedby={error ? "auth-error-alert" : undefined}
+                            value={formData.password}
+                            onChange={handleChange}
+                            className={`w-full bg-gray-100 dark:bg-white/5 border ${error ? 'border-red-500/50' : 'border-gray-200 dark:border-white/10'} rounded-2xl py-4 pl-12 pr-4 text-gray-900 dark:text-white focus:outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900 transition-all placeholder:text-gray-400 dark:placeholder:text-gray-600`}
+                            placeholder="student123"
+                          />
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="space-y-2">
+                        <label htmlFor="auth-reason" className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] ml-1">
+                          {t.auth.whyJoin}
+                        </label>
+                        <div className="relative group">
+                          <textarea
+                            id="auth-reason"
+                            name="reason"
+                            required
+                            value={formData.reason}
+                            onChange={handleChange}
+                            rows={3}
+                            className="w-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl py-4 px-4 text-gray-900 dark:text-white focus:outline-none focus:border-blue-500/50 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900 transition-all placeholder:text-gray-400 dark:placeholder:text-gray-600 resize-none"
+                            placeholder={t.auth.goalsPlaceholder}
+                          />
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Accessible Error Alert */}
+                    <AnimatePresence>
+                      {error && (
+                        <motion.div
+                          id="auth-error-alert"
+                          role="alert"
+                          aria-live="assertive"
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: 'auto' }}
+                          exit={{ opacity: 0, height: 0 }}
+                          className="flex items-start gap-2.5 text-red-600 dark:text-red-400 text-xs sm:text-sm bg-red-500/10 border border-red-500/20 p-4 rounded-2xl leading-relaxed"
+                        >
+                          <AlertCircle size={18} className="shrink-0 mt-0.5" />
+                          <span>{error}</span>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+
+                    <button
+                      type="submit"
+                      disabled={loading || quickLoginLoading !== null}
+                      id="auth-submit-btn"
+                      className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-600/50 text-white font-bold py-4 rounded-2xl transition-all flex items-center justify-center gap-3 shadow-xl shadow-blue-600/20 mt-6 group focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900 cursor-pointer"
+                    >
+                      {loading ? (
+                        <Loader2 className="animate-spin" size={20} />
+                      ) : (
+                        <>
+                          <span>{isLogin ? t.auth.loginBtn : t.auth.signupBtn}</span>
+                          <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                        </>
+                      )}
+                    </button>
+
+                    {isLogin && (
+                      <div className="text-center mt-4">
+                        <p className="text-gray-500 text-sm">
+                          {t.auth.noAccount}{' '}
+                          <button
+                            type="button"
+                            onClick={() => { setIsLogin(false); setError(null); }}
+                            className="text-blue-500 font-bold hover:underline focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-md px-1"
+                          >
+                            {t.auth.requestInvitation}
+                          </button>
+                        </p>
+                      </div>
+                    )}
+                  </form>
+                </motion.div>
               )}
             </AnimatePresence>
 
             {/* PWA Install Button */}
-            <div className="mt-8 pt-8 border-t border-gray-200 dark:border-white/10 flex flex-col items-center gap-4">
+            <div className="mt-8 pt-6 border-t border-gray-200 dark:border-white/10 flex flex-col items-center gap-3">
               <p className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em]">
                 {t.pwa.experienceApp}
               </p>
@@ -603,3 +685,4 @@ export const AuthPage: React.FC<AuthPageProps> = ({ language, onLanguageChange }
     </section>
   );
 };
+

@@ -1,13 +1,12 @@
 
-import React, { useState, useEffect } from 'react';
-import { Rocket, Github, Globe, ShieldAlert, CheckCircle2, ChevronRight, Info, Award, Terminal, Zap, ShieldCheck, ExternalLink, HardDrive, Server, Globe2, Sparkles } from 'lucide-react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
+import { Rocket, Github, Globe, ShieldAlert, CheckCircle2, ChevronRight, Info, Award, Terminal, Zap, ShieldCheck, ExternalLink, HardDrive, Server, Globe2, Sparkles, Loader2 } from 'lucide-react';
 import { Language } from '../types';
 import { UI_STRINGS } from '../translations';
-import { LessonQuiz } from './LessonQuiz';
 import { DEPLOYMENT_MASTER_QUIZ } from '../constants';
 import { CompleteButton } from './CompleteButton';
 
-import confetti from 'canvas-confetti';
+const LessonQuiz = lazy(() => import('./LessonQuiz').then(m => ({ default: m.LessonQuiz })));
 
 export const DeploymentLecture: React.FC<{ language: Language; onComplete: () => Promise<void> }> = ({ language, onComplete }) => {
   const t = UI_STRINGS[language].deployment;
@@ -24,7 +23,7 @@ export const DeploymentLecture: React.FC<{ language: Language; onComplete: () =>
     const handleScroll = () => {
       setIsSticky(window.scrollY > 400);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => {
       window.removeEventListener('trigger-quiz', handleTriggerQuiz);
@@ -32,16 +31,19 @@ export const DeploymentLecture: React.FC<{ language: Language; onComplete: () =>
     };
   }, []);
 
-  const handleQuizComplete = (score: number) => {
+  const handleQuizComplete = async (score: number) => {
     const maxScore = DEPLOYMENT_MASTER_QUIZ.questions.length * 10;
     if (score === maxScore) {
       setIsUnlocked(true);
-      confetti({
-        particleCount: 150,
-        spread: 70,
-        origin: { y: 0.6 },
-        colors: ['#3b82f6', '#10b981', '#ffffff']
-      });
+      try {
+        const confetti = (await import('canvas-confetti')).default;
+        confetti({
+          particleCount: 150,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ['#3b82f6', '#10b981', '#ffffff']
+        });
+      } catch {}
     }
   };
 
@@ -232,12 +234,19 @@ export const DeploymentLecture: React.FC<{ language: Language; onComplete: () =>
                 {isMy ? 'သင်ခန်းစာသို့ ပြန်သွားရန်' : 'Back to SOP Manual'}
               </button>
             </div>
-            <LessonQuiz 
-              quizSet={DEPLOYMENT_MASTER_QUIZ} 
-              language={language} 
-              onClose={() => setShowQuiz(false)} 
-              onComplete={handleQuizComplete}
-            />
+            <Suspense fallback={
+              <div className="flex flex-col items-center justify-center min-h-[300px] text-blue-400 gap-4">
+                <Loader2 className="w-8 h-8 animate-spin" />
+                <p className="text-sm font-medium uppercase tracking-widest text-gray-400">Loading Assessment...</p>
+              </div>
+            }>
+              <LessonQuiz 
+                quizSet={DEPLOYMENT_MASTER_QUIZ} 
+                language={language} 
+                onClose={() => setShowQuiz(false)} 
+                onComplete={handleQuizComplete}
+              />
+            </Suspense>
           </div>
         )}
       </div>

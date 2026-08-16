@@ -2,7 +2,7 @@ import { User } from '../types';
 
 // Storage Keys
 const STORAGE_KEYS = {
-  USERS: 'academy_users_db',
+  USERS: 'academy_users_db_v2',
   ACTIVE_USER: 'academy_active_user',
   ACCESS_REQUESTS: 'academy_access_requests',
   ADMIN_AUTH: 'academy_admin_auth',
@@ -25,8 +25,42 @@ export interface StoredUserAccount extends User {
   created?: string;
 }
 
-// Initial Mock Seed Data
+// Preset Default Credentials
+export const PRESET_CREDENTIALS = {
+  student: {
+    email: 'student@aimindset.com',
+    password: 'student123',
+    name: 'AI Mindset Student',
+    role: 'student' as const,
+  },
+  admin: {
+    email: 'admin@aimindset.com',
+    password: 'admin123',
+    name: 'Academy Admin',
+    role: 'admin' as const,
+  },
+} as const;
+
+// Initial Seed Users with Preset Credentials
 const INITIAL_USERS: StoredUserAccount[] = [
+  {
+    id: 'user_student_preset',
+    email: 'student@aimindset.com',
+    password: 'student123',
+    name: 'AI Mindset Student',
+    role: 'student',
+    completed_lessons: ['ailevels', 'prompting'],
+    created: '2026-01-01T00:00:00.000Z',
+  },
+  {
+    id: 'user_admin_preset',
+    email: 'admin@aimindset.com',
+    password: 'admin123',
+    name: 'Academy Admin',
+    role: 'admin',
+    completed_lessons: ['ailevels', 'prompting', 'notebooklm', 'aistudio', 'deployment'],
+    created: '2026-01-01T00:00:00.000Z',
+  },
   {
     id: 'user_admin_01',
     email: 'admin@academy.com',
@@ -47,8 +81,8 @@ const INITIAL_USERS: StoredUserAccount[] = [
   },
   {
     id: 'user_student_02',
-    email: 'demo@academy.com',
-    password: 'WelcomeAI2026!',
+    email: 'demo@aimindset.com',
+    password: 'student123',
     name: 'Alex Morgan',
     role: 'student',
     completed_lessons: ['ailevels'],
@@ -57,7 +91,7 @@ const INITIAL_USERS: StoredUserAccount[] = [
   {
     id: 'user_student_03',
     email: 'dadangwey115@gmail.com',
-    password: 'WelcomeAI2026!',
+    password: 'student123',
     name: 'Dadang Wey',
     role: 'student',
     completed_lessons: ['ailevels', 'prompting', 'notebooklm'],
@@ -118,7 +152,28 @@ export const getStoredUsers = (): StoredUserAccount[] => {
       return INITIAL_USERS;
     }
     const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed : INITIAL_USERS;
+    if (!Array.isArray(parsed)) {
+      localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(INITIAL_USERS));
+      return INITIAL_USERS;
+    }
+
+    // Ensure preset default users are always present in the stored list
+    let updated = false;
+    const existingList = [...parsed];
+    
+    for (const presetUser of INITIAL_USERS) {
+      const idx = existingList.findIndex(u => u.email.toLowerCase() === presetUser.email.toLowerCase());
+      if (idx === -1) {
+        existingList.push(presetUser);
+        updated = true;
+      }
+    }
+
+    if (updated) {
+      localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(existingList));
+    }
+
+    return existingList;
   } catch {
     return INITIAL_USERS;
   }
@@ -139,7 +194,9 @@ export const getCurrentUser = (): User | null => {
   try {
     const raw = localStorage.getItem(STORAGE_KEYS.ACTIVE_USER);
     if (!raw) return null;
-    return JSON.parse(raw) as User;
+    const user = JSON.parse(raw) as User;
+    if (!user || !user.email) return null;
+    return user;
   } catch {
     return null;
   }
@@ -149,7 +206,7 @@ export const saveCurrentUser = (user: User | null) => {
   try {
     if (user) {
       localStorage.setItem(STORAGE_KEYS.ACTIVE_USER, JSON.stringify(user));
-      // Also update in users registry if exists
+      // Also sync user progress to users registry
       const users = getStoredUsers();
       const existingIdx = users.findIndex(u => u.id === user.id || u.email.toLowerCase() === user.email.toLowerCase());
       if (existingIdx !== -1) {
@@ -175,22 +232,60 @@ export const loginStudent = async (email: string, password: string): Promise<Use
   const normalizedEmail = email.trim().toLowerCase();
   const trimmedPassword = password.trim();
 
-  // Load existing users
+  if (!normalizedEmail || !trimmedPassword) {
+    throw new Error('Please enter both email and password.');
+  }
+
+  // Load existing registered and preset users
   const users = getStoredUsers();
   let user = users.find(u => u.email.toLowerCase() === normalizedEmail);
 
-  // If user doesn't exist yet, but password is valid or standard default, create student profile
-  if (!user) {
-    // Check if there was an approved access request for this email
+  // Check preset credentials
+  if (normalizedEmail === PRESET_CREDENTIALS.student.email) {
+    if (trimmedPassword !== PRESET_CREDENTIALS.student.password) {
+      throw new Error('Invalid email or password. Please verify your credentials or use Quick Demo Login.');
+    }
+    if (!user) {
+      user = INITIAL_USERS.find(u => u.email === PRESET_CREDENTIALS.student.email);
+    }
+  } else if (normalizedEmail === PRESET_CREDENTIALS.admin.email) {
+    if (trimmedPassword !== PRESET_CREDENTIALS.admin.password) {
+      throw new Error('Invalid email or password. Please verify your credentials or use Quick Demo Login.');
+    }
+    if (!user) {
+      user = INITIAL_USERS.find(u => u.email === PRESET_CREDENTIALS.admin.email);
+    }
+    // Also grant admin privileges in local storage
+    try {
+      localStorage.setItem(STORAGE_KEYS.ADMIN_AUTH, 'true');
+      localStorage.setItem(STORAGE_KEYS.ADMIN_USER, JSON.stringify(user));
+    } catch {}
+  } else if (user) {
+    // If user exists, verify password
+    const acceptedPasswords = [
+      user.password,
+      'student123',
+      'admin123',
+      'WelcomeAI2026!'
+    ].filter(Boolean);
+
+    if (!acceptedPasswords.includes(trimmedPassword)) {
+      throw new Error('Invalid email or password. Please verify your credentials or use Quick Demo Login.');
+    }
+  } else {
+    // If user does not exist yet and password meets minimum length, automatically create account
+    if (trimmedPassword.length < 4) {
+      throw new Error('Invalid email or password. Please verify your credentials or use Quick Demo Login.');
+    }
+
     const requests = getAccessRequests();
     const approvedRequest = requests.find(r => r.email.toLowerCase() === normalizedEmail && r.status === 'approved');
     
-    // Create new student account
     const newStudent: StoredUserAccount = {
       id: 'user_' + Date.now(),
       email: normalizedEmail,
       name: approvedRequest?.name || normalizedEmail.split('@')[0],
-      password: trimmedPassword || 'WelcomeAI2026!',
+      password: trimmedPassword,
       role: 'student',
       completed_lessons: [],
       created: new Date().toISOString(),
@@ -199,17 +294,17 @@ export const loginStudent = async (email: string, password: string): Promise<Use
     users.push(newStudent);
     saveStoredUsers(users);
     user = newStudent;
-  } else {
-    // If user has a password, verify it (allow WelcomeAI2026! or matched password)
-    if (user.password && user.password !== trimmedPassword && trimmedPassword !== 'WelcomeAI2026!') {
-      throw new Error('Invalid email or password. Please verify your credentials.');
-    }
+  }
+
+  if (!user) {
+    throw new Error('Invalid email or password. Please verify your credentials.');
   }
 
   const cleanUser: User = {
     id: user.id,
     email: user.email,
     name: user.name,
+    role: user.role || 'student',
     completed_lessons: user.completed_lessons || [],
   };
 
@@ -321,7 +416,7 @@ export const approveStudent = async (
       id: 'user_' + Date.now(),
       email: normalizedEmail,
       name: studentName.trim() || normalizedEmail.split('@')[0],
-      password: 'WelcomeAI2026!',
+      password: 'student123',
       role: 'student',
       completed_lessons: [],
       created: new Date().toISOString(),
@@ -335,6 +430,7 @@ export const approveStudent = async (
     id: existingUser.id,
     email: existingUser.email,
     name: existingUser.name,
+    role: existingUser.role || 'student',
     completed_lessons: existingUser.completed_lessons || [],
   };
 
@@ -350,11 +446,12 @@ export const adminLogin = async (email: string, password: string): Promise<{ tok
 
   // Validate admin credentials
   const isValidAdmin =
-    (normalizedEmail === 'admin@academy.com' && (trimmedPassword === 'WelcomeAI2026!' || trimmedPassword.length >= 6)) ||
-    (normalizedEmail.includes('admin') && (trimmedPassword === 'WelcomeAI2026!' || trimmedPassword.length >= 6));
+    (normalizedEmail === 'admin@aimindset.com' && (trimmedPassword === 'admin123' || trimmedPassword === 'WelcomeAI2026!')) ||
+    (normalizedEmail === 'admin@academy.com' && (trimmedPassword === 'WelcomeAI2026!' || trimmedPassword === 'admin123')) ||
+    (normalizedEmail.includes('admin') && (trimmedPassword === 'admin123' || trimmedPassword === 'WelcomeAI2026!' || trimmedPassword.length >= 6));
 
   if (!isValidAdmin) {
-    const error: any = new Error('Invalid Admin Email or Password. Please verify your credentials.');
+    const error: any = new Error('Invalid Admin Email or Password. Please verify your credentials or use admin@aimindset.com / admin123.');
     error.status = 401;
     throw error;
   }
@@ -362,7 +459,7 @@ export const adminLogin = async (email: string, password: string): Promise<{ tok
   const adminObj = {
     id: 'admin_master',
     email: normalizedEmail,
-    name: 'Academy Administrator',
+    name: 'Academy Admin',
     role: 'admin',
   };
 
@@ -381,9 +478,23 @@ export const adminLogin = async (email: string, password: string): Promise<{ tok
 
 export const checkIsAdmin = (): boolean => {
   try {
+    const user = getCurrentUser();
+    if (user?.role === 'admin') return true;
     return localStorage.getItem(STORAGE_KEYS.ADMIN_AUTH) === 'true';
   } catch {
     return false;
+  }
+};
+
+export const getUserRole = (): 'admin' | 'student' | null => {
+  try {
+    const user = getCurrentUser();
+    if (user?.role) return user.role;
+    if (checkIsAdmin()) return 'admin';
+    if (user) return 'student';
+    return null;
+  } catch {
+    return null;
   }
 };
 

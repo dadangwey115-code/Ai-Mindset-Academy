@@ -136,12 +136,15 @@ export const Navbar: React.FC<NavbarProps> = ({
               {user ? (
                 <div className="flex items-center gap-4 pl-4 border-l border-white/10 relative group" ref={dropdownRef}>
                   <button 
+                    type="button"
                     onClick={() => setActiveSubMenu(activeSubMenu === 'user' ? null : 'user')}
+                    aria-expanded={activeSubMenu === 'user'}
+                    aria-haspopup="menu"
                     aria-label={`${t.userMenu} ${user.name || user.email.split('@')[0]}`}
-                    className="flex flex-col items-end cursor-pointer hover:opacity-80 transition-opacity focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-lg p-1"
+                    className="flex flex-col items-end cursor-pointer hover:opacity-80 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-lg p-1"
                   >
                     <div className="flex items-center gap-2">
-                      <div className="w-20 h-1.5 bg-white/10 rounded-full overflow-hidden">
+                      <div className="w-20 h-1.5 bg-white/10 rounded-full overflow-hidden" aria-hidden="true">
                         <div 
                           className="h-full bg-blue-500 transition-all duration-1000" 
                           style={{ width: `${progress}%` }}
@@ -151,33 +154,41 @@ export const Navbar: React.FC<NavbarProps> = ({
                     </div>
                     <div className="flex items-center gap-1 mt-1">
                       <span className="text-xs font-bold text-white leading-none">{user.name || user.email.split('@')[0]}</span>
-                      <ChevronDown size={12} className={`text-gray-500 transition-transform ${activeSubMenu === 'user' ? 'rotate-180' : ''}`} />
+                      <ChevronDown size={12} className={`text-gray-500 transition-transform ${activeSubMenu === 'user' ? 'rotate-180' : ''}`} aria-hidden="true" />
                     </div>
                   </button>
 
                   {activeSubMenu === 'user' && (
-                    <div className="absolute right-0 top-full mt-3 w-56 rounded-2xl glass-card py-2 animate-in fade-in slide-in-from-top-2 duration-300">
+                    <div 
+                      role="menu"
+                      aria-label="User account actions"
+                      className="absolute right-0 top-full mt-3 w-56 rounded-2xl glass-card py-2 animate-in fade-in slide-in-from-top-2 duration-300 shadow-2xl"
+                    >
                       <button
+                        role="menuitem"
+                        type="button"
                         onClick={() => {
                           setActivePage('profile');
                           setActiveSubMenu(null);
                         }}
                         aria-label="View Profile"
-                        className="w-full flex items-center gap-3 px-5 py-3 text-sm font-bold text-gray-700 dark:text-slate-300 hover:text-indigo-500 dark:hover:text-indigo-400 hover:bg-gray-100 dark:hover:bg-white/5 transition-colors focus:outline-none focus:bg-gray-100 dark:focus:bg-white/5"
+                        className="w-full flex items-center gap-3 px-5 py-3 text-sm font-bold text-gray-700 dark:text-slate-300 hover:text-indigo-500 dark:hover:text-indigo-400 hover:bg-gray-100 dark:hover:bg-white/5 transition-colors focus-visible:outline-none focus-visible:bg-gray-100 dark:focus-visible:bg-white/5"
                       >
-                        <User size={18} />
+                        <User size={18} aria-hidden="true" />
                         {t.profile}
                       </button>
                       <div className="mx-3 my-1 border-t border-gray-200 dark:border-white/5" />
                       <button
+                        role="menuitem"
+                        type="button"
                         onClick={() => {
                           onLogout();
                           setActiveSubMenu(null);
                         }}
                         aria-label="Logout"
-                        className="w-full flex items-center gap-3 px-5 py-3 text-sm font-bold text-red-500 hover:text-red-600 hover:bg-red-500/5 transition-colors focus:outline-none focus:bg-red-500/5"
+                        className="w-full flex items-center gap-3 px-5 py-3 text-sm font-bold text-red-500 hover:text-red-600 hover:bg-red-500/5 transition-colors focus-visible:outline-none focus-visible:bg-red-500/5"
                       >
-                        <LogOut size={18} />
+                        <LogOut size={18} aria-hidden="true" />
                         {t.logout}
                       </button>
                     </div>
@@ -185,10 +196,11 @@ export const Navbar: React.FC<NavbarProps> = ({
                 </div>
               ) : (
                 <button
+                  type="button"
                   onClick={onLoginClick}
-                  className="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 text-white rounded-lg text-xs font-bold border border-white/10 transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 text-white rounded-lg text-xs font-bold border border-white/10 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 cursor-pointer"
                 >
-                  <LogIn size={14} />
+                  <LogIn size={14} aria-hidden="true" />
                   {t.login} / {t.signup}
                 </button>
               )}
@@ -198,11 +210,14 @@ export const Navbar: React.FC<NavbarProps> = ({
             <div className="md:hidden flex items-center gap-2">
               <ThemeToggle />
               <button
+                type="button"
                 onClick={() => setIsOpen(!isOpen)}
-                className="p-2 text-gray-600 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-white/5 rounded-xl transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                aria-expanded={isOpen}
+                aria-controls="mobile-navigation-drawer"
+                className="p-2 text-gray-600 dark:text-slate-300 hover:bg-gray-100 dark:hover:bg-white/5 rounded-xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
                 aria-label={isOpen ? t.closeMenu : t.openMenu}
               >
-                {isOpen ? <X size={24} /> : <Menu size={24} />}
+                {isOpen ? <X size={24} aria-hidden="true" /> : <Menu size={24} aria-hidden="true" />}
               </button>
             </div>
           </div>

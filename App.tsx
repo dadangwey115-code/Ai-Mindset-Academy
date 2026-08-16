@@ -7,6 +7,7 @@ import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { PageId, Language, User } from './types';
 import { getCurrentUser, onAuthChange, logoutStudent, completeLessonForUser } from './services/storage';
+import { ProtectedRoute } from './components/ProtectedRoute';
 
 // Lazy loaded components
 const Hero = lazy(() => import('./components/Hero').then(m => ({ default: m.Hero })));
@@ -177,11 +178,54 @@ const App: React.FC = () => {
     <Router>
       <ThemeProvider>
         <Routes>
-          <Route path="/admin" element={
-            <Suspense fallback={<LoadingSpinner />}>
-              <AdminDashboard language={language} />
-            </Suspense>
-          } />
+          {/* Admin Dashboard Protected Route - restricted to admin role in localStorage */}
+          <Route 
+            path="/admin" 
+            element={
+              <ProtectedRoute allowedRoles={['admin']} redirectTo="/" language={language}>
+                <Suspense fallback={<LoadingSpinner />}>
+                  <AdminDashboard language={language} />
+                </Suspense>
+              </ProtectedRoute>
+            } 
+          />
+
+          {/* Profile Protected Route */}
+          <Route 
+            path="/profile" 
+            element={
+              <ProtectedRoute requireAuth={true} allowedRoles={['student', 'admin']} redirectTo="/" language={language}>
+                {!isAuthenticated ? (
+                  <Navigate to="/" replace />
+                ) : (
+                  <div className={`min-h-screen bg-gray-50 dark:bg-slate-950 text-gray-900 dark:text-slate-100 selection:bg-purple-500/30 selection:text-white scroll-smooth transition-colors duration-300 ${language === 'my' ? 'myanmar-text antialiased' : 'font-sans'}`}>
+                    <Navbar 
+                      activePage="profile" 
+                      setActivePage={setActivePage} 
+                      language={language} 
+                      setLanguage={setLanguage}
+                      user={user}
+                      onLogout={handleLogout}
+                      onLoginClick={() => {}}
+                      completedLessons={completedLessons}
+                    />
+                    <main className="transition-all duration-500 ease-in-out pb-24 md:pb-0 px-4 sm:px-6 lg:px-8" role="main">
+                      {user && (
+                        <Suspense fallback={<LoadingSpinner />}>
+                          <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                            <Profile user={user} language={language} onLogout={handleLogout} />
+                          </div>
+                        </Suspense>
+                      )}
+                    </main>
+                    <Footer />
+                  </div>
+                )}
+              </ProtectedRoute>
+            }
+          />
+
+          {/* General Application Route */}
           <Route path="*" element={
             !isAuthenticated ? (
               <Suspense fallback={<LoadingSpinner />}>
@@ -190,7 +234,7 @@ const App: React.FC = () => {
             ) : (
               <div className={`min-h-screen bg-gray-50 dark:bg-slate-950 text-gray-900 dark:text-slate-100 selection:bg-purple-500/30 selection:text-white scroll-smooth transition-colors duration-300 ${language === 'my' ? 'myanmar-text antialiased' : 'font-sans'}`}>
                 {/* Global AI Background Elements */}
-                <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+                <div className="fixed inset-0 overflow-hidden pointer-events-none z-0" aria-hidden="true">
                   <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-500/5 dark:bg-indigo-600/5 blur-[120px] rounded-full animate-pulse" />
                   <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-500/5 dark:bg-purple-600/5 blur-[120px] rounded-full animate-pulse delay-1000" />
                 </div>
@@ -207,7 +251,7 @@ const App: React.FC = () => {
                     completedLessons={completedLessons}
                   />
                   
-                  <main className="transition-all duration-500 ease-in-out pb-24 md:pb-0 px-4 sm:px-6 lg:px-8">
+                  <main className="transition-all duration-500 ease-in-out pb-24 md:pb-0 px-4 sm:px-6 lg:px-8" role="main">
                     {activePage === 'home' && (
                       <Suspense fallback={<LoadingSpinner />}>
                         <div className="animate-in fade-in duration-700">
@@ -273,10 +317,14 @@ const App: React.FC = () => {
                         </div>
                       )}
 
-                      {activePage === 'profile' && user && (
-                        <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                          <Profile user={user} language={language} onLogout={handleLogout} />
-                        </div>
+                      {activePage === 'profile' && (
+                        <ProtectedRoute requireAuth={true} allowedRoles={['student', 'admin']} redirectTo="/" language={language}>
+                          {user && (
+                            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                              <Profile user={user} language={language} onLogout={handleLogout} />
+                            </div>
+                          )}
+                        </ProtectedRoute>
                       )}
                     </Suspense>
                   </main>
@@ -287,7 +335,7 @@ const App: React.FC = () => {
                     <AchievementToast 
                       isVisible={isToastVisible} 
                       onClose={() => setIsToastVisible(false)} 
-                      language={language}
+                      language={language} 
                     />
                     <PwaInstallBanner />
                     <ConceptModal 

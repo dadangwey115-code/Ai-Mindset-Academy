@@ -5,7 +5,6 @@ import { Award, CheckCircle2, Lock, Download, Trophy, Star, Calendar, User as Us
 import { Language, User } from '../types';
 import { UI_STRINGS } from '../translations';
 import { CURRICULUM_MODULES } from '../constants';
-import { jsPDF } from 'jspdf';
 
 interface ProfileProps {
   user: User;
@@ -21,70 +20,83 @@ export const Profile: React.FC<ProfileProps> = ({ user, language, onLogout }) =>
   const completedCount = completedLessons.length;
   const progress = Math.min((completedCount / totalModules) * 100, 100);
   const isFullyCompleted = completedCount >= totalModules;
+  const [isGeneratingCert, setIsGeneratingCert] = React.useState(false);
 
-  const generateCertificate = () => {
-    const doc = new jsPDF({
-      orientation: 'landscape',
-      unit: 'mm',
-      format: 'a4'
-    });
+  const generateCertificate = async () => {
+    try {
+      setIsGeneratingCert(true);
+      const { jsPDF } = await import('jspdf');
+      const doc = new jsPDF({
+        orientation: 'landscape',
+        unit: 'mm',
+        format: 'a4'
+      });
 
-    // Background
-    doc.setFillColor(10, 10, 10);
-    doc.rect(0, 0, 297, 210, 'F');
+      // Background
+      doc.setFillColor(10, 10, 10);
+      doc.rect(0, 0, 297, 210, 'F');
 
-    // Border
-    doc.setDrawColor(37, 99, 235); // Blue-600
-    doc.setLineWidth(2);
-    doc.rect(10, 10, 277, 190);
-    doc.setLineWidth(0.5);
-    doc.rect(12, 12, 273, 186);
+      // Border
+      doc.setDrawColor(37, 99, 235); // Blue-600
+      doc.setLineWidth(2);
+      doc.rect(10, 10, 277, 190);
+      doc.setLineWidth(0.5);
+      doc.rect(12, 12, 273, 186);
 
-    // Header
-    doc.setTextColor(255, 255, 255);
-    doc.setFontSize(40);
-    doc.text(t.certTitle, 148.5, 50, { align: 'center' });
-    
-    doc.setFontSize(20);
-    doc.setTextColor(150, 150, 150);
-    doc.text(t.certSubtitle, 148.5, 65, { align: 'center' });
+      // Header
+      doc.setTextColor(255, 255, 255);
+      doc.setFontSize(40);
+      doc.text(t.certTitle, 148.5, 50, { align: 'center' });
+      
+      doc.setFontSize(20);
+      doc.setTextColor(150, 150, 150);
+      doc.text(t.certSubtitle, 148.5, 65, { align: 'center' });
 
-    // Body
-    doc.setTextColor(200, 200, 200);
-    doc.setFontSize(16);
-    doc.text(t.certText, 148.5, 90, { align: 'center' });
+      // Body
+      doc.setTextColor(200, 200, 200);
+      doc.setFontSize(16);
+      doc.text(t.certText, 148.5, 90, { align: 'center' });
 
-    doc.setTextColor(255, 255, 255);
-    doc.setFontSize(32);
-    doc.text(user.name || user.email.split('@')[0], 148.5, 110, { align: 'center' });
+      doc.setTextColor(255, 255, 255);
+      doc.setFontSize(32);
+      doc.text(user.name || user.email.split('@')[0], 148.5, 110, { align: 'center' });
 
-    doc.setTextColor(180, 180, 180);
-    doc.setFontSize(14);
-    const splitBody = doc.splitTextToSize(t.certBody, 200);
-    doc.text(splitBody, 148.5, 130, { align: 'center' });
+      doc.setTextColor(180, 180, 180);
+      doc.setFontSize(14);
+      const splitBody = doc.splitTextToSize(t.certBody, 200);
+      doc.text(splitBody, 148.5, 130, { align: 'center' });
 
-    // Footer
-    const today = new Date().toLocaleDateString();
-    doc.setFontSize(12);
-    doc.text(`${t.certDate}: ${today}`, 60, 170, { align: 'center' });
-    doc.text(t.certSignature, 237, 170, { align: 'center' });
-    
-    doc.setDrawColor(100, 100, 100);
-    doc.line(40, 175, 80, 175);
-    doc.line(217, 175, 257, 175);
+      // Footer
+      const today = new Date().toLocaleDateString();
+      doc.setFontSize(12);
+      doc.text(`${t.certDate}: ${today}`, 60, 170, { align: 'center' });
+      doc.text(t.certSignature, 237, 170, { align: 'center' });
+      
+      doc.setDrawColor(100, 100, 100);
+      doc.line(40, 175, 80, 175);
+      doc.line(217, 175, 257, 175);
 
-    // Decorative Elements
-    doc.setDrawColor(37, 99, 235);
-    doc.circle(148.5, 170, 15);
-    doc.setTextColor(255, 255, 255);
-    doc.setFontSize(10);
-    doc.text("AI", 148.5, 171, { align: 'center' });
+      // Decorative Elements
+      doc.setDrawColor(37, 99, 235);
+      doc.circle(148.5, 170, 15);
+      doc.setTextColor(255, 255, 255);
+      doc.setFontSize(10);
+      doc.text("AI", 148.5, 171, { align: 'center' });
 
-    doc.save(`AI_Mindset_Academy_Certificate_${user.name || 'User'}.pdf`);
+      doc.save(`AI_Mindset_Academy_Certificate_${user.name || 'User'}.pdf`);
+    } catch (err) {
+      console.error('Failed to generate PDF certificate:', err);
+    } finally {
+      setIsGeneratingCert(false);
+    }
   };
 
   return (
-    <section className="min-h-screen pt-24 pb-12 px-4 sm:px-6 lg:px-8 bg-white dark:bg-black transition-colors duration-300">
+    <section 
+      className="min-h-screen pt-24 pb-12 px-4 sm:px-6 lg:px-8 bg-white dark:bg-black transition-colors duration-300"
+      role="region"
+      aria-label="Student Profile & Honors"
+    >
       <div className="max-w-4xl mx-auto">
         {/* Header Section */}
         <motion.div 
@@ -94,18 +106,23 @@ export const Profile: React.FC<ProfileProps> = ({ user, language, onLogout }) =>
         >
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="relative">
-              <div className="w-32 h-32 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-2xl shadow-blue-600/20">
+              <div className="w-32 h-32 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-2xl shadow-blue-600/20" aria-hidden="true">
                 <UserIcon size={64} />
               </div>
               {isFullyCompleted && (
-                <div className="absolute -bottom-2 -right-2 bg-yellow-500 text-black p-2 rounded-full shadow-lg">
-                  <Trophy size={20} />
+                <div className="absolute -bottom-2 -right-2 bg-yellow-500 text-black p-2 rounded-full shadow-lg" aria-label="Curriculum Completed Trophy">
+                  <Trophy size={20} aria-hidden="true" />
                 </div>
               )}
             </div>
             
             <div className="flex-1 text-center md:text-left">
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{user.name || user.email.split('@')[0]}</h1>
+              <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 mb-2">
+                <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{user.name || user.email.split('@')[0]}</h1>
+                <span className="px-2.5 py-0.5 text-xs font-bold uppercase tracking-wider rounded-full bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20">
+                  {user.role || 'student'}
+                </span>
+              </div>
               <p className="text-gray-600 dark:text-gray-300 mb-6">{user.email}</p>
               
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
@@ -132,16 +149,18 @@ export const Profile: React.FC<ProfileProps> = ({ user, language, onLogout }) =>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="md:col-span-2 space-y-6">
             <h2 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-              <Star className="text-yellow-500" size={20} />
+              <Star className="text-yellow-500" size={20} aria-hidden="true" />
               {t.journey}
             </h2>
             
-            <div className="space-y-4">
+            <div className="space-y-4" role="list" aria-label="Curriculum Modules Progress">
               {CURRICULUM_MODULES.map((module, index) => {
                 const isCompleted = completedLessons.includes(module.id);
                 return (
                   <motion.div
                     key={module.id}
+                    role="listitem"
+                    aria-label={`${language === 'my' ? module.titleMy : module.title} - ${isCompleted ? t.completed : t.pending}`}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1 }}
@@ -151,7 +170,7 @@ export const Profile: React.FC<ProfileProps> = ({ user, language, onLogout }) =>
                       : 'bg-gray-50 dark:bg-zinc-900/30 border-gray-200 dark:border-white/5 opacity-60'
                     }`}
                   >
-                    <div className={`p-3 rounded-xl ${isCompleted ? 'bg-blue-600 text-white' : 'bg-gray-100 dark:bg-white/5 text-gray-500'}`}>
+                    <div className={`p-3 rounded-xl ${isCompleted ? 'bg-blue-600 text-white' : 'bg-gray-100 dark:bg-white/5 text-gray-500'}`} aria-hidden="true">
                       <module.icon size={24} />
                     </div>
                     <div className="flex-1">
@@ -163,9 +182,9 @@ export const Profile: React.FC<ProfileProps> = ({ user, language, onLogout }) =>
                       </p>
                     </div>
                     {isCompleted ? (
-                      <CheckCircle2 className="text-blue-500" size={24} />
+                      <CheckCircle2 className="text-blue-500" size={24} aria-label={t.completed} />
                     ) : (
-                      <Lock className="text-gray-700" size={20} />
+                      <Lock className="text-gray-700 dark:text-gray-500" size={20} aria-label={t.pending} />
                     )}
                   </motion.div>
                 );
@@ -176,7 +195,7 @@ export const Profile: React.FC<ProfileProps> = ({ user, language, onLogout }) =>
           {/* Certificate Section */}
           <div className="space-y-6">
             <h2 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-              <Award className="text-blue-500" size={20} />
+              <Award className="text-blue-500" size={20} aria-hidden="true" />
               Academy Honors
             </h2>
             
@@ -186,7 +205,7 @@ export const Profile: React.FC<ProfileProps> = ({ user, language, onLogout }) =>
               : 'bg-gray-50 dark:bg-zinc-900/50 border-gray-200 dark:border-white/10 grayscale opacity-50'
             }`}>
               <div className="w-20 h-20 mx-auto bg-blue-600/20 rounded-full flex items-center justify-center mb-4">
-                <Award className={isFullyCompleted ? "text-blue-400" : "text-gray-600"} size={40} />
+                <Award className={isFullyCompleted ? "text-blue-400" : "text-gray-600"} size={40} aria-hidden="true" />
               </div>
               <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{t.certTitle}</h3>
               <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
@@ -196,46 +215,48 @@ export const Profile: React.FC<ProfileProps> = ({ user, language, onLogout }) =>
               </p>
               
               <button
-                disabled={!isFullyCompleted}
+                type="button"
+                disabled={!isFullyCompleted || isGeneratingCert}
                 onClick={generateCertificate}
-                aria-label={isFullyCompleted ? "Download your official Academy Certificate" : "Complete all modules to unlock your certificate"}
-                className={`w-full flex items-center justify-center gap-2 py-3 rounded-xl font-bold transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-slate-900 ${
+                aria-label={isFullyCompleted ? (isGeneratingCert ? "Generating certificate PDF..." : "Download your official Academy Certificate") : "Complete all modules to unlock your certificate"}
+                className={`w-full flex items-center justify-center gap-2 py-3 rounded-xl font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500 dark:focus-visible:ring-offset-slate-900 ${
                   isFullyCompleted
-                  ? 'bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/20'
+                  ? 'bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/20 cursor-pointer disabled:opacity-75'
                   : 'bg-gray-100 dark:bg-white/5 text-gray-600 cursor-not-allowed'
                 }`}
               >
-                <Download size={18} />
-                {t.certificate}
+                <Download size={18} aria-hidden="true" className={isGeneratingCert ? 'animate-bounce' : ''} />
+                {isGeneratingCert ? (language === 'my' ? 'လက်မှတ် ထုတ်ယူနေပါသည်...' : 'Generating Certificate...') : t.certificate}
               </button>
             </div>
 
             <div className="p-6 rounded-3xl bg-gray-50 dark:bg-zinc-900/50 border border-gray-200 dark:border-white/10 transition-colors duration-300">
               <h3 className="font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                <Calendar size={18} className="text-purple-400" />
+                <Calendar size={18} className="text-purple-400" aria-hidden="true" />
                 Next Steps
               </h3>
               <ul className="space-y-3 text-sm text-gray-400 mb-6">
                 <li className="flex items-start gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-purple-400 mt-1.5" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-purple-400 mt-1.5" aria-hidden="true" />
                   Join the AI Mindset Community
                 </li>
                 <li className="flex items-start gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-purple-400 mt-1.5" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-purple-400 mt-1.5" aria-hidden="true" />
                   Apply the 10/80/10 rule to your next project
                 </li>
                 <li className="flex items-start gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-purple-400 mt-1.5" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-purple-400 mt-1.5" aria-hidden="true" />
                   Share your certificate on LinkedIn
                 </li>
               </ul>
               
               <button
+                type="button"
                 onClick={onLogout}
                 aria-label="Logout from your account"
-                className="w-full flex items-center justify-center gap-2 py-3 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-xl font-bold transition-all border border-red-500/20 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 dark:focus:ring-offset-slate-900"
+                className="w-full flex items-center justify-center gap-2 py-3 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-xl font-bold transition-all border border-red-500/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-red-500 dark:focus-visible:ring-offset-slate-900 cursor-pointer"
               >
-                <LogOut size={18} />
+                <LogOut size={18} aria-hidden="true" />
                 {UI_STRINGS[language].nav.logout}
               </button>
             </div>
