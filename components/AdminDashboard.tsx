@@ -14,12 +14,19 @@ import {
   AlertCircle,
   Search,
   RefreshCw,
-  X
+  X,
+  Eye,
+  EyeOff,
+  KeyRound,
+  Sparkles
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import pb, { adminLogin, fetchPendingRequests, approveStudent } from '../services/pb';
 import { Language } from '../types';
 import { UI_STRINGS } from '../translations';
+
+const DEFAULT_ADMIN_EMAIL = 'admin@academy.com';
+const DEFAULT_ADMIN_PASSWORD = 'WelcomeAI2026!';
 
 interface AdminDashboardProps {
   language: Language;
@@ -37,7 +44,11 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ language }) => {
   const [requests, setRequests] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
-  const [loginData, setLoginData] = useState({ email: '', password: '' });
+  const [loginData, setLoginData] = useState({ 
+    email: DEFAULT_ADMIN_EMAIL, 
+    password: DEFAULT_ADMIN_PASSWORD 
+  });
+  const [showPassword, setShowPassword] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
@@ -161,13 +172,49 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ language }) => {
               <div className="relative group">
                 <ShieldCheck className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-indigo-500 transition-colors" size={18} />
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   required
                   value={loginData.password}
                   onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
-                  className="w-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 text-gray-900 dark:text-white focus:outline-none focus:border-indigo-500/50 focus:ring-2 focus:ring-indigo-500 transition-all"
+                  className="w-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-12 text-gray-900 dark:text-white focus:outline-none focus:border-indigo-500/50 focus:ring-2 focus:ring-indigo-500 transition-all"
                   placeholder="••••••••"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-white transition-colors focus:outline-none"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
+            </div>
+
+            {/* Default Credentials Helper Card */}
+            <div className="p-3.5 bg-indigo-50 dark:bg-indigo-950/30 border border-indigo-200/60 dark:border-indigo-500/20 rounded-2xl flex flex-col gap-2">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-1.5 text-indigo-600 dark:text-indigo-400 text-xs font-bold">
+                  <KeyRound size={14} />
+                  <span>{t.defaultCredentials}</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setLoginData({ email: DEFAULT_ADMIN_EMAIL, password: DEFAULT_ADMIN_PASSWORD })}
+                  className="text-[11px] font-semibold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1 focus:outline-none"
+                >
+                  <Sparkles size={12} />
+                  <span>{t.clickToFill}</span>
+                </button>
+              </div>
+              <div className="flex flex-col text-[11px] text-gray-600 dark:text-gray-300 font-mono bg-white dark:bg-black/40 p-2 rounded-xl border border-indigo-100 dark:border-indigo-900/30">
+                <div className="flex justify-between py-0.5">
+                  <span className="text-gray-400 font-sans font-medium">Email:</span>
+                  <span className="font-semibold text-gray-800 dark:text-gray-200">{DEFAULT_ADMIN_EMAIL}</span>
+                </div>
+                <div className="flex justify-between py-0.5">
+                  <span className="text-gray-400 font-sans font-medium">Password:</span>
+                  <span className="font-semibold text-gray-800 dark:text-gray-200">{DEFAULT_ADMIN_PASSWORD}</span>
+                </div>
               </div>
             </div>
 
@@ -185,7 +232,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ language }) => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-600/50 text-white font-bold py-4 rounded-2xl transition-all flex items-center justify-center gap-3 shadow-xl shadow-indigo-600/20 mt-8"
+              className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-600/50 text-white font-bold py-4 rounded-2xl transition-all flex items-center justify-center gap-3 shadow-xl shadow-indigo-600/20 mt-6 cursor-pointer"
             >
               {loading ? <Loader2 className="animate-spin" size={20} /> : t.loginBtn}
             </button>

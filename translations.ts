@@ -187,7 +187,9 @@ export const UI_STRINGS: Record<Language, any> = {
       authErrorInvalid: "Invalid Admin Email or Password. Please use your PocketBase Admin Email.",
       authErrorUnexpected: "An unexpected error occurred during admin login.",
       approveSuccess: "Account created for {name}!",
-      approveError: "Failed to approve student"
+      approveError: "Failed to approve student",
+      defaultCredentials: "Default Credentials",
+      clickToFill: "Click to auto-fill"
     },
     pwa: {
       alreadyInstalled: "App is already installed",
@@ -670,7 +672,9 @@ export const UI_STRINGS: Record<Language, any> = {
       authErrorInvalid: "အက်ဒမင် အီးမေးလ် သို့မဟုတ် လျှို့ဝှက်နံပါတ် မှားယွင်းနေပါသည်၊၊ သင်၏ PocketBase Admin Email ကို အသုံးပြုပါ။",
       authErrorUnexpected: "အက်ဒမင် ဝင်ရောက်စဉ် မမျှော်လင့်ထားသော အမှားတစ်ခု ဖြစ်ပွားခဲ့သည်။",
       approveSuccess: "{name} အတွက် အကောင့် ဖန်တီးပြီးပါပြီ။",
-      approveError: "ကျောင်းသားကို အတည်ပြု၍မရပါ"
+      approveError: "ကျောင်းသားကို အတည်ပြု၍မရပါ",
+      defaultCredentials: "မူလ အက်ဒမင် အကောင့်",
+      clickToFill: "အလိုအလျောက် ဖြည့်သွင်းရန် နှိပ်ပါ"
     },
     pwa: {
       alreadyInstalled: "App ကို ထည့်သွင်းပြီးပါပြီ",
